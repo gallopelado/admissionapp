@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="name_max_nro_identificacion">30</integer>
+    <integer name="lugarnac_max">80</integer>
+    <integer name="max_hijos">2</integer>
+</resources>

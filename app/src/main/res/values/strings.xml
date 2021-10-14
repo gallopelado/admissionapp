@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">AdmissionApp</string>
+    <string name="hint_nro_identificacion">Nro de Identificación</string>
+    <string name="common_mandatory_hint">Obligatorio</string>
+    <string name="hint_nombres">Nombres</string>
+    <string name="hint_apellidos">Apellidos</string>
+    <string name="label_sexo_masculino">Masculino</string>
+    <string name="label_sexo_femenino">Femenino</string>
+    <string name="label_sexo_indistinto">Indistinto</string>
+    <string name="label_sexo">Sexo</string>
+    <string name="hint_fechanac">Fecha de Nacimiento</string>
+    <string name="hint_lugar_nac">Lugar de nacimiento</string>
+    <string name="hint_ciudad">Ciudad</string>
+    <string name="hint_pais">País</string>
+    <string name="hint_nacionalidad">Nacionalidad</string>
+    <string name="hint_telefono">Telefono/Celular</string>
+    <string name="hint_domicilio">Domicilio</string>
+    <string name="label_siguiente">Siguiente</string>
+    <string name="label_guardar">Guardar</string>
+    <string name="hint_seguro_medico">Seguro médico</string>
+    <string name="hint_hijos">Hijos</string>
+    <string name="hint_estado_civil">Estado Civil</string>
+    <string name="hint_nivel_educativo">Nivel educativo</string>
+    <string name="hint_situacion_laboral">Situación laboral</string>
+    <string name="hint_latitud">Latitud</string>
+    <string name="hint_longitud">Longitud</string>
+</resources>
