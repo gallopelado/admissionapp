@@ -48,14 +48,14 @@ public class ListaMedicosAdapter extends RecyclerView.Adapter<ListaMedicosAdapte
         } else {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 List<Profesional> lista_filtrada = listaMedicos.stream()
-                        .filter(e -> (e.getUsuario().getNombreUsuario()+" "+e.getUsuario().getApellidoUsuario()).toLowerCase().contains(txtBuscar.toLowerCase()) )
+                        .filter(e -> (e.getUsuario().getNombreUsuario()+" "+e.getUsuario().getApellidoUsuario()).toLowerCase().contains(txtBuscar.toLowerCase()) || e.getEspecialidad().getEspecialidadDescripcion().toLowerCase().contains(txtBuscar.toLowerCase()) )
                         .collect(Collectors.toList());
                 listaMedicos.clear();
                 listaMedicos.addAll(lista_filtrada);
             } else {
                 listaMedicos.clear();
                 for(Profesional item: listaOriginalMedicos) {
-                    if((item.getUsuario().getNombreUsuario()+" "+item.getUsuario().getApellidoUsuario()).toLowerCase().contains(txtBuscar.toLowerCase())) {
+                    if((item.getUsuario().getNombreUsuario()+" "+item.getUsuario().getApellidoUsuario()).toLowerCase().contains(txtBuscar.toLowerCase()) || item.getEspecialidad().getEspecialidadDescripcion().toLowerCase().contains(txtBuscar.toLowerCase())) {
                         listaMedicos.add(item);
                     }
                 }
