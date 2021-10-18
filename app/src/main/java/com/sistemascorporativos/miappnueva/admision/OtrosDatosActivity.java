@@ -1,4 +1,4 @@
-package com.sistemascorporativos.miappnueva;
+package com.sistemascorporativos.miappnueva.admision;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,7 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.sistemascorporativos.miappnueva.databinding.ActivityMainBinding;
+import com.sistemascorporativos.miappnueva.R;
+import com.sistemascorporativos.miappnueva.admision.dao.AdmisionDao;
 import com.sistemascorporativos.miappnueva.databinding.ActivityOtrosDatosBinding;
 
 public class OtrosDatosActivity extends AppCompatActivity {
@@ -36,7 +37,10 @@ public class OtrosDatosActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_guardar_otros_datos:
-                finish();
+                //finish();
+                //aqui se pone el metodo para recolectar y guardar datos en SQLITE
+                Intent intent = new Intent(this, AsignarMedicoActivity.class);
+                startActivity(intent);
                 break;
             case android.R.id.home:
                 onBackPressed();

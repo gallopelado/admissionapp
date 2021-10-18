@@ -23,4 +23,10 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.sistemascorporativos.miappnueva", appContext.getPackageName());
     }
+
+    @Test
+    public void probarAfirmacion() {
+        Boolean isConectado = true;
+        assertTrue(isConectado);
+    }
 }

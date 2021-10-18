@@ -24,4 +24,5 @@
     <string name="hint_situacion_laboral">Situación laboral</string>
     <string name="hint_latitud">Latitud</string>
     <string name="hint_longitud">Longitud</string>
+    <string name="titulo_asignar_medico">Asignar médico</string>
 </resources>

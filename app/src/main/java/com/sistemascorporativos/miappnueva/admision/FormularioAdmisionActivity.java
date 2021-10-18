@@ -1,33 +1,43 @@
-package com.sistemascorporativos.miappnueva;
+package com.sistemascorporativos.miappnueva.admision;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.sistemascorporativos.miappnueva.databinding.ActivityMainBinding;
+import com.sistemascorporativos.miappnueva.R;
+import com.sistemascorporativos.miappnueva.databinding.ActivityFormularioAdmisionBinding;
+import com.sistemascorporativos.miappnueva.db.ConexionDb;
 
-public class MainActivity extends AppCompatActivity {
+public class FormularioAdmisionActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private ActivityFormularioAdmisionBinding binding;
     private SharedPreferences sharedPreferences;
     static final Integer RC_EDIT = 21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityFormularioAdmisionBinding.inflate(getLayoutInflater());
         //setContentView(R.layout.activity_main);
         setContentView(binding.getRoot());
         // Iniciar el sharedpreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //Toast.makeText(getApplicationContext(),"El mensajito desde android", Toast.LENGTH_LONG).show();
+        //Iniciar la base de datos
+        ConexionDb conexionDb = new ConexionDb(FormularioAdmisionActivity.this);
+        SQLiteDatabase db = conexionDb.getWritableDatabase();
+        if(db != null) {
+            Toast.makeText(FormularioAdmisionActivity.this, "Leyendo base de datos", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
