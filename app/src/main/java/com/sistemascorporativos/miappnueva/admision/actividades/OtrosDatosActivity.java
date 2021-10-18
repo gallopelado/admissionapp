@@ -1,4 +1,4 @@
-package com.sistemascorporativos.miappnueva.admision;
+package com.sistemascorporativos.miappnueva.admision.actividades;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sistemascorporativos.miappnueva.R;
-import com.sistemascorporativos.miappnueva.admision.dao.AdmisionDao;
 import com.sistemascorporativos.miappnueva.databinding.ActivityOtrosDatosBinding;
 
 public class OtrosDatosActivity extends AppCompatActivity {

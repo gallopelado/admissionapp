@@ -1,4 +1,4 @@
-package com.sistemascorporativos.miappnueva.admision;
+package com.sistemascorporativos.miappnueva.admision.actividades;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

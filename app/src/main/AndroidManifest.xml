@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
-            android:name=".admision.AsignarMedicoActivity"
+            android:name=".admision.actividades.AsignarMedicoActivity"
             android:exported="false" />
         <activity
-            android:name=".admision.OtrosDatosActivity"
+            android:name=".admision.actividades.OtrosDatosActivity"
             android:exported="false" />
         <activity
-            android:name=".admision.FormularioAdmisionActivity"
+            android:name=".admision.actividades.FormularioAdmisionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

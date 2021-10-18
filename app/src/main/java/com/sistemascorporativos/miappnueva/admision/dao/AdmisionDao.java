@@ -52,4 +52,5 @@ public class AdmisionDao extends ConexionDb {
         return listaProfesionales;
     }
 
+
 }
