@@ -45,7 +45,6 @@ public class AdmisionDao extends ConexionDb {
                 obj.setEspecialidad(espe);
                 listaProfesionales.add(obj);
             }
-            cursorProfesional.close();
 
         } catch (Exception e) {
             e.getStackTrace();

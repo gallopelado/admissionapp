@@ -6,9 +6,21 @@
     tools:context=".admision.AsignarMedicoActivity"
     android:id="@+id/swipeRefreshLayout">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvListaMedico"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <SearchView
+            android:id="@+id/searchViewBuscarMedico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvListaMedico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

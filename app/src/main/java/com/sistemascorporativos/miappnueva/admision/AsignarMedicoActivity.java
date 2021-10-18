@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.SearchView;
 
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.admision.adaptadores.ListaMedicosAdapter;
@@ -16,12 +17,14 @@ import com.sistemascorporativos.miappnueva.databinding.ActivityAsignarMedicoBind
 
 import java.util.ArrayList;
 
-public class AsignarMedicoActivity extends AppCompatActivity {
+public class AsignarMedicoActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private ActivityAsignarMedicoBinding binding;
+    SearchView searchViewBuscarMedico;
     RecyclerView listaMedicos;
     SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<Profesional> listaArrayMedicos;
+    ListaMedicosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +33,22 @@ public class AsignarMedicoActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         this.setTitle(getString(R.string.titulo_asignar_medico));
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = binding.swipeRefreshLayout;
 
+        // campo de búsqueda
+        searchViewBuscarMedico = binding.searchViewBuscarMedico;
+
+        // lista de médicos
         listaMedicos = binding.rvListaMedico;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         listaMedicos.setLayoutManager(linearLayoutManager);
         //listaMedicos.setLayoutManager(new LinearLayoutManager(this));
 
-
-
         AdmisionDao admisionDao = new AdmisionDao(this);
         listaArrayMedicos = new ArrayList<>();
 
-        ListaMedicosAdapter adapter = new ListaMedicosAdapter(admisionDao.getProfesionales());
+        adapter = new ListaMedicosAdapter(admisionDao.getProfesionales());
         listaMedicos.setAdapter(adapter);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -53,11 +59,13 @@ public class AsignarMedicoActivity extends AppCompatActivity {
             }
         });
 
+        // Asignar un listener al campo de búsqueda
+        searchViewBuscarMedico.setOnQueryTextListener(this);
     }
 
     public void reordenarElementos() {
         AdmisionDao admisionDao = new AdmisionDao(this);
-        ListaMedicosAdapter adapter = new ListaMedicosAdapter(admisionDao.getProfesionales());
+        adapter = new ListaMedicosAdapter(admisionDao.getProfesionales());
         listaMedicos.setAdapter(adapter);
     }
 
@@ -65,5 +73,16 @@ public class AsignarMedicoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_asignar_medico, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filtrado(newText);
+        return false;
     }
 }

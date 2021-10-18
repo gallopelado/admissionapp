@@ -12,13 +12,18 @@ import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.admision.entidades.Profesional;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListaMedicosAdapter extends RecyclerView.Adapter<ListaMedicosAdapter.MedicoViewHolder> {
 
     ArrayList<Profesional> listaMedicos;
+    ArrayList<Profesional> listaOriginalMedicos;
 
     public ListaMedicosAdapter(ArrayList<Profesional> listaMedicos) {
         this.listaMedicos = listaMedicos;
+        listaOriginalMedicos = new ArrayList<>();
+        listaOriginalMedicos.addAll(listaMedicos);
     }
 
     @NonNull
@@ -33,6 +38,31 @@ public class ListaMedicosAdapter extends RecyclerView.Adapter<ListaMedicosAdapte
         String medico = "Dr. "+listaMedicos.get(position).getUsuario().getNombreUsuario()+" "+listaMedicos.get(position).getUsuario().getApellidoUsuario();
         holder.viewNombreMedico.setText(medico);
         holder.viewEspecialidadMedico.setText(listaMedicos.get(position).getEspecialidad().getEspecialidadDescripcion());
+    }
+
+    public void filtrado(String txtBuscar) {
+        Integer longitud = txtBuscar.length();
+        if(longitud == 0) {
+            listaMedicos.clear();
+            listaMedicos.addAll(listaOriginalMedicos);
+        } else {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                List<Profesional> lista_filtrada = listaMedicos.stream()
+                        .filter(e -> (e.getUsuario().getNombreUsuario()+" "+e.getUsuario().getApellidoUsuario()).toLowerCase().contains(txtBuscar.toLowerCase()) )
+                        .collect(Collectors.toList());
+                listaMedicos.clear();
+                listaMedicos.addAll(lista_filtrada);
+            } else {
+                listaMedicos.clear();
+                for(Profesional item: listaOriginalMedicos) {
+                    if((item.getUsuario().getNombreUsuario()+" "+item.getUsuario().getApellidoUsuario()).toLowerCase().contains(txtBuscar.toLowerCase())) {
+                        listaMedicos.add(item);
+                    }
+                }
+            }
+        }
+        // Notificar los cambios
+        notifyDataSetChanged();
     }
 
     @Override
