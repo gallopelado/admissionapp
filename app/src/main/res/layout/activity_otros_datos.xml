@@ -13,21 +13,11 @@
         android:orientation="vertical"
         android:padding="@dimen/common_padding_default">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSeguro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spSeguroMedico"
             android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/hint_seguro_medico"
-            app:startIconDrawable="@drawable/ic_medical"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:id="@+id/etSeguro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,37 +62,17 @@
 
         </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilNivelEducativo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spNivelEducativo"
             android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/hint_nivel_educativo"
-            app:startIconDrawable="@drawable/ic_school"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:id="@+id/etNivelEducativo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSituacionLaboral"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/hint_situacion_laboral"
-            app:startIconDrawable="@drawable/ic_work"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+            android:layout_height="wrap_content"/>
 
-            <AutoCompleteTextView
-                android:id="@+id/etSituacionLaboral"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
+        <Spinner
+            android:id="@+id/spSituacionLaboral"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -25,4 +25,5 @@
     <string name="hint_latitud">Latitud</string>
     <string name="hint_longitud">Longitud</string>
     <string name="titulo_asignar_medico">Asignar médico</string>
+    <string name="hint_correo">Correo</string>
 </resources>

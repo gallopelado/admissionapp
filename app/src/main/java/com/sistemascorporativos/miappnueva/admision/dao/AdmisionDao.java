@@ -47,10 +47,9 @@ public class AdmisionDao extends ConexionDb {
             }
 
         } catch (Exception e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         return listaProfesionales;
     }
-
 
 }
