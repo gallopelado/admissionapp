@@ -2,6 +2,9 @@ package com.sistemascorporativos.miappnueva.admision.servicios;
 
 import android.content.Context;
 
+import com.sistemascorporativos.miappnueva.admision.dao.AdmisionDao;
+import com.sistemascorporativos.miappnueva.admision.entidades.AdmisionComponent;
+import com.sistemascorporativos.miappnueva.admision.entidades.PacienteDto;
 import com.sistemascorporativos.miappnueva.referenciales.ciudad.dao.CiudadDao;
 import com.sistemascorporativos.miappnueva.referenciales.ciudad.modelos.CiudadDto;
 import com.sistemascorporativos.miappnueva.referenciales.nacionalidad.dao.NacionalidadDao;
@@ -41,5 +44,60 @@ public class AdmisionServices {
     public ArrayList<SituacionLaboralDto> getSituacionLaboral() {
         SituacionLaboralDao situacionLaboralDao = new SituacionLaboralDao(ctx);
         return situacionLaboralDao.getSituacionLaboral();
+    }
+    public AdmisionComponent getPacienteByCodigopaciente(String codigo_paciente){
+        AdmisionComponent obj = new AdmisionComponent();
+        AdmisionDao admisionDao = new AdmisionDao(ctx);
+        PacienteDto paciente = admisionDao.getDatosPacienteByCodigoPaciente(codigo_paciente);
+        obj.setNroIdentificacion(paciente.getPacCodigoPaciente());
+        obj.setNombres(paciente.getPacNombres());
+        obj.setApellidos(paciente.getPacApellidos());
+        obj.setSexo(paciente.getPacSexo());
+        obj.setFechaNacimiento(paciente.getPacFechaNac());
+        obj.setLugarNacimiento(paciente.getPacLugarNacimiento());
+        obj.setCiuId(paciente.getCiuId());
+        obj.setCorreo(paciente.getPacCorreoElectronico());
+        obj.setNacId(paciente.getNacId());
+        obj.setTelefono(paciente.getPacTelefono().toString());
+        obj.setDireccion(paciente.getPacDireccion());
+        obj.setSegId(paciente.getSegId());
+        obj.setHijos(paciente.getPacHijos());
+        obj.setEstado_civil(paciente.getPacEstadoCivil());
+        obj.setEduId(paciente.getEduId());
+        obj.setSitlabId(paciente.getSitlabId());
+        obj.setLatitud(paciente.getPacLatitud());
+        obj.setLongitud(paciente.getPacLongitud());
+        //analizar si traemos el codigo del medico, de momento no considero necesario para admision
+        return obj;
+    }
+    public AdmisionComponent guardarPaciente(AdmisionComponent paciente) {
+        AdmisionDao admisionDao = new AdmisionDao(ctx);
+        PacienteDto pacienteDto = new PacienteDto();
+        pacienteDto.setPacCodigoPaciente(paciente.getNroIdentificacion());
+        pacienteDto.setPacNombres(paciente.getNombres());
+        pacienteDto.setPacApellidos(paciente.getApellidos());
+        pacienteDto.setPacSexo(paciente.getSexo());
+        pacienteDto.setPacFechaNac(paciente.getFechaNacimiento());
+        pacienteDto.setPacLugarNacimiento(paciente.getLugarNacimiento());
+        pacienteDto.setCiuId(paciente.getCiuId());
+        pacienteDto.setPacCorreoElectronico(paciente.getCorreo());
+        pacienteDto.setNacId(paciente.getNacId());
+        if(paciente.getTelefono()!=null && !paciente.getTelefono().isEmpty()) {
+            pacienteDto.setPacTelefono(Integer.parseInt(paciente.getTelefono()));
+        }
+        pacienteDto.setPacDireccion(paciente.getDireccion());
+        pacienteDto.setSegId(paciente.getSegId());
+        pacienteDto.setPacHijos(paciente.getHijos());
+        pacienteDto.setPacEstadoCivil(paciente.getEstado_civil());
+        pacienteDto.setEduId(paciente.getEduId());
+        pacienteDto.setSitlabId(paciente.getSitlabId());
+        pacienteDto.setPacLatitud(paciente.getLatitud());
+        pacienteDto.setPacLongitud(paciente.getLongitud());
+
+        pacienteDto = admisionDao.guardarPaciente(pacienteDto);
+        if(pacienteDto.getOperacion().contains("INSERT")) {
+            paciente.setOperacion("GUARDADO");
+        }
+        return paciente;
     }
 }
