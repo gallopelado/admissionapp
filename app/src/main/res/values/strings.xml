@@ -26,4 +26,6 @@
     <string name="hint_longitud">Longitud</string>
     <string name="titulo_asignar_medico">Asignar médico</string>
     <string name="hint_correo">Correo</string>
+    <string name="titulo_admision">Formulario de Admisión</string>
+    <string name="titulo_otros_datos">Otros datos</string>
 </resources>

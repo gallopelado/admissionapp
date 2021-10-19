@@ -2,6 +2,7 @@ package com.sistemascorporativos.miappnueva.admision.actividades;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,9 +10,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.sistemascorporativos.miappnueva.R;
+import com.sistemascorporativos.miappnueva.admision.entidades.AdmisionComponent;
 import com.sistemascorporativos.miappnueva.admision.servicios.AdmisionServices;
 import com.sistemascorporativos.miappnueva.databinding.ActivityOtrosDatosBinding;
 import com.sistemascorporativos.miappnueva.referenciales.nivel_educativo.modelos.NivelEducativoDto;
@@ -24,6 +28,9 @@ public class OtrosDatosActivity extends AppCompatActivity {
 
     private ActivityOtrosDatosBinding binding;
     Spinner comboSeguroMedico, comboNivelEducativo, comboSituacionLaboral;
+    AutoCompleteTextView txtestadocivil;
+    TextInputEditText txtNroHijos, txtLatitud, txtLongitud;
+    String codigo_paciente = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +39,28 @@ public class OtrosDatosActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         // habilita flecha de retroceso
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.setTitle(getString(R.string.titulo_otros_datos));
 
+        // Recuperar valores del otro activity
+        if(savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras==null){
+                codigo_paciente = "";
+            } else {
+                codigo_paciente = extras.getString("codigo_paciente");
+            }
+        }
+
+        txtNroHijos = binding.etNroHijos;
+        txtLatitud = binding.etLatitud;
+        txtLongitud = binding.etLongitud;
+
+        //Poblar estado civil
+        txtestadocivil = binding.etEstadoCivil;
+        ArrayAdapter<String> ecivilAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ECIVIL);
+        txtestadocivil.setAdapter(ecivilAdapter);
+
+        // Llenar combos
         comboSeguroMedico = binding.spSeguroMedico;
         comboNivelEducativo = binding.spNivelEducativo;
         comboSituacionLaboral = binding.spSituacionLaboral;
@@ -48,6 +76,10 @@ public class OtrosDatosActivity extends AppCompatActivity {
         comboSituacionLaboral.setAdapter(situacionLaboralAdapter);
     }
 
+    private static final String[] ECIVIL = new String[] {
+            "SOLTERO/A", "CASADO/A", "CONCUBINATO"
+    };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_otros_datos, menu);
@@ -59,15 +91,51 @@ public class OtrosDatosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_guardar_otros_datos:
                 //finish();
-                //aqui se pone el metodo para recolectar y guardar datos en SQLITE
-                Intent intent = new Intent(this, AsignarMedicoActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(this, AsignarMedicoActivity.class);
+                //startActivity(intent);
+                guardarFormularioOtrosDatos();
                 break;
             case android.R.id.home:
                 onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void guardarFormularioOtrosDatos() {
+        Integer seguroMedico = ((SeguroMedicoDto)comboSeguroMedico.getSelectedItem()).getSegId();
+        Integer nroHijos = null;
+        if(!txtNroHijos.getText().toString().isEmpty()) {
+            nroHijos = Integer.parseInt(txtNroHijos.getText().toString());
+        }
+        String estadoCivil = txtestadocivil.getText().toString();
+        Integer nivelEducativo = ((NivelEducativoDto)comboNivelEducativo.getSelectedItem()).getEduId();
+        Integer situacionLaboral = ((SituacionLaboralDto)comboSituacionLaboral.getSelectedItem()).getSitlabId();
+        Double latitud = null;
+        Double longitud = null;
+        if(!txtLatitud.getText().toString().isEmpty()) {
+            latitud = Double.parseDouble(txtLatitud.getText().toString());
+        }
+        if(!txtLongitud.getText().toString().isEmpty()) {
+            longitud = Double.parseDouble(txtLongitud.getText().toString());
+        }
+        AdmisionServices admisionServices = new AdmisionServices(this);
+        AdmisionComponent paciente = new AdmisionComponent();
+        paciente.setNroIdentificacion(codigo_paciente);
+        paciente.setSegId(seguroMedico);
+        paciente.setHijos(nroHijos);
+        paciente.setEstado_civil(estadoCivil);
+        paciente.setEduId(nivelEducativo);
+        paciente.setSitlabId(situacionLaboral);
+        paciente.setLatitud(latitud);
+        paciente.setLongitud(longitud);
+        paciente = admisionServices.actualizarPacienteOtrosDatos(paciente);
+        if(!paciente.getOperacion().isEmpty()) {
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+            dialogo.setTitle("Se actualizó correctamente").setMessage("Se han actualizado datos de paciente").setPositiveButton("OK", null).show();
+            AdmisionComponent pacienteGuardado = admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion());
+            System.out.println("UPDATE: "+pacienteGuardado.toString());
+        }
     }
 
     @Override

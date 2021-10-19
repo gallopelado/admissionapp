@@ -58,7 +58,9 @@ public class AdmisionServices {
         obj.setCiuId(paciente.getCiuId());
         obj.setCorreo(paciente.getPacCorreoElectronico());
         obj.setNacId(paciente.getNacId());
-        obj.setTelefono(paciente.getPacTelefono().toString());
+        if(paciente.getPacTelefono()!=null) {
+            obj.setTelefono(paciente.getPacTelefono().toString());
+        }
         obj.setDireccion(paciente.getPacDireccion());
         obj.setSegId(paciente.getSegId());
         obj.setHijos(paciente.getPacHijos());
@@ -67,6 +69,7 @@ public class AdmisionServices {
         obj.setSitlabId(paciente.getSitlabId());
         obj.setLatitud(paciente.getPacLatitud());
         obj.setLongitud(paciente.getPacLongitud());
+        obj.setOperacion(paciente.getOperacion());
         //analizar si traemos el codigo del medico, de momento no considero necesario para admision
         return obj;
     }
@@ -97,6 +100,24 @@ public class AdmisionServices {
         pacienteDto = admisionDao.guardarPaciente(pacienteDto);
         if(pacienteDto.getOperacion().contains("INSERT")) {
             paciente.setOperacion("GUARDADO");
+        }
+        return paciente;
+    }
+    public AdmisionComponent actualizarPacienteOtrosDatos(AdmisionComponent paciente) {
+        AdmisionDao admisionDao = new AdmisionDao(ctx);
+        PacienteDto pacienteDto = new PacienteDto();
+        pacienteDto.setPacCodigoPaciente(paciente.getNroIdentificacion());
+        pacienteDto.setSegId(paciente.getSegId());
+        pacienteDto.setPacHijos(paciente.getHijos());
+        pacienteDto.setPacEstadoCivil(paciente.getEstado_civil());
+        pacienteDto.setEduId(paciente.getEduId());
+        pacienteDto.setSitlabId(paciente.getSitlabId());
+        pacienteDto.setPacLatitud(paciente.getLatitud());
+        pacienteDto.setPacLongitud(paciente.getLongitud());
+
+        pacienteDto = admisionDao.actualizarPacienteOtrosDatos(pacienteDto);
+        if(!pacienteDto.getOperacion().isEmpty()) {
+            paciente.setOperacion(pacienteDto.getOperacion());
         }
         return paciente;
     }

@@ -60,6 +60,7 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
         binding = ActivityFormularioAdmisionBinding.inflate(getLayoutInflater());
         //setContentView(R.layout.activity_main);
         setContentView(binding.getRoot());
+        this.setTitle(getString(R.string.titulo_admision));
         // Iniciar el sharedpreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -136,14 +137,39 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_opciones:
-                Intent intent = new Intent(this, OtrosDatosActivity.class);
-                startActivity(intent);
+                if(validarAntes()) {
+                    Intent intent = new Intent(this, OtrosDatosActivity.class);
+                    intent.putExtra("codigo_paciente", txtNroIdentificacion.getText().toString());
+                    startActivity(intent);
+                }
                 break;
             case R.id.action_guardar:
                 guardarFormularioAdmision();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean validarAntes() {
+        Boolean isValid = true;
+        String numeroIdentificacion = txtNroIdentificacion.getText().toString().trim();
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        if(numeroIdentificacion.isEmpty() || numeroIdentificacion==null) {
+            dialogo.setTitle("Cuidado")
+                    .setMessage("Debe registrar primero este formulario")
+                    .setPositiveButton("Salir", null).show();
+            isValid=false;
+            camposValidos();
+        } else {
+            AdmisionComponent pacienteGuardado = admisionServices.getPacienteByCodigopaciente(numeroIdentificacion);
+            if(pacienteGuardado.getOperacion()==null) {
+                dialogo.setTitle("Cuidado")
+                        .setMessage("Este paciente no existe")
+                        .setPositiveButton("Salir", null).show();
+                isValid=false;
+            }
+        }
+        return isValid;
     }
 
     private void guardarFormularioAdmision() {

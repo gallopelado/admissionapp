@@ -90,12 +90,32 @@ public class AdmisionDao extends ConexionDb {
         return pacienteDto;
     }
 
+    public PacienteDto actualizarPacienteOtrosDatos(PacienteDto pacienteDto) {
+        try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();) {
+            ContentValues values = new ContentValues();
+            values.put("seg_id", pacienteDto.getSegId());
+            values.put("pac_hijos", pacienteDto.getPacHijos());
+            values.put("pac_estado_civil", pacienteDto.getPacEstadoCivil());
+            values.put("edu_id", pacienteDto.getEduId());
+            values.put("sitlab_id", pacienteDto.getSitlabId());
+            values.put("pac_latitud", pacienteDto.getPacLatitud());
+            values.put("pac_longitud", pacienteDto.getPacLongitud());
+            //Actualizar
+            Integer id = db.update("pacientes", values,"pac_codigo_paciente = ?", new String[]{ pacienteDto.getPacCodigoPaciente() });
+            if(id != null) {
+                pacienteDto.setOperacion("UPDATE-OTROSDATOS");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pacienteDto;
+    }
+
     public PacienteDto getDatosPacienteByCodigoPaciente(String codigo_paciente) {
-        PacienteDto obj = null;
+        PacienteDto obj = new PacienteDto();
         String querySQL = "SELECT pac_codigo_paciente, pac_tipo_documento, pac_nombres, pac_apellidos, pac_sexo, pac_fechanac, pac_lugar_nacimiento, ciu_id, pac_correo_electronico, nac_id, pac_telefono, pac_direccion, seg_id, pac_hijos, pac_estado_civil, edu_id, sitlab_id, pac_latitud, pac_longitud, pac_creacion_usuario, pac_creacion_fecha, pac_creacion_hora, pac_modificacion_usuario, pac_modificacion_fecha, pac_modificacion_hora FROM pacientes WHERE pac_codigo_paciente="+codigo_paciente+";";
         try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();Cursor cursor =  db.rawQuery(querySQL, null);) {
             if(cursor.moveToFirst()) {
-                obj = new PacienteDto();
                 obj.setPacCodigoPaciente(cursor.getString(cursor.getColumnIndex("pac_codigo_paciente")));
                 obj.setPacTipoDocumento(cursor.getString(cursor.getColumnIndex("pac_tipo_documento")));
                 obj.setPacNombres(cursor.getString(cursor.getColumnIndex("pac_nombres")));
