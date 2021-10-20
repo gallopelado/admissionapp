@@ -90,6 +90,30 @@ public class AdmisionDao extends ConexionDb {
         return pacienteDto;
     }
 
+    public PacienteDto actualizarPacienteFormularioPrincipal(PacienteDto pacienteDto) {
+        try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();) {
+            ContentValues values = new ContentValues();
+            values.put("pac_nombres", pacienteDto.getPacNombres());
+            values.put("pac_apellidos", pacienteDto.getPacApellidos());
+            values.put("pac_sexo", pacienteDto.getPacSexo());
+            values.put("pac_fechanac", pacienteDto.getPacFechaNac());
+            values.put("pac_lugar_nacimiento", pacienteDto.getPacLugarNacimiento());
+            values.put("ciu_id", pacienteDto.getCiuId());
+            values.put("pac_correo_electronico", pacienteDto.getPacCorreoElectronico());
+            values.put("nac_id", pacienteDto.getNacId());
+            values.put("pac_telefono", pacienteDto.getPacTelefono());
+            values.put("pac_direccion", pacienteDto.getPacDireccion());
+            //Actualizar
+            Integer id = db.update("pacientes", values,"pac_codigo_paciente = ?", new String[]{ pacienteDto.getPacCodigoPaciente() });
+            if(id != null) {
+                pacienteDto.setOperacion("UPDATE-FORMPRINCIPAL");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pacienteDto;
+    }
+
     public PacienteDto actualizarPacienteOtrosDatos(PacienteDto pacienteDto) {
         try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();) {
             ContentValues values = new ContentValues();

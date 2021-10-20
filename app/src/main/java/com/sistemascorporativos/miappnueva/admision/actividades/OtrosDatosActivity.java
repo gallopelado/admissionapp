@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -41,16 +42,6 @@ public class OtrosDatosActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.setTitle(getString(R.string.titulo_otros_datos));
 
-        // Recuperar valores del otro activity
-        if(savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras==null){
-                codigo_paciente = "";
-            } else {
-                codigo_paciente = extras.getString("codigo_paciente");
-            }
-        }
-
         txtNroHijos = binding.etNroHijos;
         txtLatitud = binding.etLatitud;
         txtLongitud = binding.etLongitud;
@@ -74,6 +65,37 @@ public class OtrosDatosActivity extends AppCompatActivity {
         comboSeguroMedico.setAdapter(seguroAdapter);
         comboNivelEducativo.setAdapter(nivelEducativoAdapter);
         comboSituacionLaboral.setAdapter(situacionLaboralAdapter);
+
+        // Recuperar valores del otro activity
+        if(savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras==null){
+                codigo_paciente = "";
+            } else {
+                codigo_paciente = extras.getString("codigo_paciente");
+                txtestadocivil.setText(extras.getString("estadocivil"), false);
+                for(int i=0; i<comboSeguroMedico.getCount();i++) {
+                    if(((SeguroMedicoDto)comboSeguroMedico.getItemAtPosition(i)).getSegId() == extras.getInt("seguromedico")) {
+                        comboSeguroMedico.setSelection(i);
+                        break;
+                    }
+                }
+                txtNroHijos.setText(String.valueOf(extras.getInt("nrohijos")));
+                for(int i=0; i<comboNivelEducativo.getCount();i++) {
+                    if(((NivelEducativoDto)comboNivelEducativo.getItemAtPosition(i)).getEduId() == extras.getInt("niveleducativo")) {
+                        comboNivelEducativo.setSelection(i);
+                        break;
+                    }
+                }
+                for(int i=0; i<comboSituacionLaboral.getCount();i++) {
+                    if(((SituacionLaboralDto)comboSituacionLaboral.getItemAtPosition(i)).getSitlabId() == extras.getInt("situacionlaboral")) {
+                        comboSituacionLaboral.setSelection(i);
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 
     private static final String[] ECIVIL = new String[] {

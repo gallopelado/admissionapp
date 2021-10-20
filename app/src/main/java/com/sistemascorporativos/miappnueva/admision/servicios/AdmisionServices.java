@@ -103,6 +103,29 @@ public class AdmisionServices {
         }
         return paciente;
     }
+    public AdmisionComponent actualizarPacienteFormularioPrincipal(AdmisionComponent paciente) {
+        AdmisionDao admisionDao = new AdmisionDao(ctx);
+        PacienteDto pacienteDto = new PacienteDto();
+        pacienteDto.setPacCodigoPaciente(paciente.getNroIdentificacion());
+        pacienteDto.setPacNombres(paciente.getNombres());
+        pacienteDto.setPacApellidos(paciente.getApellidos());
+        pacienteDto.setPacSexo(paciente.getSexo());
+        pacienteDto.setPacFechaNac(paciente.getFechaNacimiento());
+        pacienteDto.setPacLugarNacimiento(paciente.getLugarNacimiento());
+        pacienteDto.setCiuId(paciente.getCiuId());
+        pacienteDto.setPacCorreoElectronico(paciente.getCorreo());
+        pacienteDto.setNacId(paciente.getNacId());
+        if(paciente.getTelefono()!=null && !paciente.getTelefono().isEmpty()) {
+            pacienteDto.setPacTelefono(Integer.parseInt(paciente.getTelefono()));
+        }
+        pacienteDto.setPacDireccion(paciente.getDireccion());
+
+        pacienteDto = admisionDao.actualizarPacienteFormularioPrincipal(pacienteDto);
+        if(!pacienteDto.getOperacion().isEmpty()) {
+            paciente.setOperacion(pacienteDto.getOperacion());
+        }
+        return paciente;
+    }
     public AdmisionComponent actualizarPacienteOtrosDatos(AdmisionComponent paciente) {
         AdmisionDao admisionDao = new AdmisionDao(ctx);
         PacienteDto pacienteDto = new PacienteDto();

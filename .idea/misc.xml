@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_identification_card.xml" value="0.30104166666666665" />
         <entry key="app/src/main/res/layout/activity_asignar_medico.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_buscar_paciente.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_formulario_admision.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28489583333333335" />
         <entry key="app/src/main/res/layout/activity_otros_datos.xml" value="0.35833333333333334" />

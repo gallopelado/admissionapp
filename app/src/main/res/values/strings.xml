@@ -28,4 +28,5 @@
     <string name="hint_correo">Correo</string>
     <string name="titulo_admision">Formulario de Admisión</string>
     <string name="titulo_otros_datos">Otros datos</string>
+    <string name="helper_ci">Nº CI</string>
 </resources>

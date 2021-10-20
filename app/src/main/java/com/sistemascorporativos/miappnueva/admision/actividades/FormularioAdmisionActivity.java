@@ -29,6 +29,7 @@ import com.sistemascorporativos.miappnueva.databinding.ActivityFormularioAdmisio
 import com.sistemascorporativos.miappnueva.db.ConexionDb;
 import com.sistemascorporativos.miappnueva.referenciales.ciudad.modelos.CiudadDto;
 import com.sistemascorporativos.miappnueva.referenciales.nacionalidad.modelos.NacionalidadDto;
+import com.sistemascorporativos.miappnueva.referenciales.situacion_laboral.modelos.SituacionLaboralDto;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     static final Integer RC_EDIT = 21;
     AdmisionServices admisionServices;
+    private Bundle extras;
     private Spinner ciudadCombo, nacionalidadCombo;
     // Campos del formulario
     private TextInputEditText txtNroIdentificacion;
@@ -61,6 +63,7 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
         setContentView(binding.getRoot());
         this.setTitle(getString(R.string.titulo_admision));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Iniciar el sharedpreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -125,6 +128,41 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
 
             }
         });*/
+        //Traer extras
+        if(savedInstanceState == null) {
+            extras = getIntent().getExtras();
+            txtNroIdentificacion.setText(extras.getString("codigo_paciente"));
+            txtNombres.setText(extras.getString("nombres"));
+            txtApellidos.setText(extras.getString("apellidos"));
+            switch (extras.getString("sexo")) {
+                case "Masculino":
+                    rgSexo.check(binding.rbMasculino.getId());
+                    break;
+                case "Femenino":
+                    rgSexo.check(binding.rbFemenino.getId());
+                    break;
+                case "Indistinto":
+                    rgSexo.check(binding.rbIndistinto.getId());
+                    break;
+            }
+            txtFechaNacimiento.setText(extras.getString("fechanac"));
+            for(int i=0; i<ciudadCombo.getCount();i++) {
+                if(((CiudadDto)ciudadCombo.getItemAtPosition(i)).getCiuId() == extras.getInt("ciudad")) {
+                    ciudadCombo.setSelection(i);
+                    break;
+                }
+            }
+            for(int i=0; i<nacionalidadCombo.getCount();i++) {
+                if(((NacionalidadDto)nacionalidadCombo.getItemAtPosition(i)).getNacId() == extras.getInt("ciudad")) {
+                    nacionalidadCombo.setSelection(i);
+                    break;
+                }
+            }
+            txtLugarNacimiento.setText(extras.getString("lugarnac"));
+            txtCorreo.setText(extras.getString("correo"));
+            txtTelefono.setText(extras.getString("telefono"));
+            txtDomicilio.setText(extras.getString("domicilio"));
+        }
     }
 
     @Override
@@ -140,11 +178,21 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
                 if(validarAntes()) {
                     Intent intent = new Intent(this, OtrosDatosActivity.class);
                     intent.putExtra("codigo_paciente", txtNroIdentificacion.getText().toString());
+                    intent.putExtra("seguromedico", extras.getInt("seguromedico"));
+                    intent.putExtra("nrohijos", extras.getInt("nrohijos"));
+                    intent.putExtra("estadocivil", extras.getString("estadocivil"));
+                    intent.putExtra("niveleducativo", extras.getInt("niveleducativo"));
+                    intent.putExtra("situacionlaboral", extras.getInt("situacionlaboral"));
+                    intent.putExtra("latitud", extras.getDouble("latitud"));
+                    intent.putExtra("longitud", extras.getDouble("longitud"));
                     startActivity(intent);
                 }
                 break;
             case R.id.action_guardar:
                 guardarFormularioAdmision();
+                break;
+            case android.R.id.home:
+                onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -177,6 +225,8 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
             String nroIdentificacion = txtNroIdentificacion.getText().toString().trim();
             String nombres = txtNombres.getText().toString().trim();
             String apellidos = txtApellidos.getText().toString().trim();
+            int selectedSexo = rgSexo.getCheckedRadioButtonId();
+            txtSexo = findViewById(selectedSexo);
             String sexo = txtSexo.getText().toString();
             String lugarNacimiento = txtLugarNacimiento.getText().toString().trim();
             String fechaNacimiento = txtFechaNacimiento.getText().toString();
@@ -199,13 +249,29 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
             paciente.setDireccion(domicilio);
             paciente.setCiuId(ciuId);
             paciente.setNacId(nacId);
-            paciente = admisionServices.guardarPaciente(paciente);
-            if(paciente.getOperacion().contains("GUARDADO")) {
+
+            if(admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion()).getOperacion()==null) {
+                //guardar
+                paciente = admisionServices.guardarPaciente(paciente);
+                if(paciente.getOperacion().contains("GUARDADO")) {
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+                    dialogo.setTitle("Se guardó correctamente").setMessage("Se han registrado datos de paciente").setPositiveButton("OK", null).show();
+                }
+            } else {
+                //actualizar
+                paciente = admisionServices.actualizarPacienteFormularioPrincipal(paciente);
+                if(paciente.getOperacion().contains("UPDATE-FORMPRINCIPAL")) {
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+                    dialogo.setTitle("Se actualizó correctamente").setMessage("Se han actualizado datos de paciente").setPositiveButton("OK", null).show();
+                }
+            }
+
+            /*if(paciente.getOperacion().contains("GUARDADO")) {
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
                 dialogo.setTitle("Se guardó correctamente").setMessage("Se han registrado datos de paciente").setPositiveButton("OK", null).show();
                 AdmisionComponent pacienteGuardado = admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion());
                 System.out.println("GUARDADO: "+pacienteGuardado.toString());
-            }
+            }*/
         }
     }
 
