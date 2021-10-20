@@ -93,7 +93,7 @@
                     android:id="@+id/etLatitud"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberSigned|numberDecimal"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -109,10 +109,17 @@
                     android:id="@+id/etLongitud"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberSigned|numberDecimal"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapPaciente"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            tilesource="Mapnik"/>
 
     </LinearLayout>
 

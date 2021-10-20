@@ -5,8 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -23,11 +25,21 @@ import com.sistemascorporativos.miappnueva.referenciales.nivel_educativo.modelos
 import com.sistemascorporativos.miappnueva.referenciales.seguro_medico.modelos.SeguroMedicoDto;
 import com.sistemascorporativos.miappnueva.referenciales.situacion_laboral.modelos.SituacionLaboralDto;
 
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
+import org.osmdroid.views.MapController;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+
 import java.util.ArrayList;
 
 public class OtrosDatosActivity extends AppCompatActivity {
 
     private ActivityOtrosDatosBinding binding;
+    private MapView myOpenMapView;
+    private MapController myMapController;
     Spinner comboSeguroMedico, comboNivelEducativo, comboSituacionLaboral;
     AutoCompleteTextView txtestadocivil;
     TextInputEditText txtNroHijos, txtLatitud, txtLongitud;
@@ -101,9 +113,26 @@ public class OtrosDatosActivity extends AppCompatActivity {
                 if(longitud!=null) {
                     txtLongitud.setText(String.valueOf(longitud));
                 }
+                if(latitud!=null && longitud!=null) {
+                    // Localizacion en el mapa
+                    //load/initialize the osmdroid configuration, this can be done
+                    Context ctx = getApplicationContext();
+                    Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+                    GeoPoint myLocation = new GeoPoint(latitud, longitud);
+                    myOpenMapView = (MapView) binding.mapPaciente;
+                    myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
+                    myOpenMapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
+                    myOpenMapView.setMultiTouchControls(true);
+                    myMapController = (MapController) myOpenMapView.getController();
+                    myMapController.setCenter(myLocation);
+                    myMapController.setZoom(19);
+                    Marker startMarker = new Marker(myOpenMapView);
+                    startMarker.setPosition(myLocation);
+                    startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    myOpenMapView.getOverlays().add(startMarker);
+                }
             }
         }
-
     }
 
     private static final String[] ECIVIL = new String[] {

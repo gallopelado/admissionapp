@@ -11,15 +11,15 @@
         android:id="@+id/tvBuscarPaciente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tilBuscarPaciente"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Buscar Paciente"
-        android:fontFamily="sans-serif"
         android:layout_gravity="center"
+        android:fontFamily="@font/roboto"
+        android:text="Buscar Paciente"
         android:textColor="@color/black"
-        android:textSize="30sp"/>
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@id/tilBuscarPaciente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilBuscarPaciente"
@@ -28,6 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/common_padding_default"
         app:helperText="@string/helper_ci"
@@ -37,28 +38,37 @@
             android:id="@+id/etBuscarPaciente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="10"/>
+            android:inputType="number"
+            android:maxLength="10"
+            android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btRealizarBusqueda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tilBuscarPaciente"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="225dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="64dp"
         android:backgroundTint="#00BCD4"
-        android:text="Realizar búsqueda" />
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:text="Realizar búsqueda"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilBuscarPaciente" />
 
     <Button
         android:id="@+id/btPacientesAdmitidos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/btRealizarBusqueda"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="225dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#8BC34A"
-        android:text="Pacientes Admitidos" />
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:text="Pacientes Admitidos"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btRealizarBusqueda" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
