@@ -131,37 +131,43 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
         //Traer extras
         if(savedInstanceState == null) {
             extras = getIntent().getExtras();
-            txtNroIdentificacion.setText(extras.getString("codigo_paciente"));
-            txtNombres.setText(extras.getString("nombres"));
-            txtApellidos.setText(extras.getString("apellidos"));
-            switch (extras.getString("sexo")) {
-                case "Masculino":
-                    rgSexo.check(binding.rbMasculino.getId());
-                    break;
-                case "Femenino":
-                    rgSexo.check(binding.rbFemenino.getId());
-                    break;
-                case "Indistinto":
-                    rgSexo.check(binding.rbIndistinto.getId());
-                    break;
-            }
-            txtFechaNacimiento.setText(extras.getString("fechanac"));
-            for(int i=0; i<ciudadCombo.getCount();i++) {
-                if(((CiudadDto)ciudadCombo.getItemAtPosition(i)).getCiuId() == extras.getInt("ciudad")) {
-                    ciudadCombo.setSelection(i);
-                    break;
+            if(extras.getString("operacion").isEmpty()) {
+                txtNroIdentificacion.setEnabled(true);
+                txtNroIdentificacion.setText(extras.getString("codigo_paciente"));
+            } else {
+                txtNroIdentificacion.setEnabled(false);
+                txtNroIdentificacion.setText(extras.getString("codigo_paciente"));
+                txtNombres.setText(extras.getString("nombres"));
+                txtApellidos.setText(extras.getString("apellidos"));
+                switch (extras.getString("sexo")) {
+                    case "Masculino":
+                        rgSexo.check(binding.rbMasculino.getId());
+                        break;
+                    case "Femenino":
+                        rgSexo.check(binding.rbFemenino.getId());
+                        break;
+                    case "Indistinto":
+                        rgSexo.check(binding.rbIndistinto.getId());
+                        break;
                 }
-            }
-            for(int i=0; i<nacionalidadCombo.getCount();i++) {
-                if(((NacionalidadDto)nacionalidadCombo.getItemAtPosition(i)).getNacId() == extras.getInt("ciudad")) {
-                    nacionalidadCombo.setSelection(i);
-                    break;
+                txtFechaNacimiento.setText(extras.getString("fechanac"));
+                for (int i = 0; i < ciudadCombo.getCount(); i++) {
+                    if (((CiudadDto) ciudadCombo.getItemAtPosition(i)).getCiuId() == extras.getInt("ciudad")) {
+                        ciudadCombo.setSelection(i);
+                        break;
+                    }
                 }
+                for (int i = 0; i < nacionalidadCombo.getCount(); i++) {
+                    if (((NacionalidadDto) nacionalidadCombo.getItemAtPosition(i)).getNacId() == extras.getInt("ciudad")) {
+                        nacionalidadCombo.setSelection(i);
+                        break;
+                    }
+                }
+                txtLugarNacimiento.setText(extras.getString("lugarnac"));
+                txtCorreo.setText(extras.getString("correo"));
+                txtTelefono.setText(extras.getString("telefono"));
+                txtDomicilio.setText(extras.getString("domicilio"));
             }
-            txtLugarNacimiento.setText(extras.getString("lugarnac"));
-            txtCorreo.setText(extras.getString("correo"));
-            txtTelefono.setText(extras.getString("telefono"));
-            txtDomicilio.setText(extras.getString("domicilio"));
         }
     }
 

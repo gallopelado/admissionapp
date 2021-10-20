@@ -1,5 +1,6 @@
 package com.sistemascorporativos.miappnueva.admision.actividades;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -33,6 +34,10 @@ public class BuscarPacienteActivity extends AppCompatActivity {
         btPacientesAdmitidos = binding.btPacientesAdmitidos;
         txtBuscarPaciente = binding.etBuscarPaciente;
 
+        // Foco al campo y limpiar
+        txtBuscarPaciente.setText("");
+        txtBuscarPaciente.requestFocus();
+
         if(savedInstanceState == null) {
             extras = getIntent().getExtras();
         }
@@ -46,12 +51,19 @@ public class BuscarPacienteActivity extends AppCompatActivity {
                 if(!codigoPaciente.isEmpty()) {
                     binding.tilBuscarPaciente.setError(null);
                     AdmisionComponent paciente = admisionServices.getPacienteByCodigopaciente(codigoPaciente);
+                    //No existe paciente
                     if(paciente.getOperacion()==null) {
                         binding.tilBuscarPaciente.setError(getText(R.string.helper_ci));
-                        Toast.makeText(BuscarPacienteActivity.this, "No existe este paciente, registrar", Toast.LENGTH_SHORT).show();
-                        txtBuscarPaciente.setText("");
-                        txtBuscarPaciente.requestFocus();
+                        AlertDialog.Builder dialogo = new AlertDialog.Builder(BuscarPacienteActivity.this);
+                        dialogo.setTitle("No existe paciente").setMessage("¿Desea agregar un nuevo paciente?")
+                                .setPositiveButton("Si",(dialog, which) -> {
+                                    Intent intent = new Intent(BuscarPacienteActivity.this, FormularioAdmisionActivity.class);
+                                    intent.putExtra("codigo_paciente", codigoPaciente);
+                                    intent.putExtra("operacion", "");
+                                    startActivity(intent);
+                                }).setNegativeButton("No", null).show();
                     } else {
+                        //Existe paciente
                         Intent intent = new Intent(BuscarPacienteActivity.this, FormularioAdmisionActivity.class);
                         intent.putExtra("codigo_paciente", paciente.getNroIdentificacion());
                         intent.putExtra("nombres", paciente.getNombres());
@@ -72,6 +84,7 @@ public class BuscarPacienteActivity extends AppCompatActivity {
                         intent.putExtra("situacionlaboral", paciente.getSitlabId());
                         intent.putExtra("latitud", paciente.getLatitud());
                         intent.putExtra("longitud", paciente.getLongitud());
+                        intent.putExtra("operacion", paciente.getOperacion());
                         startActivity(intent);
                     }
                 } else {

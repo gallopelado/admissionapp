@@ -93,6 +93,14 @@ public class OtrosDatosActivity extends AppCompatActivity {
                         break;
                     }
                 }
+                Double latitud = extras.getDouble("latitud");
+                Double longitud = extras.getDouble("longitud");
+                if(latitud!=null) {
+                    txtLatitud.setText(String.valueOf(latitud));
+                }
+                if(longitud!=null) {
+                    txtLongitud.setText(String.valueOf(longitud));
+                }
             }
         }
 
