@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 public class OtrosDatosActivity extends AppCompatActivity {
 
     private ActivityOtrosDatosBinding binding;
+    private SharedPreferences sharedPref;
     private MapView myOpenMapView;
     private MapController myMapController;
     Spinner comboSeguroMedico, comboNivelEducativo, comboSituacionLaboral;
@@ -50,6 +52,8 @@ public class OtrosDatosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOtrosDatosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        // iniciar sharepreferences
+        sharedPref = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         // habilita flecha de retroceso
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.setTitle(getString(R.string.titulo_otros_datos));
@@ -192,9 +196,21 @@ public class OtrosDatosActivity extends AppCompatActivity {
         if(!paciente.getOperacion().isEmpty()) {
             AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
             dialogo.setTitle("Se actualizó correctamente").setMessage("Se han actualizado datos de paciente").setPositiveButton("OK", null).show();
-            AdmisionComponent pacienteGuardado = admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion());
-            System.out.println("UPDATE: "+pacienteGuardado.toString());
+            //AdmisionComponent pacienteGuardado = admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion());
+            //System.out.println("UPDATE: "+pacienteGuardado.toString());
+            irAmedicoAsignacion(paciente.getNroIdentificacion(), paciente.getSegId());
         }
+    }
+
+    private void irAmedicoAsignacion(String codigo_paciente, Integer seguro_medico) {
+        // Guardamos antes en el store para combinar con el codigo medico de la tabla.
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("codigo_paciente", codigo_paciente);
+        editor.putInt("seguro_medico", seguro_medico);
+        editor.commit();
+
+        Intent medicoAsignacionView = new Intent(this, AsignarMedicoActivity.class);
+        startActivity(medicoAsignacionView);
     }
 
     @Override

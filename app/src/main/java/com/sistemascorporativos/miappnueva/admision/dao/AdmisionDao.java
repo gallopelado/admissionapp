@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.Nullable;
 
 import com.sistemascorporativos.miappnueva.admision.entidades.Especialidad;
+import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAsignacionDto;
 import com.sistemascorporativos.miappnueva.admision.entidades.PacienteDto;
 import com.sistemascorporativos.miappnueva.admision.entidades.Profesional;
 import com.sistemascorporativos.miappnueva.admision.entidades.Usuario;
@@ -167,4 +168,60 @@ public class AdmisionDao extends ConexionDb {
         return obj;
     }
 
+    public Integer getCantidadPacientes() {
+        String querySQL = "SELECT COUNT(*) cnt FROM paciente_asignacion";
+        try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();Cursor cursor =  db.rawQuery(querySQL, null);) {
+            if(cursor.moveToFirst()) {
+                return cursor.getInt(cursor.getColumnIndex("cnt"));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public String generarPacienteAsignacion(String prefijo) {
+        String querySQL = "SELECT CAST(COALESCE(MAX(rowid), 1)+1 AS TEXT)rowid, pacasi_codigo_asignacion FROM paciente_asignacion";
+        String cuentanro = "";
+        Integer cantidadAsignaciones = getCantidadPacientes();
+        if(cantidadAsignaciones==0) return "PA00000001";
+        try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();Cursor cursor =  db.rawQuery(querySQL, null);) {
+            String cnt = "";
+            if(cursor.moveToFirst()) {
+                cnt = cursor.getString(cursor.getColumnIndex("rowid"));
+                for(int i=cnt.length(); i<8 ; i++) {
+                    cnt = "0" + cnt;
+                }
+                cuentanro = prefijo + cnt;
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return cuentanro;
+    }
+
+    public PacienteAsignacionDto insertarPacienteAsignacion(PacienteAsignacionDto pad) {
+        try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();) {
+            ContentValues values = new ContentValues();
+            values.put("pacasi_codigo_establecimiento", pad.getPacasiCodigoEstablecimiento());
+            values.put("pacasi_codigo_asignacion", generarPacienteAsignacion("PA"));//churrísimo
+            values.put("pac_codigo_paciente", pad.getPacCodigoPaciente());
+            values.put("med_id", pad.getMedId());
+            values.put("supl_med_id", pad.getSuplMedId());
+            values.put("pacasi_estado", "A");
+            values.put("seg_id", pad.getSegId());
+            //Insertar
+            Long id = db.insert("paciente_asignacion", null, values);
+            if(id != null) {
+                pad.setOperacion("INSERT");
+            }
+            /*
+            * No olvidar insertar tambien en consulta y preconsulta
+            * */
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pad;
+    }
 }

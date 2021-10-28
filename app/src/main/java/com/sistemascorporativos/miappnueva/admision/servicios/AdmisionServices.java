@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.sistemascorporativos.miappnueva.admision.dao.AdmisionDao;
 import com.sistemascorporativos.miappnueva.admision.entidades.AdmisionComponent;
+import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAsignacionDto;
 import com.sistemascorporativos.miappnueva.admision.entidades.PacienteDto;
 import com.sistemascorporativos.miappnueva.referenciales.ciudad.dao.CiudadDao;
 import com.sistemascorporativos.miappnueva.referenciales.ciudad.modelos.CiudadDto;
@@ -143,5 +144,10 @@ public class AdmisionServices {
             paciente.setOperacion(pacienteDto.getOperacion());
         }
         return paciente;
+    }
+
+    public PacienteAsignacionDto insertarPacienteAsignacion(PacienteAsignacionDto pad) {
+        AdmisionDao admisionDao = new AdmisionDao(ctx);
+        return admisionDao.insertarPacienteAsignacion(pad);
     }
 }
