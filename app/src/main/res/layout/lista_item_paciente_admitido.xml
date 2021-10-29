@@ -18,11 +18,11 @@
             android:padding="32dp"/>
 
         <TextView
-            android:id="@+id/tvNombreMedico"
+            android:id="@+id/tvNombrePaciente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            tool:text="Doctor"
+            tool:text="Paciente"
             android:layout_toEndOf="@id/mtrl_list_item_icon"
             android:layout_toRightOf="@id/mtrl_list_item_icon"
             android:layout_alignWithParentIfMissing="true"
@@ -33,13 +33,32 @@
             android:maxLines="1"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             android:textColor="@color/mtrl_list_item_tint"/>
+
+        <TextView
+            android:id="@+id/tvCedula"
+            android:textSize="16sp"
+            tool:text="Cedula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNombrePaciente"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/mtrl_list_item_icon"
+            android:paddingEnd="16dp"
+            android:maxLines="2"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="@color/mtrl_list_item_tint"
+            android:layout_toRightOf="@id/mtrl_list_item_icon"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toLeftOf="@id/mtrl_list_item_icon"
+            android:layout_alignParentRight="true"/>
+
         <TextView
             android:id="@+id/tvConsultando"
             android:textSize="16sp"
-            tool:text="Especialidad"
+            tool:text="Consultando con Dr."
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvNombreMedico"
+            android:layout_below="@id/tvCedula"
             android:layout_gravity="center_vertical"
             android:layout_toEndOf="@id/mtrl_list_item_icon"
             android:paddingEnd="16dp"

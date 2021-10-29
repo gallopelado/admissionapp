@@ -1,5 +1,6 @@
 package com.sistemascorporativos.miappnueva.admision.actividades;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.SearchView;
 
 import com.sistemascorporativos.miappnueva.R;
@@ -32,6 +34,7 @@ public class AsignarMedicoActivity extends AppCompatActivity implements SearchVi
         binding = ActivityAsignarMedicoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.setTitle(getString(R.string.titulo_asignar_medico));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout = binding.swipeRefreshLayout;
@@ -73,6 +76,16 @@ public class AsignarMedicoActivity extends AppCompatActivity implements SearchVi
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_asignar_medico, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

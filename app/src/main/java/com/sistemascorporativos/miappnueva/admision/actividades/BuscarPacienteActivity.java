@@ -94,5 +94,13 @@ public class BuscarPacienteActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btPacientesAdmitidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pacienteAdmitidos = new Intent(BuscarPacienteActivity.this, ListaPacientesAdmitidosActivity.class);
+                startActivity(pacienteAdmitidos);
+            }
+        });
     }
 }

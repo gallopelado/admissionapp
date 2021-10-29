@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.Nullable;
 
 import com.sistemascorporativos.miappnueva.admision.entidades.Especialidad;
+import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAdmitidoDetalle;
 import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAsignacionDto;
 import com.sistemascorporativos.miappnueva.admision.entidades.PacienteDto;
 import com.sistemascorporativos.miappnueva.admision.entidades.Profesional;
@@ -223,5 +224,22 @@ public class AdmisionDao extends ConexionDb {
             e.printStackTrace();
         }
         return pad;
+    }
+
+    public ArrayList<PacienteAdmitidoDetalle> getPacientesAdmitidos() {
+        ArrayList<PacienteAdmitidoDetalle> list = new ArrayList<>();
+        String querySQL = "SELECT p.pac_codigo_paciente, p.pac_nombres||' '||p.pac_apellidos paciente , usu.usu_nombres||' '||usu.usu_apellidos medico FROM pacientes p LEFT JOIN paciente_asignacion pa ON pa.pac_codigo_paciente=p.pac_codigo_paciente LEFT JOIN profesional prof ON prof.prof_codigo_medico=pa.med_id LEFT JOIN usuarios usu ON usu.usu_codigo_usuario=prof_codigo_medico WHERE prof_activo = 't'";
+        try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();Cursor cursor =  db.rawQuery(querySQL, null);) {
+            while(cursor.moveToNext()) {
+                PacienteAdmitidoDetalle obj = new PacienteAdmitidoDetalle();
+                obj.setCedulaPaciente(cursor.getString(cursor.getColumnIndex("pac_codigo_paciente")));
+                obj.setNombrePaciente(cursor.getString(cursor.getColumnIndex("paciente")));
+                obj.setConsultando("Consultando con el Dr. "+cursor.getString(cursor.getColumnIndex("medico")));
+                list.add(obj);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
