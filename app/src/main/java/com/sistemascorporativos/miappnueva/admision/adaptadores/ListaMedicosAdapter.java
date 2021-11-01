@@ -121,12 +121,12 @@ public class ListaMedicosAdapter extends RecyclerView.Adapter<ListaMedicosAdapte
 
     public void irAbuscarPaciente(Context context) {
         Intent intent = new Intent(context, ListaPacientesAdmitidosActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
     private Boolean asignarMedico(String codigo_paciente, String codigo_medico, Integer seguro_medico, Context ctx) {
         String codigo_establecimiento = "001";
-        // Guardar en paciente asignacion
         AdmisionServices adms = new AdmisionServices(ctx);
         PacienteAsignacionDto pad = new PacienteAsignacionDto();
         pad.setPacasiCodigoEstablecimiento(codigo_establecimiento);
@@ -134,12 +134,9 @@ public class ListaMedicosAdapter extends RecyclerView.Adapter<ListaMedicosAdapte
         pad.setMedId(codigo_medico);
         pad.setSegId(seguro_medico);
         pad = adms.insertarPacienteAsignacion(pad);
-        System.out.println("Paciente asignado= " + pad.getPacasiEstado());
-        System.out.println("*** "+pad.toString());
         if(pad.getOperacion() != null) {
             return true;
         }
         return false;
-        // Crear registros para preconsulta y consulta
     }
 }

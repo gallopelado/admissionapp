@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.sistemascorporativos.miappnueva.admision.entidades.Especialidad;
 import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAdmitidoDetalle;
@@ -15,6 +17,8 @@ import com.sistemascorporativos.miappnueva.admision.entidades.Profesional;
 import com.sistemascorporativos.miappnueva.admision.entidades.Usuario;
 import com.sistemascorporativos.miappnueva.db.ConexionDb;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class AdmisionDao extends ConexionDb {
@@ -202,24 +206,58 @@ public class AdmisionDao extends ConexionDb {
         return cuentanro;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public PacienteAsignacionDto insertarPacienteAsignacion(PacienteAsignacionDto pad) {
         try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();) {
-            ContentValues values = new ContentValues();
-            values.put("pacasi_codigo_establecimiento", pad.getPacasiCodigoEstablecimiento());
-            values.put("pacasi_codigo_asignacion", generarPacienteAsignacion("PA"));//churrísimo
-            values.put("pac_codigo_paciente", pad.getPacCodigoPaciente());
-            values.put("med_id", pad.getMedId());
-            values.put("supl_med_id", pad.getSuplMedId());
-            values.put("pacasi_estado", "A");
-            values.put("seg_id", pad.getSegId());
-            //Insertar
-            Long id = db.insert("paciente_asignacion", null, values);
-            if(id != null) {
-                pad.setOperacion("INSERT");
-            }
+
             /*
-            * No olvidar insertar tambien en consulta y preconsulta
+            * En la practica estos datos debería de venir del servidor
             * */
+            String codigo_asignacion = generarPacienteAsignacion("PA");
+            String creacion_fecha = LocalDate.now().toString();//fecha actual
+            String creacion_hora = LocalTime.now().toString();//hora actual
+
+            // Iniciar transacción
+            db.beginTransaction();
+
+            // Insertar en paciente_asignacion
+            ContentValues pa_values = new ContentValues();
+            pa_values.put("pacasi_codigo_establecimiento", pad.getPacasiCodigoEstablecimiento());
+            pa_values.put("pacasi_codigo_asignacion", codigo_asignacion);//churrísimo
+            pa_values.put("pac_codigo_paciente", pad.getPacCodigoPaciente());
+            pa_values.put("med_id", pad.getMedId());
+            pa_values.put("supl_med_id", pad.getSuplMedId());
+            pa_values.put("pacasi_estado", "A");
+            pa_values.put("seg_id", pad.getSegId());
+            pa_values.put("pacasi_creacion_fecha", creacion_fecha);
+            pa_values.put("pacasi_creacion_hora", creacion_hora);
+            Long estado_pacienteasignacion = db.insert("paciente_asignacion", null, pa_values);
+
+            // Insertar en preconsulta
+            ContentValues prec_values = new ContentValues();
+            prec_values.put("precon_codigo_establecimiento", pad.getPacasiCodigoEstablecimiento());
+            prec_values.put("pacasi_codigo_asignacion", codigo_asignacion);
+            prec_values.put("precon_creacion_fecha", creacion_fecha);
+            prec_values.put("precon_creacion_hora", creacion_hora);
+            Long estado_preconsulta = db.insert("preconsulta", null, prec_values);
+
+            // Insertar en consulta
+            ContentValues con_values = new ContentValues();
+            con_values.put("con_codigo_establecimiento", pad.getPacasiCodigoEstablecimiento());
+            con_values.put("pacasi_codigo_asignacion", codigo_asignacion);
+            con_values.put("con_creacion_fecha", creacion_fecha);
+            con_values.put("con_creacion_hora", creacion_hora);
+            Long estado_consulta = db.insert("consulta", null, con_values);
+
+            // Controlar los estados
+            if(estado_pacienteasignacion != null && estado_preconsulta != null && estado_consulta !=null) {
+                db.setTransactionSuccessful();
+                pad.setOperacion("ASIGNACION-EXITOSA");
+            }
+
+            // Finalizar transacción
+            db.endTransaction();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
