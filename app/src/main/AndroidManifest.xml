@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
+            android:name=".seguridad.login.actividades.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".admision.actividades.ListaPacientesAdmitidosActivity"
             android:exported="false" />
         <activity
@@ -36,7 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".admision.actividades.FormularioAdmisionActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
