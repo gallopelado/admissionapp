@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:scaleType="centerCrop"
-            tools:srcCompat="@drawable/img_sysadmision" />
+            android:src="@drawable/img_sysadmision" />
 
     </androidx.cardview.widget.CardView>
 
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvAdmissionApp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilNombres"
+            android:id="@+id/tilUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding_default"
@@ -71,10 +71,10 @@
             app:startIconDrawable="@drawable/ic_person">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNombres"
+                android:id="@+id/etUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName|textCapWords"
+                android:inputType="text"
                 android:maxLength="@integer/name_max_nro_identificacion" />
         </com.google.android.material.textfield.TextInputLayout>
 

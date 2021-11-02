@@ -21,7 +21,7 @@ import com.sistemascorporativos.miappnueva.referenciales.situacion_laboral.model
 import java.util.ArrayList;
 
 public class AdmisionServices {
-    Context ctx;
+    private Context ctx;
 
     public AdmisionServices(Context ctx) {
         this.ctx = ctx;

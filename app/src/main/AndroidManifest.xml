@@ -17,13 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
+            android:name=".seguridad.login.actividades.InicioMenuPrincipalActivity"
+            android:exported="false" />
+        <activity
             android:name=".seguridad.login.actividades.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".admision.actividades.ListaPacientesAdmitidosActivity"
-            android:exported="false" />
-        <activity
-            android:name=".admision.actividades.BuscarPacienteActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".admision.actividades.ListaPacientesAdmitidosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admision.actividades.BuscarPacienteActivity"
+            android:exported="false"/>
         <activity
             android:name=".admision.actividades.AsignarMedicoActivity"
             android:exported="false" />
