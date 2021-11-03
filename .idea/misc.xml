@@ -7,18 +7,30 @@
         <entry key="app/src/main/res/drawable/ic_identification_card.xml" value="0.30104166666666665" />
         <entry key="app/src/main/res/layout/activity_asignar_medico.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_buscar_paciente.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_formulario_admision.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_inicio_menu_principal.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_inicio_menu_principal.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_lista_pacientes_admitidos.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28489583333333335" />
+        <entry key="app/src/main/res/layout/activity_navegacion.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_otros_datos.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/ader_navigation_drawer.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/app_bar_navegacion.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/content_navegacion.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/lista_item_medico.xml" value="0.1" />
         <entry key="app/src/main/res/layout/lista_item_paciente_admitido.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/nav_header_navegacion.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/menu_admision.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_asignar_medico.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/menu/menu_lista_pacientes_admitidos.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/menu_otros_datos.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/menu/navegacion.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/menu/navigation_drawer.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.18802083333333333" />
       </map>
     </option>

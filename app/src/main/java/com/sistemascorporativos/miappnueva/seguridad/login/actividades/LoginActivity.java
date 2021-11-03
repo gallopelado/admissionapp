@@ -95,7 +95,10 @@ public class LoginActivity extends AppCompatActivity {
             //Es conveniente crear un log de accesos
             Toast.makeText(this, "Bienvenido", Toast.LENGTH_LONG).show();
             //Enviar vista al menú de inicio
-            Intent inicio = new Intent(this, InicioMenuPrincipalActivity.class);
+            /*Intent inicio = new Intent(this, InicioMenuPrincipalActivity.class);
+            inicio.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(inicio);*/
+            Intent inicio = new Intent(this, NavegacionActivity.class);
             inicio.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(inicio);
         } else {

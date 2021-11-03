@@ -35,4 +35,18 @@
     <string name="textbutton_login">Log in</string>
     <string name="texttv_login">Login</string>
     <string name="texttv_admisionapp">AdmissionApp</string>
+    <string name="title_activity_navegacion">NavegacionActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Sysadmission Menu</string>
+    <string name="nav_header_subtitle">App médica</string>
+    <string name="nav_header_desc">Sysadmission Menu</string>
+    <string name="action_settings">Salir</string>
+
+    <string name="menu_admision">Admisión</string>
+    <string name="menu_preconsulta">Preconsulta</string>
+    <string name="menu_consulta">Consulta</string>
+    <string name="menu_referenciales">Referenciales</string>
+    <string name="abriendo_menu">Abriendo</string>
+    <string name="cerrando_menu">Cerrando</string>
 </resources>

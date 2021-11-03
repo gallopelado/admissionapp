@@ -17,6 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
+            android:name=".seguridad.login.actividades.NavegacionActivity"
+            android:exported="false"
+            android:label="@string/title_activity_navegacion"
+            android:theme="@style/Theme.MiAppNueva.NoActionBar" />
+        <activity
             android:name=".seguridad.login.actividades.InicioMenuPrincipalActivity"
             android:exported="false" />
         <activity
@@ -33,7 +38,7 @@
             android:exported="false" />
         <activity
             android:name=".admision.actividades.BuscarPacienteActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".admision.actividades.AsignarMedicoActivity"
             android:exported="false" />
