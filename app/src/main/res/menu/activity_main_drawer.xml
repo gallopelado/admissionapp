@@ -7,7 +7,8 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_add"
-            android:title="@string/menu_admision" />
+            android:title="@string/menu_admision"
+            android:checked="true"/>
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_content_paste_go"

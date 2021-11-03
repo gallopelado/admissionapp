@@ -41,7 +41,8 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
         setContentView(binding.getRoot());
         setTitle("Inicio");
 
-        setSupportActionBar(binding.appBarNavegacion.toolbar);
+        //setSupportActionBar(binding.appBarNavegacion.toolbar);
+        setSupportActionBar(binding.topAppBar);
         sharedPref = getSharedPreferences("login_preferences", Context.MODE_PRIVATE);
         verificaSesion();
         /*binding.appBarNavegacion.fab.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +63,7 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navegacion);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);*/
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, binding.appBarNavegacion.toolbar, R.string.abriendo_menu, R.string.cerrando_menu);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, binding.topAppBar, R.string.abriendo_menu, R.string.cerrando_menu);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
