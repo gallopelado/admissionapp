@@ -3,39 +3,36 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_add.xml" value="0.22864583333333333" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_alternate_email.xml" value="0.22864583333333333" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_circle.xml" value="0.22864583333333333" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_content_paste_go.xml" value="0.22864583333333333" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/font/roboto.xml" value="0.24270833333333333" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_lista_pacientes_admitidos.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_preconsulta.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/lista_item_paciente_admitido.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/nav_header_navegacion.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/menu/activity_main_drawer.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_lista_pacientes_admitidos.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_otros_datos.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/menu/navegacion.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/ic_identification_card.xml" value="0.30104166666666665" />
         <entry key="app/src/main/res/layout/activity_asignar_medico.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_buscar_paciente.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_formulario_admision.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_inicio_menu_principal.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_lista_pacientes_admitidos.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28489583333333335" />
-        <entry key="app/src/main/res/layout/activity_navegacion.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_otros_datos.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/ader_navigation_drawer.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/app_bar_navegacion.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/content_navegacion.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/lista_item_medico.xml" value="0.1" />
         <entry key="app/src/main/res/layout/lista_item_paciente_admitido.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/nav_header_navegacion.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/menu_admision.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_asignar_medico.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/menu/menu_lista_pacientes_admitidos.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/menu_otros_datos.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/menu/navegacion.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/menu/navigation_drawer.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.18802083333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
