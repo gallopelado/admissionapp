@@ -19,6 +19,33 @@
         <item
             android:id="@+id/nav_referenciales"
             android:icon="@drawable/ic_settings"
-            android:title="@string/menu_referenciales" />
+            android:title="@string/menu_referenciales">
+            <menu>
+                <item
+                    android:id="@+id/nav_ciudad"
+                    android:title="Ciudad" />
+                <item
+                    android:id="@+id/nav_nacionalidad"
+                    android:title="Nacionalidad" />
+                <item
+                    android:id="@+id/nav_seguro_medico"
+                    android:title="Seguro médico" />
+                <item
+                    android:id="@+id/nav_nivel_educativo"
+                    android:title="Nivel educativo" />
+                <item
+                    android:id="@+id/nav_situacion_laboral"
+                    android:title="Situación Laboral" />
+                <item
+                    android:id="@+id/nav_especialidad"
+                    android:title="Especialidad" />
+                <item
+                    android:id="@+id/nav_usuario"
+                    android:title="Usuario" />
+                <item
+                    android:id="@+id/nav_profesional"
+                    android:title="Profesional" />
+            </menu>
+        </item>
     </group>
 </menu>

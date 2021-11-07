@@ -18,6 +18,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.sistemascorporativos.miappnueva.R;
+import com.sistemascorporativos.miappnueva.seguridad.login.actividades.InicioMenuPrincipalActivity;
 import com.sistemascorporativos.miappnueva.seguridad.login.actividades.LoginActivity;
 
 public class NavegacionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,6 +74,12 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
         switch (item.getItemId()) {
             case R.id.nav_admision:
                 startActivity(new Intent(NavegacionActivity.this, BuscarPacienteActivity.class));
+                break;
+            case R.id.nav_referenciales:
+                startActivity(new Intent(NavegacionActivity.this, InicioMenuPrincipalActivity.class));
+                break;
+            case R.id.nav_ciudad:
+                startActivity(new Intent(NavegacionActivity.this, InicioMenuPrincipalActivity.class));
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
