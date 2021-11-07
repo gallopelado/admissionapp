@@ -48,6 +48,16 @@
         <activity
             android:name=".admision.actividades.FormularioAdmisionActivity"
             android:exported="false" />
+        <activity
+            android:name=".consulta.actividades.ListaPacientesPreconsultaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".consulta.actividades.BuscarPacienteConsultaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".consulta.actividades.FormularioConsultaActivity"
+            android:exported="false" />
+
 
         <meta-data
             android:name="preloaded_fonts"

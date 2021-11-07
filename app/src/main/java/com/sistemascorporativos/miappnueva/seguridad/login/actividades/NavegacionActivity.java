@@ -4,24 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.sistemascorporativos.miappnueva.admision.actividades.BuscarPacienteActivity;
+import com.sistemascorporativos.miappnueva.consulta.actividades.ListaPacientesPreconsultaActivity;
 import com.sistemascorporativos.miappnueva.databinding.ActivityNavegacionBinding;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.sistemascorporativos.miappnueva.R;
@@ -101,6 +96,10 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_home:
                 //startActivity(new Intent(NavegacionActivity.this, InicioMenuPrincipalActivity.class));
                 startActivity(new Intent(NavegacionActivity.this, BuscarPacienteActivity.class));
+                break;
+            case R.id.nav_slideshow:
+                //startActivity(new Intent(NavegacionActivity.this, InicioMenuPrincipalActivity.class));
+                startActivity(new Intent(NavegacionActivity.this, ListaPacientesPreconsultaActivity.class));
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -49,4 +49,7 @@
     <string name="menu_referenciales">Referenciales</string>
     <string name="abriendo_menu">Abriendo</string>
     <string name="cerrando_menu">Cerrando</string>
+
+    <string name="titulo_consulta">Formulario de Consulta</string>
+    <string name="titulo_paciente_preconsulta">Pacientes con Preconsulta</string>
 </resources>
