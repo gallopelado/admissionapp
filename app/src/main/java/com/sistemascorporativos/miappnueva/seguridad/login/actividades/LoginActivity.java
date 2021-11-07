@@ -16,6 +16,7 @@ import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.databinding.ActivityLoginBinding;
 import com.sistemascorporativos.miappnueva.seguridad.login.entidades.LoginDto;
 import com.sistemascorporativos.miappnueva.seguridad.login.servicios.LoginServices;
+import com.sistemascorporativos.miappnueva.seguridad.menu_principal.actividades.NavegacionActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

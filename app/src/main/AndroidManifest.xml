@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
-            android:name=".seguridad.login.actividades.NavegacionActivity"
+            android:name=".seguridad.menu_principal.actividades.NavegacionActivity"
             android:exported="false"
             android:label="@string/title_activity_navegacion"
             android:theme="@style/Theme.MiAppNueva.NoActionBar" />
