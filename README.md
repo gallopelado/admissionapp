@@ -12,6 +12,6 @@
 ## Autores
 * **Juan González**
 * **Oscar González**
-* **Rubén Ortiz**
+* **Ruben Ortiz**
 
 ### UTIC - 2021
