@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -14,6 +16,7 @@ import com.sistemascorporativos.miappnueva.databinding.ActivityNavegacionBinding
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,8 +56,17 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
         sharedPref = getSharedPreferences("login_preferences", Context.MODE_PRIVATE);
         verificaSesion();
 
+
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        // Aquí se setea el titulo de header del menú pancholo :)
+        String user_name = sharedPref.getString("nombres_usuario", null);
+        View headerView = navigationView.getHeaderView(0);
+        TextView profileName = (TextView) headerView.findViewById(R.id.tvTituloGrande);
+        profileName.setText(user_name);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, binding.appBarNavegacion.toolbar, R.string.abriendo_menu, R.string.cerrando_menu);
         drawer.addDrawerListener(toggle);
         toggle.syncState();

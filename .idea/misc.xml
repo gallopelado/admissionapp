@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18802083333333333" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.28703703703703703" />
         <entry key="app/src/main/res/drawable/ic_identification_card.xml" value="0.30104166666666665" />
         <entry key="app/src/main/res/layout/activity_asignar_medico.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_buscar_paciente.xml" value="0.35833333333333334" />
@@ -16,7 +17,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28489583333333335" />
         <entry key="app/src/main/res/layout/activity_main_referenciales.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_menu_referenciales.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_navegacion.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/activity_navegacion.xml" value="0.3430232558139535" />
         <entry key="app/src/main/res/layout/activity_otros_datos.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/ader_navigation_drawer.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/app_bar_navegacion.xml" value="0.35833333333333334" />
