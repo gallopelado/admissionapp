@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
+            android:name=".referenciales.MainReferencialesActivity"
+            android:exported="false" />
+        <activity
             android:name=".seguridad.menu_principal.actividades.NavegacionActivity"
             android:exported="false"
             android:label="@string/title_activity_navegacion"

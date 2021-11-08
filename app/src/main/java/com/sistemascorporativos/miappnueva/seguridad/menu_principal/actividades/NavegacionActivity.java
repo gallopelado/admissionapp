@@ -18,7 +18,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.sistemascorporativos.miappnueva.R;
-import com.sistemascorporativos.miappnueva.seguridad.login.actividades.InicioMenuPrincipalActivity;
+import com.sistemascorporativos.miappnueva.referenciales.MainReferencialesActivity;
 import com.sistemascorporativos.miappnueva.seguridad.login.actividades.LoginActivity;
 
 public class NavegacionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -71,15 +71,34 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent = new Intent(NavegacionActivity.this, MainReferencialesActivity.class);
         switch (item.getItemId()) {
             case R.id.nav_admision:
                 startActivity(new Intent(NavegacionActivity.this, BuscarPacienteActivity.class));
                 break;
-            case R.id.nav_referenciales:
-                startActivity(new Intent(NavegacionActivity.this, InicioMenuPrincipalActivity.class));
-                break;
             case R.id.nav_ciudad:
-                startActivity(new Intent(NavegacionActivity.this, InicioMenuPrincipalActivity.class));
+                intent.putExtra("menu", "ciudad");
+                startActivity(intent);
+                break;
+            case R.id.nav_nacionalidad:
+                intent.putExtra("menu", "nacionalidad");
+                startActivity(intent);
+                break;
+            case R.id.nav_seguro_medico:
+                intent.putExtra("menu", "seguro_medico");
+                startActivity(intent);
+                break;
+            case R.id.nav_nivel_educativo:
+                intent.putExtra("menu", "nivel_educativo");
+                startActivity(intent);
+                break;
+            case R.id.nav_situacion_laboral:
+                intent.putExtra("menu", "situacion_laboral");
+                startActivity(intent);
+                break;
+            case R.id.nav_especialidad:
+                intent.putExtra("menu", "especialidad");
+                startActivity(intent);
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

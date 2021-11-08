@@ -9,10 +9,12 @@
         <entry key="app/src/main/res/layout/activity_buscar_paciente.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_formulario_admision.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_indice_referenciales.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_inicio_menu_principal.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_lista_pacientes_admitidos.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28489583333333335" />
+        <entry key="app/src/main/res/layout/activity_main_referenciales.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_menu_referenciales.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_navegacion.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_otros_datos.xml" value="0.35833333333333334" />
@@ -24,12 +26,16 @@
         <entry key="app/src/main/res/layout/content_referenciales.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/content_referenciales_navigation.xml" value="0.21" />
         <entry key="app/src/main/res/layout/fragment_ciudad.xml" value="0.31296296296296294" />
+        <entry key="app/src/main/res/layout/fragment_ciudad_referencial.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/fragment_nacionalidad.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_indice_referencial.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_nacionalidad.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/lista_item_ciudad.xml" value="0.25" />
         <entry key="app/src/main/res/layout/lista_item_medico.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/lista_item_paciente_admitido.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/lista_item_paciente_admitido.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/lista_item_referencial.xml" value="0.1" />
         <entry key="app/src/main/res/layout/nav_header_navegacion.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/activity_menu_referenciales_drawer.xml" value="0.33" />
