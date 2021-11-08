@@ -16,7 +16,6 @@ import com.sistemascorporativos.miappnueva.databinding.ActivityNavegacionBinding
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,8 +55,6 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
         sharedPref = getSharedPreferences("login_preferences", Context.MODE_PRIVATE);
         verificaSesion();
 
-
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
@@ -66,8 +63,8 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
         String user_apellido = sharedPref.getString("apellidos_usuario", null);
         String user_rol = sharedPref.getString("rol_usuario", null);
         View headerView = navigationView.getHeaderView(0);
-        TextView profileName = (TextView) headerView.findViewById(R.id.tvTituloGrande);
-        TextView profileRol = (TextView) headerView.findViewById(R.id.textView);
+        TextView profileName = (TextView) headerView.findViewById(R.id.tvTituloGrandeMenu);
+        TextView profileRol = (TextView) headerView.findViewById(R.id.tvSubtituloMenu);
         profileName.setText(user_name+' '+user_apellido);
         profileRol.setText(user_rol);
 

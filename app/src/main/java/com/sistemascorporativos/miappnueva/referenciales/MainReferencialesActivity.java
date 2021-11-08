@@ -1,10 +1,13 @@
 package com.sistemascorporativos.miappnueva.referenciales;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.SearchView;
 
 import com.sistemascorporativos.miappnueva.R;
@@ -42,6 +45,7 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
     private void init() {
         binding = ActivityMainReferencialesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listaItems = binding.rvListaItemsReferenciales;
         searchViewBuscarReferencial = binding.searchViewBuscarReferencial;
         listaArrayReferencial = new ArrayList<>();
@@ -134,6 +138,22 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
                 listaItems.setAdapter(adapter);
                 break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_referencial, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
