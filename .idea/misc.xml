@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/activity_asignar_medico.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_buscar_paciente.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/activity_form_main_referenciales.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_formulario_admision.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_indice_referenciales.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_inicio_menu_principal.xml" value="0.33" />
@@ -47,6 +48,7 @@
         <entry key="app/src/main/res/menu/menu_lista_pacientes_admitidos.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/menu_otros_datos.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/menu_ref.xml" value="0.10648148148148148" />
+        <entry key="app/src/main/res/menu/menu_referencial.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_referenciales.xml" value="0.33" />
         <entry key="app/src/main/res/menu/navegacion.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/navigation_drawer.xml" value="0.35833333333333334" />

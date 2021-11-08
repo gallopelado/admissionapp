@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,11 +38,18 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
     private ArrayList<ReferencialDto> listaArrayReferencial;
     private ListaReferencialesAdapter adapter;
     private Bundle extras;
+    private SharedPreferences sharedPref, sharedPref_menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        generarVista();
     }
 
     private void init() {
@@ -51,11 +61,16 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
         listaArrayReferencial = new ArrayList<>();
         listaItems.setLayoutManager(new LinearLayoutManager(this));
         extras = getIntent().getExtras();
-        generarVista();
         searchViewBuscarReferencial.setOnQueryTextListener(this);
+        sharedPref = getSharedPreferences("referenciales", Context.MODE_PRIVATE);
+        sharedPref_menu = getSharedPreferences("menu", Context.MODE_PRIVATE);
+        generarVista();
     }
 
     private void generarVista() {
+        SharedPreferences.Editor editor = sharedPref_menu.edit();
+        editor.putString("menu", extras.getString("menu")).commit();
+        listaArrayReferencial = new ArrayList<>();
         switch (extras.getString("menu")) {
             case "ciudad":
                 setTitle("Ciudad");
@@ -151,6 +166,11 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.action_opt_referencial:
+                // Limpiar el share preferences
+                sharedPref.edit().clear().commit();
+                startActivity(new Intent(this, FormMainReferencialesActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

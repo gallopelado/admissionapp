@@ -1,11 +1,15 @@
 package com.sistemascorporativos.miappnueva.referenciales;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sistemascorporativos.miappnueva.R;
@@ -19,6 +23,7 @@ public class ListaReferencialesAdapter extends RecyclerView.Adapter<ListaReferen
 
     private ArrayList<ReferencialDto> listaItems;
     private ArrayList<ReferencialDto> listaOriginalItems;
+    private SharedPreferences sharedPref, sharedPref_menu;
 
     public ListaReferencialesAdapter(ArrayList<ReferencialDto> listaItems) {
         this.listaItems = listaItems;
@@ -78,6 +83,64 @@ public class ListaReferencialesAdapter extends RecyclerView.Adapter<ListaReferen
             super(itemView);
             vieId = itemView.findViewById(R.id.tvIdReferencial);
             vieDescripcion = itemView.findViewById(R.id.tvDescripcionReferencial);
+
+            // Seleccionar algún registro de la tabla
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = itemView.getContext();
+                    sharedPref = context.getSharedPreferences("referenciales", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("referencial_id", listaItems.get(getAbsoluteAdapterPosition()).getId());
+                    editor.putString("referencial_descripcion", listaItems.get(getAbsoluteAdapterPosition()).getDescripcion());
+                    editor.commit();
+                    // Ir al formulario
+                    context.startActivity(new Intent(context, FormMainReferencialesActivity.class));
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Context context = itemView.getContext();
+                    sharedPref_menu = context.getSharedPreferences("menu", Context.MODE_PRIVATE);
+                    String id = listaItems.get(getAbsoluteAdapterPosition()).getId();
+                    ReferencialDao referencialDao = new ReferencialDao(context);
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(context);
+                    dialogo.setTitle("Eliminar"). setMessage("¿Desea eliminar este registro?")
+                            .setPositiveButton("Si", (dialog, which) -> {
+                                ReferencialDto referencialDto = new ReferencialDto();
+                                referencialDto.setId(id);
+                                switch (sharedPref_menu.getString("menu", null)) {
+                                    case "ciudad":
+                                        referencialDto = referencialDao.eliminar(referencialDto, "ciudades");
+                                        break;
+                                    case "nacionalidad":
+                                        referencialDto = referencialDao.eliminar(referencialDto, "nacionalidades");
+                                        break;
+                                    case "seguro_medico":
+                                        referencialDto = referencialDao.eliminar(referencialDto, "seguro_medico");
+                                        break;
+                                    case "nivel_educativo":
+                                        referencialDto = referencialDao.eliminar(referencialDto, "nivel_educativo");
+                                        break;
+                                    case "situacion_laboral":
+                                        referencialDto = referencialDao.eliminar(referencialDto, "situacion_laboral");
+                                        break;
+                                    case "especialidad":
+                                        referencialDto = referencialDao.eliminar(referencialDto, "especialidad");
+                                        break;
+                                }
+                                // eliminar fila
+                                int remover = (int) v.getTag();
+                                listaItems.remove(remover);
+                                // Notificar los cambios
+                                notifyDataSetChanged();
+                            }).setNegativeButton("No", null).show();
+
+                    return false;
+                }
+            });
         }
     }
 }

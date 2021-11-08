@@ -49,4 +49,6 @@
     <string name="menu_referenciales">Referenciales</string>
     <string name="abriendo_menu">Abriendo</string>
     <string name="cerrando_menu">Cerrando</string>
+    <string name="hint_identificador_referencial">Identificador</string>
+    <string name="hint_descripcion_referencial">Descripción</string>
 </resources>
