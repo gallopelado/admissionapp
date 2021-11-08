@@ -63,9 +63,13 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
 
         // Aquí se setea el titulo de header del menú pancholo :)
         String user_name = sharedPref.getString("nombres_usuario", null);
+        String user_apellido = sharedPref.getString("apellidos_usuario", null);
+        String user_rol = sharedPref.getString("rol_usuario", null);
         View headerView = navigationView.getHeaderView(0);
         TextView profileName = (TextView) headerView.findViewById(R.id.tvTituloGrande);
-        profileName.setText(user_name);
+        TextView profileRol = (TextView) headerView.findViewById(R.id.textView);
+        profileName.setText(user_name+' '+user_apellido);
+        profileRol.setText(user_rol);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, binding.appBarNavegacion.toolbar, R.string.abriendo_menu, R.string.cerrando_menu);
         drawer.addDrawerListener(toggle);
