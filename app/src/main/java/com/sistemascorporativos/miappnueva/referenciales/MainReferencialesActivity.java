@@ -68,7 +68,6 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
                 break;
             case "nacionalidad":
                 setTitle("Nacionalidad");
-                NacionalidadDto nacionalidadDto = new NacionalidadDto();
                 NacionalidadDao nacionalidadDao = new NacionalidadDao(this);
                 ArrayList<NacionalidadDto> listaNac = nacionalidadDao.getNacionalidades();
                 for(NacionalidadDto item: listaNac) {
@@ -82,7 +81,6 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
                 break;
             case "seguro_medico":
                 setTitle("Seguro Médico");
-                SeguroMedicoDto seguroMedicoDto = new SeguroMedicoDto();
                 SeguroMedicoDao seguroMedicoDao = new SeguroMedicoDao(this);
                 ArrayList<SeguroMedicoDto> listaSeg = seguroMedicoDao.getSeguroMedico();
                 for(SeguroMedicoDto item: listaSeg) {
@@ -96,7 +94,6 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
                 break;
             case "nivel_educativo":
                 setTitle("Nivel Educativo");
-                NivelEducativoDto nivelEducativoDto = new NivelEducativoDto();
                 NivelEducativoDao nivelEducativoDao = new NivelEducativoDao(this);
                 ArrayList<NivelEducativoDto> listaNiv = nivelEducativoDao.getNivelEducativo();
                 for(NivelEducativoDto item: listaNiv) {
