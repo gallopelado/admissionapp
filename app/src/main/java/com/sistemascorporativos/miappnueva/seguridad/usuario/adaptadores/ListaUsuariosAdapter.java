@@ -1,5 +1,7 @@
 package com.sistemascorporativos.miappnueva.seguridad.usuario.adaptadores;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.seguridad.login.entidades.LoginDto;
+import com.sistemascorporativos.miappnueva.seguridad.usuario.actividades.FormUsuarioActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +82,26 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
             super(itemView);
             viewIdUsuario = itemView.findViewById(R.id.tvIdUsuario);
             viewDescripcionUsuario = itemView.findViewById(R.id.tvDescripcionUsuario);
+
+            // Seleccionar algún registro de la tabla
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = itemView.getContext();
+                    sharedPref = context.getSharedPreferences("usuario_referencial", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("codigo_usuario", listaUsuarioItems.get(getAbsoluteAdapterPosition()).getUsuCodigoUsuario());
+                    editor.putString("nombres_usuario", listaUsuarioItems.get(getAbsoluteAdapterPosition()).getUsuNombres());
+                    editor.putString("apellidos_usuario", listaUsuarioItems.get(getAbsoluteAdapterPosition()).getUsuApellidos());
+                    editor.putString("descripcion_usuario", listaUsuarioItems.get(getAbsoluteAdapterPosition()).getUsuDescripcion());
+                    editor.putString("rol_usuario", listaUsuarioItems.get(getAbsoluteAdapterPosition()).getUsuRol());
+                    editor.putString("estado_usuario", listaUsuarioItems.get(getAbsoluteAdapterPosition()).getUsuEstado());
+                    editor.putString("operacion_usuario", "editar");
+                    editor.commit();
+                    // Ir al formulario
+                    context.startActivity(new Intent(context, FormUsuarioActivity.class));
+                }
+            });
         }
     }
 }

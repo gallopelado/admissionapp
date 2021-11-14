@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,6 +37,12 @@ public class UsuarioActivity extends AppCompatActivity implements SearchView.OnQ
         init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        generarVista();
+    }
+
     private void init() {
         binding = ActivityUsuarioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -44,13 +51,16 @@ public class UsuarioActivity extends AppCompatActivity implements SearchView.OnQ
         rvListaUsuarios = binding.rvListaUsuarios;
         svBuscarUsuario = binding.svBuscarUsuario;
         svBuscarUsuario.setOnQueryTextListener(this);
-        listaArrayUsuarios = new ArrayList<>();
         rvListaUsuarios.setLayoutManager(new LinearLayoutManager(this));
         extras = getIntent().getExtras();
-        sharedPref = getSharedPreferences("referenciales", Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences("usuario_referencial", Context.MODE_PRIVATE);
         sharedPref_menu = getSharedPreferences("menu", Context.MODE_PRIVATE);
+        generarVista();
+    }
 
+    private void generarVista() {
         UsuarioServices us = new UsuarioServices(this);
+        listaArrayUsuarios = new ArrayList<>();
         listaArrayUsuarios.addAll(us.getUsuarios());
         adapter = new ListaUsuariosAdapter(listaArrayUsuarios);
         rvListaUsuarios.setAdapter(adapter);
@@ -67,6 +77,11 @@ public class UsuarioActivity extends AppCompatActivity implements SearchView.OnQ
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.action_opt_referencial:
+                // Limpiar el share preferences
+                sharedPref.edit().clear().commit();
+                startActivity(new Intent(UsuarioActivity.this, FormUsuarioActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

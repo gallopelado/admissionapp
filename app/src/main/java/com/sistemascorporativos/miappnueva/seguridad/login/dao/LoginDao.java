@@ -32,7 +32,7 @@ public class LoginDao extends ConexionDb {
             values.put("usu_password", login.getUsuPassword());
             values.put("usu_nombres", login.getUsuNombres());
             values.put("usu_apellidos", login.getUsuApellidos());
-            values.put("usu_descripcion", login.getUsuApellidos());
+            values.put("usu_descripcion", login.getUsuDescripcion());
             values.put("usu_rol", login.getUsuRol());
             values.put("usu_estado", login.getUsuEstado());
             values.put("usu_creacion_usuario", login.getUsuCreacion_usuario());

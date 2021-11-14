@@ -125,7 +125,7 @@ public class ReferencialDao extends ConexionDb {
                     valores = new String[] { refd.getId() };
                     break;
             }
-            //Update
+            //delete
             id = db.delete(tabla, clausula_where, valores);
         } catch (Exception e) {
             e.printStackTrace();

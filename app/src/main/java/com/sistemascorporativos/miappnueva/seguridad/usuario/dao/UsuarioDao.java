@@ -1,14 +1,19 @@
 package com.sistemascorporativos.miappnueva.seguridad.usuario.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.sistemascorporativos.miappnueva.db.ConexionDb;
 import com.sistemascorporativos.miappnueva.seguridad.login.entidades.LoginDto;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class UsuarioDao extends ConexionDb {
@@ -51,4 +56,30 @@ public class UsuarioDao extends ConexionDb {
         }
         return listaUsuarios;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public LoginDto actualizarUsuario(LoginDto login) {
+        try(ConexionDb conexionDb = new ConexionDb(context); SQLiteDatabase db = conexionDb.getWritableDatabase();) {
+            ContentValues values = new ContentValues();
+            if(login.getUsuPassword()!=null) {
+                values.put("usu_password", login.getUsuPassword());
+            }
+            values.put("usu_nombres", login.getUsuNombres());
+            values.put("usu_apellidos", login.getUsuApellidos());
+            values.put("usu_descripcion", login.getUsuDescripcion());
+            values.put("usu_rol", login.getUsuRol());
+            values.put("usu_estado", login.getUsuEstado());
+            values.put("usu_modificacion_usuario", login.getUsuCreacion_usuario());
+            values.put("usu_modificacion_fecha", LocalDate.now().toString());
+            values.put("usu_modificacion_hora", LocalTime.now().toString());
+            Integer estado_update = db.update("usuarios", values, "usu_codigo_usuario = ?", new String[]{ login.getUsuCodigoUsuario() });
+            if(estado_update>0) {
+                login.setOperacion("ACTUALIZADO");
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return login;
+    }
+
 }

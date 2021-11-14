@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
+            android:name=".seguridad.usuario.actividades.FormUsuarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".seguridad.usuario.actividades.UsuarioActivity"
             android:exported="false" />
         <activity

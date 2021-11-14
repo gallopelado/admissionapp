@@ -51,4 +51,7 @@
     <string name="cerrando_menu">Cerrando</string>
     <string name="hint_identificador_referencial">Identificador</string>
     <string name="hint_descripcion_referencial">Descripción</string>
+    <string name="hint_codigo_usuario">Codigo Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="chk_text_estado">Activo</string>
 </resources>
