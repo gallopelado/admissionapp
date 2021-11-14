@@ -27,6 +27,7 @@ import com.sistemascorporativos.miappnueva.seguridad.usuario.servicios.UsuarioSe
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FormUsuarioActivity extends AppCompatActivity {
 
@@ -136,7 +137,7 @@ public class FormUsuarioActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private Boolean procesarFormulario() {
-        if(!validarFormulario()) return null;
+        if(!validarFormulario()) return false;
         // Recolección de datos
         String codigo_usuario = etICodigoUsuario.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -190,11 +191,11 @@ public class FormUsuarioActivity extends AppCompatActivity {
             usus.actualizarUsuarioNoPassword(usuario);
         }
 
-        return false;
+        return true;
     }
 
     private Boolean validarFormulario() {
-        Boolean isValid = true;
+        AtomicReference<Boolean> isValid = new AtomicReference<>(true);
         String codigo_usuario = etICodigoUsuario.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String nombres = etNombresUsuario.getText().toString().trim();
@@ -203,7 +204,7 @@ public class FormUsuarioActivity extends AppCompatActivity {
         Boolean estado = chkEstadoUsuario.isChecked();
 
         if(codigo_usuario == null) {
-            isValid = false;
+            isValid.set(false);
             tilCodigoUsuario.setError(getString(R.string.hint_codigo_usuario));
             etICodigoUsuario.requestFocus();
         } else {
@@ -211,7 +212,7 @@ public class FormUsuarioActivity extends AppCompatActivity {
         }
 
         if(nombres == null) {
-            isValid = false;
+            isValid.set(false);
             tilNombresUsuario.setError(getString(R.string.hint_nombres));
             etNombresUsuario.requestFocus();
         } else {
@@ -219,7 +220,7 @@ public class FormUsuarioActivity extends AppCompatActivity {
         }
 
         if(apellidos == null) {
-            isValid = false;
+            isValid.set(false);
             tilApellidosUsuario.setError(getString(R.string.hint_apellidos));
             etApellidosUsuario.requestFocus();
         } else {
@@ -227,26 +228,26 @@ public class FormUsuarioActivity extends AppCompatActivity {
         }
 
         if(descripcion == null) {
-            isValid = false;
+            isValid.set(false);
             tilDescripcionUsuario.setError(getString(R.string.hint_descripcion_referencial));
             etDescripcionUsuario.requestFocus();
         } else {
             tilDescripcionUsuario.setError(null);
         }
 
-        if(estado == false) {
+        /*if(estado == false) {
+            isValid.set(false);
             AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-            dialogo.setTitle("¡Cuidado!")
+            dialogo.setTitle("¡Cuidado!").setTitle("Estado del usuario")
                     .setMessage("¿Desea desactivar este usuario?")
-                    .setNegativeButton("NO", ((dialog, which) -> {
+                    .setPositiveButton("SI", (dialog, which) -> {
+                        isValid.set(true);
+                    })
+                    .setNegativeButton("NO", (dialog, which) -> {
                         chkEstadoUsuario.setChecked(true);
-                    }))
-                    .setPositiveButton("SI", null)
-                    .show();
-            isValid = false;
-        }
-
-        return isValid;
+                    }).show();
+        }*/
+        return isValid.get();
     }
 
     @Override
@@ -265,8 +266,8 @@ public class FormUsuarioActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.action_opt_referencial:
-                procesarFormulario();
-                finish();
+                if(procesarFormulario()) finish();
+                else Toast.makeText(this, "No se ha realizado la operacion", Toast.LENGTH_LONG).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
