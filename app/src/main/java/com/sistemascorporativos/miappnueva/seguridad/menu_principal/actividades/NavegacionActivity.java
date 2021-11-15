@@ -69,6 +69,33 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
         profileName.setText(user_name+' '+user_apellido);
         profileRol.setText(user_rol);
 
+        /* ROLES del usuario
+        * ADMINISTRADOR
+        * ADMISION
+        * PRECONSULTA
+        * CONSULTA
+        * */
+        Menu nav_menu = navigationView.getMenu();
+        switch (user_rol) {
+            case "ADMINISTRADOR":
+                break;
+            case "ADMISION":
+                nav_menu.findItem(R.id.nav_preconsulta).setVisible(false);
+                nav_menu.findItem(R.id.nav_consulta).setVisible(false);
+                nav_menu.findItem(R.id.nav_referenciales).setVisible(false);
+                break;
+            case "PRECONSULTA":
+                nav_menu.findItem(R.id.nav_admision).setVisible(false);
+                nav_menu.findItem(R.id.nav_consulta).setVisible(false);
+                nav_menu.findItem(R.id.nav_referenciales).setVisible(false);
+                break;
+            case "CONSULTA":
+                nav_menu.findItem(R.id.nav_admision).setVisible(false);
+                nav_menu.findItem(R.id.nav_preconsulta).setVisible(false);
+                nav_menu.findItem(R.id.nav_referenciales).setVisible(false);
+                break;
+        }
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, binding.appBarNavegacion.toolbar, R.string.abriendo_menu, R.string.cerrando_menu);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
