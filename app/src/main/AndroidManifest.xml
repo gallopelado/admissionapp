@@ -17,6 +17,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
+            android:name=".preconsulta.actividades.SeleccionarAmitidoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".preconsulta.actividades.ListaAdmitidosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".preconsulta.actividades.FormPreconsultaActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
+
+        <activity
             android:name=".seguridad.usuario.actividades.FormUsuarioActivity"
             android:exported="false" />
         <activity
@@ -38,12 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".seguridad.login.actividades.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
         <activity
             android:name=".admision.actividades.ListaPacientesAdmitidosActivity"

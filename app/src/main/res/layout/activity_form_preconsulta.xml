@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:context=".preconsulta.actividades.FormPreconsultaActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--Nombre del paciente-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilnombre_preconsulta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_padding_default"
+                android:hint="Nombre Paciente"
+                android:textColorHint="@color/black"
+                app:startIconDrawable="@drawable/ic_person" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etnombre_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="@integer/name_max_nro_identificacion"
+                    android:textSize="18dp"
+                    android:enabled="false"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Numero de consulta
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilnumero_consulta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="Numero paciente preconsulta">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etnumero_paciente_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="18sp"
+                    android:maxLength="@integer/name_max_nro_identificacion"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>   -->
+
+            <!--            Edad -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tiledad_paciente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColorHint="@color/black"
+                android:hint="Edad Paciente">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etedad_paciente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="@integer/name_max_nro_identificacion"
+                    android:textSize="18dp"
+                    android:enabled="false"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Linea Separadora-->
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="7dp"
+
+                android:background="@android:color/holo_green_dark"/>
+
+            <!--            Temperatura Corporal-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilcorporal_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="Temperatura Corporal">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etcorporal_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Presión Arterial-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilpresion_art_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="Presión Arterial">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etpresion_art_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Frecuencia Respiratoria-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilfrecuen_resp_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="Frecuencia Respiratoria">
+                <!--                Texto del Label-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etfrecuen_resp_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Pulso-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilpulso_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="Pulso">
+                <!--                Texto del Label-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etpulso_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Peso-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilpeso_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="Peso">
+                <!--                Texto del Label-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etpeso_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Talla-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tiltalla_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="Talla">
+                <!--                Texto del Label-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ettalla_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            IMC-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilimc_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="IMC">
+                <!--                Texto del Label-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etimc_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Saturación de Oxigeno-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilsatura_oxig_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="Saturación de Oxigeno">
+                <!--                Texto del Label-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etsatura_oxig_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Circunferencia Abdominal-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilcirc_abdo_preconsulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:textColorHint="@color/black"
+                android:hint="Circunferencia Abdominal">
+                <!--                Texto del Label-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etcirc_abdo_preconsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            Linea Separadora-->
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="7dp"
+
+                android:background="@android:color/holo_green_dark"/>
+
+            <!--            Titulo Label Motivo Consulta
+                        <TextView
+                            android:id="@+id/hello_world_text"
+                            android:gravity="center"
+                            android:textSize="19sp"
+                            android:textAllCaps="true"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/black"
+                            android:text="Motivo de Consulta:" />      -->
+
+            <!--            Campo de texto Motivo Consulta-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilmotivo_consulta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="105dp"
+                android:hint="Motivo Consulta"
+                android:textColorHint="@color/black"
+                app:backgroundTint="@color/purple_200">
+                <!--                Texto del Label-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etmotivo_consulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:textSize="18dp"
+                    android:gravity="center" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
