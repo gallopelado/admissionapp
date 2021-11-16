@@ -54,4 +54,7 @@
     <string name="hint_codigo_usuario">Codigo Usuario</string>
     <string name="hint_password">Contraseña</string>
     <string name="chk_text_estado">Activo</string>
+
+    <string name="p_nombre_preconsulta">Nombre Preconsulta</string>
+    <string name="titulo_pacientes_admitidos_2">Pacientes Admitidos 2</string>
 </resources>
