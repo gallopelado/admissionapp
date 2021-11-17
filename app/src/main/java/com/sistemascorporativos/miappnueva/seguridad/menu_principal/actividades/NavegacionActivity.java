@@ -76,6 +76,7 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
         * CONSULTA
         * */
         Menu nav_menu = navigationView.getMenu();
+        nav_menu.findItem(R.id.nav_profesional).setVisible(false);
         switch (user_rol) {
             case "ADMINISTRADOR":
                 break;
