@@ -21,6 +21,8 @@ public class ProfesionalServices {
         return dao.getProfesionales();
     }
 
+    public ProfesionalDto getProfesional(String codigo_medico) { return dao.getProfesional(codigo_medico); }
+
     public ProfesionalDto insertarNuevo(ProfesionalDto profesional) {
         return dao.insertarNuevo(profesional);
     }

@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 public class ProfesionalDto {
     private String prof_codigo_medico;
     private String profesional_descripcion;
+    private String rol;
     private String prof_numero_registro;
     private Integer espec_id;
+    private String especialidad;
     private String prof_activo;
 }
