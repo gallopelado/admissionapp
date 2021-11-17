@@ -99,6 +99,7 @@ public class ListaProfesionalesAdapter extends RecyclerView.Adapter<ListaProfesi
                     editor.putString("espec_id", listaProfesionalItems.get(getAbsoluteAdapterPosition()).getEspec_id().toString());
                     editor.putString("especialidad", listaProfesionalItems.get(getAbsoluteAdapterPosition()).getEspecialidad());
                     editor.putString("prof_activo", listaProfesionalItems.get(getAbsoluteAdapterPosition()).getProf_activo());
+                    editor.putString("operacion", "editar");
                     editor.commit();
                     // Ir al formulario
                     context.startActivity(new Intent(context, FormProfesionalActivity.class));

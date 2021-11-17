@@ -15,4 +15,10 @@ public class ProfesionalDto {
     private Integer espec_id;
     private String especialidad;
     private String prof_activo;
+    private String creacion_usuario;
+    private String creacion_fecha;
+    private String creacion_hora;
+    private String modificacion_usuario;
+    private String modificacion_fecha;
+    private String modificacion_hora;
 }

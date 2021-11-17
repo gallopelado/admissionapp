@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
@@ -44,6 +47,7 @@ public class ProfesionalActivity extends AppCompatActivity implements SearchView
         binding = ActivityProfesionalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        sharedPref = getSharedPreferences("profesional_referencial", Context.MODE_PRIVATE);
         rvListaProfesionales = binding.rvListaProfesionales;
         rvListaProfesionales.setLayoutManager(new LinearLayoutManager(this));
         svBuscarProfesional = binding.svBuscarProfesional;
@@ -61,10 +65,20 @@ public class ProfesionalActivity extends AppCompatActivity implements SearchView
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_referencial, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.action_opt_referencial:
+                sharedPref.edit().clear().commit();
+                startActivity(new Intent(this, FormProfesionalActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

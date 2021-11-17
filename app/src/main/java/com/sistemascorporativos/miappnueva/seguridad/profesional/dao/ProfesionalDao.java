@@ -4,12 +4,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
 
 import com.sistemascorporativos.miappnueva.db.ConexionDb;
 import com.sistemascorporativos.miappnueva.seguridad.profesional.entidades.ProfesionalDto;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class ProfesionalDao extends ConexionDb {
@@ -67,7 +70,14 @@ public class ProfesionalDao extends ConexionDb {
             values.put("prof_codigo_medico", profesional.getProf_codigo_medico());
             values.put("prof_numero_registro", profesional.getProf_numero_registro());
             values.put("espec_id", profesional.getEspec_id());
-            values.put("prof_activo", profesional.getEspec_id());
+            values.put("prof_activo", profesional.getProf_activo());
+            values.put("prof_creacion_usuario", profesional.getCreacion_usuario());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                values.put("prof_creacion_fecha", LocalDate.now().toString());
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                values.put("prof_creacion_hora", LocalTime.now().toString());
+            }
             Long estado_insert = db.insert("profesional", null, values);
             if(estado_insert > 0) return profesional;
         } catch (Exception e) {
@@ -82,7 +92,14 @@ public class ProfesionalDao extends ConexionDb {
             values.put("prof_codigo_medico", profesional.getProf_codigo_medico());
             values.put("prof_numero_registro", profesional.getProf_numero_registro());
             values.put("espec_id", profesional.getEspec_id());
-            values.put("prof_activo", profesional.getEspec_id());
+            values.put("prof_activo", profesional.getProf_activo());
+            values.put("prof_modificacion_usuario", profesional.getModificacion_usuario());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                values.put("prof_modificacion_fecha", LocalDate.now().toString());
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                values.put("prof_modificacion_hora", LocalTime.now().toString());
+            }
             Integer estado_update = db.update("profesional", values,"prof_codigo_medico = ?", new String[]{ profesional.getProf_codigo_medico() });
             if(estado_update > 0) return profesional;
         } catch (Exception e) {
