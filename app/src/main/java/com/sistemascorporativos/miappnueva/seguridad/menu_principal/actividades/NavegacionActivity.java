@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.referenciales.MainReferencialesActivity;
 import com.sistemascorporativos.miappnueva.seguridad.login.actividades.LoginActivity;
+import com.sistemascorporativos.miappnueva.seguridad.profesional.actividades.ProfesionalActivity;
 import com.sistemascorporativos.miappnueva.seguridad.usuario.actividades.UsuarioActivity;
 
 public class NavegacionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -140,6 +141,9 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_especialidad:
                 intent.putExtra("menu", "especialidad");
                 startActivity(intent);
+                break;
+            case R.id.nav_profesional:
+                startActivity(new Intent(NavegacionActivity.this, ProfesionalActivity.class));
                 break;
             case R.id.nav_usuario:
                 startActivity(new Intent(NavegacionActivity.this, UsuarioActivity.class));
