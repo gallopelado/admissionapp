@@ -1,6 +1,7 @@
 package com.sistemascorporativos.miappnueva.seguridad.profesional.adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.seguridad.login.entidades.LoginDto;
+import com.sistemascorporativos.miappnueva.seguridad.profesional.actividades.FormProfesionalActivity;
 import com.sistemascorporativos.miappnueva.seguridad.profesional.entidades.ProfesionalDto;
 
 import java.util.ArrayList;
@@ -99,7 +101,7 @@ public class ListaProfesionalesAdapter extends RecyclerView.Adapter<ListaProfesi
                     editor.putString("prof_activo", listaProfesionalItems.get(getAbsoluteAdapterPosition()).getProf_activo());
                     editor.commit();
                     // Ir al formulario
-
+                    context.startActivity(new Intent(context, FormProfesionalActivity.class));
                 }
             });
         }

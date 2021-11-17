@@ -22,4 +22,9 @@ public class LoginDto {
     private String usuModificacion_fecha;
     private String usuModificacion_hora;
     private String operacion;
+
+    @Override
+    public String toString() {
+        return usuNombres + " " + usuApellidos;
+    }
 }
