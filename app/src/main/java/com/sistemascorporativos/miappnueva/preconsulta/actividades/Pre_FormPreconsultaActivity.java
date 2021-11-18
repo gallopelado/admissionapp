@@ -23,6 +23,8 @@ import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.admision.actividades.OtrosDatosActivity;
 import com.sistemascorporativos.miappnueva.admision.entidades.AdmisionComponent;
 import com.sistemascorporativos.miappnueva.databinding.ActivityFormularioPreconsultaBinding;
+import com.sistemascorporativos.miappnueva.preconsulta.dao.PreconsultaDao;
+import com.sistemascorporativos.miappnueva.preconsulta.entidades.Pre_PacienteAdmitido;
 import com.sistemascorporativos.miappnueva.preconsulta.entidades.PreconsultaComponent;
 import com.sistemascorporativos.miappnueva.preconsulta.servicios.PreconsultaService;
 import com.sistemascorporativos.miappnueva.referenciales.ciudad.modelos.CiudadDto;
@@ -41,7 +43,7 @@ public class Pre_FormPreconsultaActivity extends AppCompatActivity {
 
     private ActivityFormularioPreconsultaBinding binding;
     private PreconsultaService preconsultaServices;
-    private SharedPreferences sharedPref;
+    private SharedPreferences sharedPref, sharedPref_sesion;
     // Campos del formulario
     private TextInputEditText txtNombrePac;
     private TextInputEditText txtFechaNac;
@@ -69,6 +71,7 @@ public class Pre_FormPreconsultaActivity extends AppCompatActivity {
         this.setTitle(getString(R.string.titulo_preconsulta));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sharedPref = getSharedPreferences("preconsulta", Context.MODE_PRIVATE);
+        sharedPref_sesion = getSharedPreferences("login_preferences", Context.MODE_PRIVATE);
 
         // SETEAR TODOS LOS ELEMENTOS PARA SU CORRECTA MANIPULACIÓN
         // Campos de texto
@@ -128,6 +131,52 @@ public class Pre_FormPreconsultaActivity extends AppCompatActivity {
         txtMotivoConsulta.setText(precon_motivo_consulta);
     }
 
+    private Boolean guardarFormularioPreconsulta() {
+        String precon_codigo_establecimiento = sharedPref.getString("precon_codigo_establecimiento", null);
+        String pacasi_codigo_asignacion = sharedPref.getString("pacasi_codigo_asignacion", null);
+        String precon_temperatura_corporal = txtTemCorp.getText().toString();
+        String precon_presion_arterial = txtPrecArt.getText().toString();
+        String precon_frecuencia_respiratoria = txtFrecueRespi.getText().toString();
+        String precon_pulso = txtPulso.getText().toString();
+        String precon_peso = txtPeso.getText().toString();
+        String precon_talla = txtTalla.getText().toString();
+        String precon_imc = txtImc.getText().toString();
+        String precon_saturacion = txtSaturOxige.getText().toString();
+        String precon_circunferencia_abdominal = txtCircunAbdomi.getText().toString();
+        String precon_motivo_consulta = txtMotivoConsulta.getText().toString();
+
+        // Luego mover este metodo al service
+        PreconsultaDao pdao = new PreconsultaDao(this);
+        Pre_PacienteAdmitido obj = new Pre_PacienteAdmitido();
+        obj.setCodigo_establecimiento(precon_codigo_establecimiento);
+        obj.setCodigo_asignacion(pacasi_codigo_asignacion);
+        if(precon_temperatura_corporal != null)
+            obj.setPrecon_temperatura_corporal(Double.parseDouble(precon_temperatura_corporal));
+        if(precon_presion_arterial!=null)
+            obj.setPrecon_presion_arterial(Double.parseDouble(precon_presion_arterial));
+        if(precon_frecuencia_respiratoria!=null)
+            obj.setPrecon_frecuencia_respiratoria(Double.parseDouble(precon_frecuencia_respiratoria));
+        if(precon_pulso!=null)
+            obj.setPrecon_pulso(Double.parseDouble(precon_pulso));
+        if(precon_peso!=null)
+            obj.setPrecon_peso(Double.parseDouble(precon_peso));
+        if(precon_talla!=null)
+            obj.setPrecon_talla(Double.parseDouble(precon_talla));
+        if(precon_imc!=null)
+            obj.setPrecon_imc(Double.parseDouble(precon_imc));
+        if(precon_saturacion!=null)
+            obj.setPrecon_saturacion(Double.parseDouble(precon_saturacion));
+        if(precon_circunferencia_abdominal!=null)
+            obj.setPrecon_circunferencia_abdominal(Double.parseDouble(precon_circunferencia_abdominal));
+        obj.setPrecon_motivo_consulta(precon_motivo_consulta);
+        obj = pdao.actualizarPreConsulta(obj);
+        if(obj.getOperacion()!=null)
+            Toast.makeText(this, "Preconsulta guardada", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
     /*
     * Solucion en https://www.baeldung.com/java-get-age
      */
@@ -147,153 +196,15 @@ public class Pre_FormPreconsultaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_guardar:
+            case R.id.action_guardar_preconsulta:
                 guardarFormularioPreconsulta();
+                finish();
                 break;
             case android.R.id.home:
+                sharedPref.edit().clear().commit();
                 onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private boolean validarAntes() {
-        Boolean isValid = true;
-        String numeroIdentificacion = txtNombrePac.getText().toString().trim();
-        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-        if(numeroIdentificacion.isEmpty() || numeroIdentificacion==null) {
-            dialogo.setTitle("Cuidado")
-                    .setMessage("Debe registrar primero este formulario")
-                    .setPositiveButton("Salir", null).show();
-            isValid=false;
-            camposValidos();
-        } else {
-            AdmisionComponent pacienteGuardado = preconsultaServices.getPacienteByCodigopaciente(numeroIdentificacion);
-            if(pacienteGuardado.getOperacion()==null) {
-                dialogo.setTitle("Cuidado")
-                        .setMessage("Este paciente no existe")
-                        .setPositiveButton("Salir", null).show();
-                isValid=false;
-            }
-        }
-        return isValid;
-    }
-
-    private void guardarFormularioPreconsulta() {
-        if(camposValidos()) {
-            String nroIdentificacion = txtNombrePac.getText().toString().trim();
-            String nombres = txtFechaNac.getText().toString().trim();
-            String apellidos = txtTemCorp.getText().toString().trim();
-            String lugarNacimiento = txtFrecueRespi.getText().toString().trim();
-            String fechaNacimiento = txtPrecArt.getText().toString();
-            String correo = txtPulso.getText().toString().trim();
-            String telefono = txtPeso.getText().toString().trim();
-            String domicilio = txtTalla.getText().toString().trim();
-
-            // Una vez recolectados los datos, se procede a guardar
-            PreconsultaComponent paciente = new PreconsultaComponent();
-            paciente.setNroIdentificacion(nroIdentificacion);
-            paciente.setNombres(nombres);
-            paciente.setApellidos(apellidos);
-            paciente.setLugarNacimiento(lugarNacimiento);
-            paciente.setFechaNacimiento(fechaNacimiento);
-            paciente.setCorreo(correo);
-            paciente.setTelefono(telefono);
-            paciente.setDireccion(domicilio);
-
-
-//            if(preconsultaServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion()).getOperacion()==null) {
-//                //guardar
-//                paciente = preconsultaServices.guardarPaciente(paciente);
-//                if(paciente.getOperacion().contains("GUARDADO")) {
-//                    AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-//                    dialogo.setTitle("Se guardó correctamente").setMessage("Se han registrado datos de paciente").setPositiveButton("OK", null).show();
-//                }
-//            } else {
-//                //actualizar
-//                paciente = preconsultaServices.actualizarPacienteFormularioPrincipal(paciente);
-//                if(paciente.getOperacion().contains("UPDATE-FORMPRINCIPAL")) {
-//                    AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-//                    dialogo.setTitle("Se actualizó correctamente").setMessage("Se han actualizado datos de paciente").setPositiveButton("OK", null).show();
-//                }
-//            }
-
-            /*if(paciente.getOperacion().contains("GUARDADO")) {
-                AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-                dialogo.setTitle("Se guardó correctamente").setMessage("Se han registrado datos de paciente").setPositiveButton("OK", null).show();
-                AdmisionComponent pacienteGuardado = admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion());
-                System.out.println("GUARDADO: "+pacienteGuardado.toString());
-            }*/
-        }
-    }
-
-    private Boolean camposValidos() {
-        Boolean isValid = true;
-
-        if(txtTemCorp.getText()==null || txtNombrePac.getText().toString().isEmpty()) {
-            binding.tilcorporalPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tilcorporalPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilcorporalPreconsulta.setError(null);
-        }
-        if(txtPrecArt.getText()==null || txtFechaNac.getText().toString().isEmpty()) {
-            binding.tilpresionArtPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tilpresionArtPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilpresionArtPreconsulta.setError(null);
-        }
-        if(txtFrecueRespi.getText()==null || txtTemCorp.getText().toString().isEmpty()) {
-            binding.tilfrecuenRespPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tilfrecuenRespPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilfrecuenRespPreconsulta.setError(null);
-        }
-        if(txtPulso.getText()==null || txtPrecArt.getText().toString().isEmpty()) {
-            binding.tilpulsoPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tilpulsoPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilpulsoPreconsulta.setError(null);
-        }
-        if(txtPeso.getText()==null || txtPrecArt.getText().toString().isEmpty()) {
-            binding.tilpesoPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tilpesoPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilpesoPreconsulta.setError(null);
-        }
-        if(txtTalla.getText()==null || txtPrecArt.getText().toString().isEmpty()) {
-            binding.tiltallaPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tiltallaPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tiltallaPreconsulta.setError(null);
-        }
-        if(txtImc.getText()==null || txtPrecArt.getText().toString().isEmpty()) {
-            binding.tilimcPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tilimcPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilimcPreconsulta.setError(null);
-        }
-        if(txtSaturOxige.getText()==null || txtPrecArt.getText().toString().isEmpty()) {
-            binding.tilsaturaOxigPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tilsaturaOxigPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilsaturaOxigPreconsulta.setError(null);
-        }
-        if(txtCircunAbdomi.getText()==null || txtPrecArt.getText().toString().isEmpty()) {
-            binding.tilcircAbdoPreconsulta.setError(getString(R.string.common_mandatory_hint));
-            binding.tilcircAbdoPreconsulta.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilcircAbdoPreconsulta.setError(null);
-        }
-
-        return isValid;
     }
 }

@@ -32,6 +32,12 @@ public class Pre_ListaAdmitidosActivity extends AppCompatActivity implements Sea
         init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        generarVista();
+    }
+
     public void init() {
         binding = ActivityPreListaAdmitidosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -39,13 +45,17 @@ public class Pre_ListaAdmitidosActivity extends AppCompatActivity implements Sea
         setTitle(getString(R.string.titulo_pacientes_admitidos_preconsulta));
         rvListaPacientesAdmitidosPreconsulta = binding.rvListaPacientesAdmitidosPreconsulta;
         svBuscarPacientePreconsulta = binding.svBuscarPacientePreconsulta;
-        listaArrayPacientes = new ArrayList<>();
         rvListaPacientesAdmitidosPreconsulta.setLayoutManager(new LinearLayoutManager(this));
-        PreconsultaDao preconsultaDao = new PreconsultaDao(this);
-        ArrayList<Pre_PacienteAdmitido> lista = preconsultaDao.getPacientesAdmitidos();
-        adapter = new Pre_ListaAdmitidosAdapter(preconsultaDao.getPacientesAdmitidos());
-        rvListaPacientesAdmitidosPreconsulta.setAdapter(adapter);
         svBuscarPacientePreconsulta.setOnQueryTextListener(this);
+        generarVista();
+    }
+
+    private void generarVista() {
+        PreconsultaDao preconsultaDao = new PreconsultaDao(this);
+        listaArrayPacientes = new ArrayList<>();
+        listaArrayPacientes = preconsultaDao.getPacientesAdmitidos();
+        adapter = new Pre_ListaAdmitidosAdapter(listaArrayPacientes);
+        rvListaPacientesAdmitidosPreconsulta.setAdapter(adapter);
     }
 
     @Override

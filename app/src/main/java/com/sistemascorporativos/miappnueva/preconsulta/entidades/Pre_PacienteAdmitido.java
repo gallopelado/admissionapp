@@ -30,4 +30,5 @@ public class Pre_PacienteAdmitido {
     private String precon_modificacion_usuario;
     private String precon_modificacion_fecha;
     private String precon_modificacion_hora;
+    private String operacion;
 }

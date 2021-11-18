@@ -56,6 +56,7 @@
         <entry key="app/src/main/res/menu/menu_asignar_medico.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/menu/menu_lista_pacientes_admitidos.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/menu_otros_datos.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/menu/menu_preconsulta.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/menu/menu_ref.xml" value="0.10648148148148148" />
         <entry key="app/src/main/res/menu/menu_referencial.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_referenciales.xml" value="0.33" />
