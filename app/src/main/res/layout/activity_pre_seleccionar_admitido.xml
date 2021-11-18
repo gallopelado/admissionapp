@@ -28,7 +28,6 @@
                 android:layout_toRightOf="@id/mtrl_list_item_icon"
                 android:gravity="center"
                 android:maxLines="1"
-                android:onClick="clipseleccionpaciente"
                 android:paddingTop="16dp"
                 android:paddingEnd="16dp"
                 android:textAppearance="?attr/textAppearanceSubtitle1"

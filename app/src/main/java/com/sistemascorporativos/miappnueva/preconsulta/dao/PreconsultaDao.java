@@ -263,13 +263,26 @@ public class PreconsultaDao extends ConexionDb {
 
     public ArrayList<Pre_PacienteAdmitido> getPacientesAdmitidos() {
         ArrayList<Pre_PacienteAdmitido> list = new ArrayList<>();
-        String querySQL = "SELECT p.pac_codigo_paciente, p.pac_nombres||' '||p.pac_apellidos paciente , usu.usu_nombres||' '||usu.usu_apellidos medico FROM pacientes p LEFT JOIN paciente_asignacion pa ON pa.pac_codigo_paciente=p.pac_codigo_paciente LEFT JOIN profesional prof ON prof.prof_codigo_medico=pa.med_id LEFT JOIN usuarios usu ON usu.usu_codigo_usuario=prof_codigo_medico WHERE prof_activo = 't'";
+        String querySQL = "SELECT pre.precon_codigo_establecimiento, pre.pacasi_codigo_asignacion, p.pac_codigo_paciente, p.pac_fechanac, p.pac_nombres ||' '|| p.pac_apellidos paciente, pre.precon_creacion_fecha, pre.precon_temperatura_corporal, pre.precon_presion_arterial, pre.precon_frecuencia_respiratoria, pre.precon_pulso, pre.precon_peso, pre.precon_talla, pre.precon_imc, pre.precon_saturacion, pre.precon_circunferencia_abdominal, pre.precon_motivo_consulta, pre.precon_creacion_usuario, pre.precon_creacion_hora, pre.precon_modificacion_usuario, pre.precon_modificacion_fecha, pre.precon_modificacion_hora, usu.usu_nombres || ' ' || usu.usu_apellidos medico FROM preconsulta pre LEFT JOIN paciente_asignacion pa ON pa.pacasi_codigo_establecimiento = pre.precon_codigo_establecimiento AND pa.pacasi_codigo_asignacion = pre.pacasi_codigo_asignacion LEFT JOIN pacientes p ON p.pac_codigo_paciente = pa.pac_codigo_paciente LEFT JOIN profesional prof ON prof.prof_codigo_medico = pa.med_id LEFT JOIN usuarios usu ON usu.usu_codigo_usuario = prof_codigo_medico";
         try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();Cursor cursor =  db.rawQuery(querySQL, null);) {
             while(cursor.moveToNext()) {
                 Pre_PacienteAdmitido obj = new Pre_PacienteAdmitido();
-                obj.setCedulaPaciente(cursor.getString(cursor.getColumnIndex("pac_codigo_paciente")));
+                obj.setCodigo_establecimiento(cursor.getString(cursor.getColumnIndex("precon_codigo_establecimiento")));
+                obj.setCodigo_asignacion(cursor.getString(cursor.getColumnIndex("pacasi_codigo_asignacion")));
+                obj.setCedulaPaciente(cursor.getString(cursor.getColumnIndex("pac_codigo_paciente")));//cedula
+                obj.setFechanac(cursor.getString(cursor.getColumnIndex("pac_fechanac")));
                 obj.setNombrePaciente(cursor.getString(cursor.getColumnIndex("paciente")));
                 obj.setConsultando("Consultando con el Dr. "+cursor.getString(cursor.getColumnIndex("medico")));
+                obj.setPrecon_temperatura_corporal(cursor.getDouble(cursor.getColumnIndex("precon_temperatura_corporal")));
+                obj.setPrecon_presion_arterial(cursor.getDouble(cursor.getColumnIndex("precon_presion_arterial")));
+                obj.setPrecon_frecuencia_respiratoria(cursor.getDouble(cursor.getColumnIndex("precon_frecuencia_respiratoria")));
+                obj.setPrecon_pulso(cursor.getDouble(cursor.getColumnIndex("precon_pulso")));
+                obj.setPrecon_peso(cursor.getDouble(cursor.getColumnIndex("precon_peso")));
+                obj.setPrecon_talla(cursor.getDouble(cursor.getColumnIndex("precon_talla")));
+                obj.setPrecon_imc(cursor.getDouble(cursor.getColumnIndex("precon_imc")));
+                obj.setPrecon_saturacion(cursor.getDouble(cursor.getColumnIndex("precon_saturacion")));
+                obj.setPrecon_circunferencia_abdominal(cursor.getDouble(cursor.getColumnIndex("precon_circunferencia_abdominal")));
+                obj.setPrecon_motivo_consulta(cursor.getString(cursor.getColumnIndex("precon_motivo_consulta")));
                 list.add(obj);
             }
         } catch(Exception e) {

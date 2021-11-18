@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -28,6 +30,9 @@ import com.sistemascorporativos.miappnueva.referenciales.nacionalidad.modelos.Na
 import com.sistemascorporativos.miappnueva.seguridad.menu_principal.actividades.NavegacionActivity;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -35,10 +40,8 @@ import java.util.TimeZone;
 public class Pre_FormPreconsultaActivity extends AppCompatActivity {
 
     private ActivityFormularioPreconsultaBinding binding;
-    private SharedPreferences sharedPreferences;
-    static final Integer RC_EDIT = 21;
-    PreconsultaService preconsultaServices;
-    private Bundle extras;
+    private PreconsultaService preconsultaServices;
+    private SharedPreferences sharedPref;
     // Campos del formulario
     private TextInputEditText txtNombrePac;
     private TextInputEditText txtFechaNac;
@@ -56,17 +59,16 @@ public class Pre_FormPreconsultaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+        traerDatosAlFormulario();
+    }
+
+    private void init() {
         binding = ActivityFormularioPreconsultaBinding.inflate(getLayoutInflater());
-        //setContentView(R.layout.activity_main);
         setContentView(binding.getRoot());
         this.setTitle(getString(R.string.titulo_preconsulta));
-
-        // habilita flecha de retroceso
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Iniciar el sharedpreferences
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        sharedPref = getSharedPreferences("preconsulta", Context.MODE_PRIVATE);
 
         // SETEAR TODOS LOS ELEMENTOS PARA SU CORRECTA MANIPULACIÓN
         // Campos de texto
@@ -82,69 +84,58 @@ public class Pre_FormPreconsultaActivity extends AppCompatActivity {
         txtSaturOxige = binding.etsaturaOxigPreconsulta;
         txtCircunAbdomi = binding.etcircAbdoPreconsulta;
         txtMotivoConsulta = binding.etmotivoConsulta;
-        
-        
-        // Iniciar una instancia del service
-        preconsultaServices = new PreconsultaService(this);
-        ArrayList<CiudadDto> listaCiudades = preconsultaServices.getCiudades();
-        ArrayList<NacionalidadDto> listaNacionalidades = preconsultaServices.getNacionalidades();
-        ArrayAdapter<CiudadDto> ciudadAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, listaCiudades);
-        ArrayAdapter<NacionalidadDto> nacionalidadAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, listaNacionalidades);
+    }
 
-        // Asignar evento click al datepicker de fecha de nacimiento - Despliega el calendario
-        txtPrecArt.setOnClickListener(new View.OnClickListener() {
-            MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
-            MaterialDatePicker picker = builder.setTitleText("Seleccionar fecha").build();
+    private void traerDatosAlFormulario() {
+        String nombre_paciente = sharedPref.getString("nombre_paciente", null);
+        String fechanac = sharedPref.getString("fechanac", null);
+        String precon_codigo_establecimiento = sharedPref.getString("precon_codigo_establecimiento", null);
+        String pacasi_codigo_asignacion = sharedPref.getString("pacasi_codigo_asignacion", null);
+        String precon_temperatura_corporal = sharedPref.getString("precon_temperatura_corporal", null);
+        String precon_presion_arterial = sharedPref.getString("precon_presion_arterial", null);
+        String precon_frecuencia_respiratoria = sharedPref.getString("precon_frecuencia_respiratoria", null);
+        String precon_pulso = sharedPref.getString("precon_pulso", null);
+        String precon_peso = sharedPref.getString("precon_peso", null);
+        String precon_talla = sharedPref.getString("precon_talla", null);
+        String precon_imc = sharedPref.getString("precon_imc", null);
+        String precon_saturacion = sharedPref.getString("precon_saturacion", null);
+        String precon_circunferencia_abdominal = sharedPref.getString("precon_circunferencia_abdominal", null);
+        String precon_motivo_consulta = sharedPref.getString("precon_motivo_consulta", null);
 
-            @Override
-            public void onClick(View v) {
-                picker.addOnPositiveButtonClickListener(timeInMilliseconds -> {
-                    // obtener el tiempo en milisegundos y formatear
-                    SimpleDateFormat dateStr = new SimpleDateFormat("dd/MM/yyy", Locale.getDefault());
-                    dateStr.setTimeZone(TimeZone.getTimeZone("UTC"));
-                    String fecha = dateStr.format(timeInMilliseconds);
-                    txtPrecArt.setText(fecha);//setear campo
-                });
-                picker.show(getSupportFragmentManager(), picker.toString());
-            }
-        });
-
-        // Cuando se hace click en un spinner, combo o lista
-//        ciudadCombo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                int ciuId = ((CiudadDto) parent.getSelectedItem()).getCiuId();
-//                String ciudad = ((CiudadDto) parent.getSelectedItem()).getCiuDescripcion();
-//                Toast.makeText(Pre_FormPreconsultaActivity.this, ciuId+" - "+ciudad, Toast.LENGTH_LONG).show();
-//            }
-
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-        //Traer extras
-        if(savedInstanceState == null) {
-            extras = getIntent().getExtras();
-            if(extras.getString("operacion").isEmpty()) {
-                txtNombrePac.setEnabled(true);
-                txtNombrePac.setText(extras.getString("codigo_paciente"));
-            } else {
-                txtNombrePac.setEnabled(false);
-                txtNombrePac.setText(extras.getString("codigo_paciente"));
-                txtFechaNac.setText(extras.getString("nombres"));
-                txtTemCorp.setText(extras.getString("apellidos"));
-
-
-                txtPrecArt.setText(extras.getString("fechanac"));
-
-
-                txtFrecueRespi.setText(extras.getString("lugarnac"));
-                txtPulso.setText(extras.getString("correo"));
-                txtPeso.setText(extras.getString("telefono"));
-                txtTalla.setText(extras.getString("domicilio"));
-            }
+        txtNombrePac.setText(nombre_paciente);
+        //procesar fecha de nacimiento para edad
+        DateTimeFormatter formatter = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         }
+        LocalDate localdate = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            localdate = LocalDate.parse(fechanac, formatter);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String edad = calculateAge(localdate, LocalDate.now()).toString();
+            txtFechaNac.setText( edad );
+        }
+        txtTemCorp.setText(precon_temperatura_corporal);
+        txtPrecArt.setText(precon_presion_arterial);
+        txtFrecueRespi.setText(precon_frecuencia_respiratoria);
+        txtPulso.setText(precon_pulso);
+        txtPeso.setText(precon_peso);
+        txtTalla.setText(precon_talla);
+        txtImc.setText(precon_imc);
+        txtSaturOxige.setText(precon_saturacion);
+        txtCircunAbdomi.setText(precon_circunferencia_abdominal);
+        txtMotivoConsulta.setText(precon_motivo_consulta);
+    }
+
+    /*
+    * Solucion en https://www.baeldung.com/java-get-age
+     */
+    public static Integer calculateAge(LocalDate birthDate, LocalDate currentDate) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Period.between(birthDate, currentDate).getYears();
+        }
+        return 0;
     }
 
     @Override
@@ -156,20 +147,6 @@ public class Pre_FormPreconsultaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_opciones:
-                if(validarAntes()) {
-                    Intent intent = new Intent(this, NavegacionActivity.class);
-                    intent.putExtra("codigo_paciente", txtNombrePac.getText().toString());
-                    intent.putExtra("seguromedico", extras.getInt("seguromedico"));
-                    intent.putExtra("nrohijos", extras.getInt("nrohijos"));
-                    intent.putExtra("estadocivil", extras.getString("estadocivil"));
-                    intent.putExtra("niveleducativo", extras.getInt("niveleducativo"));
-                    intent.putExtra("situacionlaboral", extras.getInt("situacionlaboral"));
-                    intent.putExtra("latitud", extras.getDouble("latitud"));
-                    intent.putExtra("longitud", extras.getDouble("longitud"));
-                    startActivity(intent);
-                }
-                break;
             case R.id.action_guardar:
                 guardarFormularioPreconsulta();
                 break;

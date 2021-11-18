@@ -9,28 +9,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sistemascorporativos.miappnueva.R;
-import com.sistemascorporativos.miappnueva.admision.actividades.ListaPacientesAdmitidosActivity;
-import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAdmitidoDetalle;
+import com.sistemascorporativos.miappnueva.preconsulta.actividades.Pre_FormPreconsultaActivity;
 import com.sistemascorporativos.miappnueva.preconsulta.entidades.Pre_PacienteAdmitido;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
 //x
 public class Pre_ListaAdmitidosAdapter extends RecyclerView.Adapter<Pre_ListaAdmitidosAdapter.Pre_PacienteDetalleViewHolder>{
 
-    ArrayList<Pre_PacienteAdmitido> listaPacientes2;
-    ArrayList<Pre_PacienteAdmitido> listaOriginalPacientes2;
-    SharedPreferences sharedPref;
+    private ArrayList<Pre_PacienteAdmitido> listaPacientes;
+    private ArrayList<Pre_PacienteAdmitido> listaOriginalPacientes;
+    private SharedPreferences sharedPref;
 
     public Pre_ListaAdmitidosAdapter(ArrayList<Pre_PacienteAdmitido> listaPacientes) {
-        this.listaPacientes2 = listaPacientes;
-        listaOriginalPacientes2 = new ArrayList<>();
-        listaOriginalPacientes2.addAll(listaPacientes);
+        this.listaPacientes = listaPacientes;
+        listaOriginalPacientes = new ArrayList<>();
+        listaOriginalPacientes.addAll(listaPacientes);
     }
 
     @NonNull
@@ -42,9 +39,9 @@ public class Pre_ListaAdmitidosAdapter extends RecyclerView.Adapter<Pre_ListaAdm
 
     @Override
     public void onBindViewHolder(@NonNull Pre_PacienteDetalleViewHolder holder, int position) {
-        holder.viewNombrePaciente.setText(listaPacientes2.get(position).getNombrePaciente());
-        holder.viewCedula.setText(listaPacientes2.get(position).getCedulaPaciente());
-        holder.viewConsultado.setText(listaPacientes2.get(position).getConsultando());
+        holder.viewNombrePaciente.setText(listaPacientes.get(position).getNombrePaciente());
+        holder.viewCedula.setText(listaPacientes.get(position).getCedulaPaciente());
+        holder.viewConsultado.setText(listaPacientes.get(position).getConsultando());
     }
 
 //    public void filtrado(String txtBuscar) {
@@ -76,7 +73,7 @@ public class Pre_ListaAdmitidosAdapter extends RecyclerView.Adapter<Pre_ListaAdm
 
     @Override
     public int getItemCount() {
-        return listaPacientes2.size();
+        return listaPacientes.size();
     }
 
     public class Pre_PacienteDetalleViewHolder extends RecyclerView.ViewHolder {
@@ -88,60 +85,33 @@ public class Pre_ListaAdmitidosAdapter extends RecyclerView.Adapter<Pre_ListaAdm
             viewNombrePaciente = itemView.findViewById(R.id.tvNombrePaciente);
             viewCedula = itemView.findViewById(R.id.tvCedula);
             viewConsultado = itemView.findViewById(R.id.tvConsultando);
+
+            // Agregamos evento a la fila
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = itemView.getContext();
+                    sharedPref = context.getSharedPreferences("preconsulta", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("nombre_paciente", listaPacientes.get(getAbsoluteAdapterPosition()).getNombrePaciente());
+                    editor.putString("fechanac", listaPacientes.get(getAbsoluteAdapterPosition()).getFechanac());
+                    editor.putString("precon_codigo_establecimiento", listaPacientes.get(getAbsoluteAdapterPosition()).getCodigo_establecimiento());
+                    editor.putString("pacasi_codigo_asignacion", listaPacientes.get(getAbsoluteAdapterPosition()).getCodigo_asignacion());
+                    editor.putString("precon_temperatura_corporal", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_temperatura_corporal().toString());
+                    editor.putString("precon_presion_arterial", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_presion_arterial().toString());
+                    editor.putString("precon_frecuencia_respiratoria", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_frecuencia_respiratoria().toString());
+                    editor.putString("precon_pulso", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_pulso().toString());
+                    editor.putString("precon_peso", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_peso().toString());
+                    editor.putString("precon_talla", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_talla().toString());
+                    editor.putString("precon_imc", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_imc().toString());
+                    editor.putString("precon_saturacion", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_saturacion().toString());
+                    editor.putString("precon_circunferencia_abdominal", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_circunferencia_abdominal().toString());
+                    editor.putString("precon_motivo_consulta", listaPacientes.get(getAbsoluteAdapterPosition()).getPrecon_motivo_consulta());
+                    editor.commit();
+                    // ir al formulario
+                    context.startActivity(new Intent(context, Pre_FormPreconsultaActivity.class));
+                }
+            });
         }
     }
-
-
-
-//    @Override
-//    public int getItemCount() {
-//        return listaPacientes2.size();
-//    }
-//
-//    public class MedicoViewHolder extends RecyclerView.ViewHolder {
-//
-//        TextView viewNombreMedico, viewEspecialidadMedico;
-//
-//        public MedicoViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//
-//            viewNombreMedico = itemView.findViewById(R.id.tvNombreMedico);
-//            viewEspecialidadMedico = itemView.findViewById(R.id.tvConsultando);
-//
-//            // Seleccionar algún registro de nuestra tabla
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Context context = itemView.getContext();
-//                    // Guardamos en el store el codigo médico
-//                    sharedPref = context.getSharedPreferences("preferencias", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sharedPref.edit();
-//                    editor.putString("codigo_medico", listaMedicos2.get(getAbsoluteAdapterPosition()).getUsuario().getCodigoUsuario());
-//                    editor.commit();
-//
-//                    String medico = "Dr. "+listaMedicos2.get(getAbsoluteAdapterPosition()).getUsuario().getNombreUsuario()+" "+listaMedicos2.get(getAbsoluteAdapterPosition()).getUsuario().getApellidoUsuario();
-//                    AlertDialog.Builder dialogo = new AlertDialog.Builder(context);
-//                    dialogo.setTitle("Asignar Médico")
-//                            .setMessage("Desear asignar al "+ medico)
-//                            .setPositiveButton("Sí", (dialog, which) -> {
-//                                String codigo_paciente = sharedPref.getString("codigo_paciente", null);
-//                                String codigo_medico = sharedPref.getString("codigo_medico", null);
-//                                Integer seguro_medico = sharedPref.getInt("seguro_medico", 0);
-//                                Boolean res = asignarMedico2(codigo_paciente, codigo_medico, seguro_medico, context);
-//                                if(res==true) {
-//                                    irAbuscarPaciente(context);
-//                                }
-//                            })
-//                            .setNegativeButton("No", null).show();
-//                }
-//            });
-//        }
-//    }
-//
-//    public void irAbuscarPaciente(Context context) {
-//        Intent intent = new Intent(context, ListaPacientesAdmitidosActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.startActivity(intent);
-//    }
-//
 }

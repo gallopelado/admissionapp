@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,9 +21,8 @@ import java.util.ArrayList;
 public class Pre_ListaAdmitidosActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private ActivityPreListaAdmitidosBinding binding;
-
-    private RecyclerView listaPacientes;
-    SearchView searchViewBuscar;
+    private RecyclerView rvListaPacientesAdmitidosPreconsulta;
+    SearchView svBuscarPacientePreconsulta;
     private ArrayList<Pre_PacienteAdmitido> listaArrayPacientes;
     private Pre_ListaAdmitidosAdapter adapter;
 
@@ -32,22 +30,22 @@ public class Pre_ListaAdmitidosActivity extends AppCompatActivity implements Sea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
-        setContentView(binding.getRoot());
-        setTitle(getString(R.string.titulo_pacientes_admitidos_preconsulta));
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        listaPacientes.setLayoutManager(new LinearLayoutManager(this));
-        PreconsultaDao preconsultaDao = new PreconsultaDao(this);
-        ArrayList<Pre_PacienteAdmitido> lista = preconsultaDao.getPacientesAdmitidos();
-        adapter = new Pre_ListaAdmitidosAdapter(preconsultaDao.getPacientesAdmitidos());
-        listaPacientes.setAdapter(adapter);
-        searchViewBuscar.setOnQueryTextListener(this);
     }
 
     public void init() {
         binding = ActivityPreListaAdmitidosBinding.inflate(getLayoutInflater());
-        listaPacientes = binding.rvListaPacientesAdmitidos2;
-        searchViewBuscar = binding.searchViewBuscarPaciente2;
+        setContentView(binding.getRoot());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getString(R.string.titulo_pacientes_admitidos_preconsulta));
+        rvListaPacientesAdmitidosPreconsulta = binding.rvListaPacientesAdmitidosPreconsulta;
+        svBuscarPacientePreconsulta = binding.svBuscarPacientePreconsulta;
         listaArrayPacientes = new ArrayList<>();
+        rvListaPacientesAdmitidosPreconsulta.setLayoutManager(new LinearLayoutManager(this));
+        PreconsultaDao preconsultaDao = new PreconsultaDao(this);
+        ArrayList<Pre_PacienteAdmitido> lista = preconsultaDao.getPacientesAdmitidos();
+        adapter = new Pre_ListaAdmitidosAdapter(preconsultaDao.getPacientesAdmitidos());
+        rvListaPacientesAdmitidosPreconsulta.setAdapter(adapter);
+        svBuscarPacientePreconsulta.setOnQueryTextListener(this);
     }
 
     @Override
@@ -60,8 +58,7 @@ public class Pre_ListaAdmitidosActivity extends AppCompatActivity implements Sea
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(this, Pre_FormPreconsultaActivity.class);
-                startActivity(intent);
+                onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);
