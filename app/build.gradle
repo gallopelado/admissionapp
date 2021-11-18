@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
+    //Plugin para levantar el mapa (Admision)
     implementation 'org.osmdroid:osmdroid-android:6.1.11'
 
     implementation 'com.google.guava:guava:31.0.1-jre'

@@ -3,13 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_buscar_paciente.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_form_preconsulta.xml" value="0.1574074074074074" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_formulario_admision.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_formulario_preconsulta.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_inicio_menu_principal.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_lista_admitidos.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_lista_pacientes_admitidos.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_navegacion.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_otros_datos.xml" value="0.17037037037037037" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_pre_lista_admitidos.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_pre_seleccionar_admitido.xml" value="0.22" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_seleccionar_admitido.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_seleccionar_amitido.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/app_bar_navegacion.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/content_navegacion.xml" value="0.2125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/fragment_home.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/lista_item_paciente_admitido.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/layout/nav_header_navegacion.xml" value="0.17037037037037037" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/menu/activity_main_drawer.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_admision.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_asignar_medico.xml" value="0.2125" />

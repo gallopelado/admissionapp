@@ -56,5 +56,6 @@
     <string name="chk_text_estado">Activo</string>
 
     <string name="p_nombre_preconsulta">Nombre Preconsulta</string>
-    <string name="titulo_pacientes_admitidos_2">Pacientes Admitidos 2</string>
+    <string name="titulo_pacientes_admitidos_2">Pacientes Preconsulta</string>
+    <string name="titulo_preconsulta">Formulario de Preconsulta</string>
 </resources>

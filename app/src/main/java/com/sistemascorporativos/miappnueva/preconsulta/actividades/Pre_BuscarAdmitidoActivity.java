@@ -12,16 +12,18 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.sistemascorporativos.miappnueva.R;
-import com.sistemascorporativos.miappnueva.admision.actividades.BuscarPacienteActivity;
 import com.sistemascorporativos.miappnueva.admision.actividades.FormularioAdmisionActivity;
 import com.sistemascorporativos.miappnueva.admision.actividades.ListaPacientesAdmitidosActivity;
 import com.sistemascorporativos.miappnueva.admision.entidades.AdmisionComponent;
 import com.sistemascorporativos.miappnueva.admision.servicios.AdmisionServices;
 import com.sistemascorporativos.miappnueva.databinding.ActivityBuscarPacienteBinding;
+import com.sistemascorporativos.miappnueva.databinding.ActivityInicioMenuPrincipalBinding;
+import com.sistemascorporativos.miappnueva.preconsulta.entidades.PreconsultaComponent;
+import com.sistemascorporativos.miappnueva.preconsulta.servicios.PreconsultaService;
 
-public class BuscarAdmitidoActivity extends AppCompatActivity {
+public class Pre_BuscarAdmitidoActivity extends AppCompatActivity {
 
-    private ActivityBuscarPacienteBinding binding;
+    private ActivityInicioMenuPrincipalBinding binding;
     private SharedPreferences sharedPreferences;
     private TextInputEditText txtBuscarPaciente;
     private Button btRealizarBusqueda, btPacientesAdmitidos;
@@ -30,12 +32,12 @@ public class BuscarAdmitidoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityBuscarPacienteBinding.inflate(getLayoutInflater());
+        binding = ActivityInicioMenuPrincipalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        btRealizarBusqueda = binding.btRealizarBusqueda;
-        btPacientesAdmitidos = binding.btPacientesAdmitidos;
-        txtBuscarPaciente = binding.etBuscarPaciente;
+//        btRealizarBusqueda = binding.btRealizarBusqueda;
+//        btPacientesAdmitidos = binding.btPacientesAdmitidos;
+//        txtBuscarPaciente = binding.etBuscarPaciente;
 
         // Foco al campo y limpiar
         txtBuscarPaciente.setText("");
@@ -50,24 +52,24 @@ public class BuscarAdmitidoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String codigoPaciente = txtBuscarPaciente.getText().toString().trim();
                 // Buscar paciente si existe
-                AdmisionServices admisionServices = new AdmisionServices(BuscarAdmitidoActivity.this);
+                PreconsultaService preconsultaService = new PreconsultaService(Pre_BuscarAdmitidoActivity.this);
                 if(!codigoPaciente.isEmpty()) {
-                    binding.tilBuscarPaciente.setError(null);
-                    AdmisionComponent paciente = admisionServices.getPacienteByCodigopaciente(codigoPaciente);
+//                    binding.tilBuscarPaciente.setError(null);
+                    AdmisionComponent paciente = preconsultaService.getPacienteByCodigopaciente(codigoPaciente);
                     //No existe paciente
                     if(paciente.getOperacion()==null) {
-                        binding.tilBuscarPaciente.setError(getText(R.string.helper_ci));
-                        AlertDialog.Builder dialogo = new AlertDialog.Builder(BuscarAdmitidoActivity.this);
+//                        binding.tilBuscarPaciente.setError(getText(R.string.helper_ci));
+                        AlertDialog.Builder dialogo = new AlertDialog.Builder(Pre_BuscarAdmitidoActivity.this);
                         dialogo.setTitle("No existe paciente").setMessage("¿Desea agregar un nuevo paciente?")
                                 .setPositiveButton("Si",(dialog, which) -> {
-                                    Intent intent = new Intent(BuscarAdmitidoActivity.this, FormularioAdmisionActivity.class);
+                                    Intent intent = new Intent(Pre_BuscarAdmitidoActivity.this, FormularioAdmisionActivity.class);
                                     intent.putExtra("codigo_paciente", codigoPaciente);
                                     intent.putExtra("operacion", "");
                                     startActivity(intent);
                                 }).setNegativeButton("No", null).show();
                     } else {
                         //Existe paciente
-                        Intent intent = new Intent(BuscarAdmitidoActivity.this, FormularioAdmisionActivity.class);
+                        Intent intent = new Intent(Pre_BuscarAdmitidoActivity.this, Pre_FormPreconsultaActivity.class);
                         intent.putExtra("codigo_paciente", paciente.getNroIdentificacion());
                         intent.putExtra("nombres", paciente.getNombres());
                         intent.putExtra("apellidos", paciente.getApellidos());
@@ -90,18 +92,19 @@ public class BuscarAdmitidoActivity extends AppCompatActivity {
                         intent.putExtra("operacion", paciente.getOperacion());
                         startActivity(intent);
                     }
-                } else {
-                    binding.tilBuscarPaciente.setError(getText(R.string.helper_ci));
-                    binding.tilBuscarPaciente.requestFocus();
-                    Toast.makeText(BuscarAdmitidoActivity.this, "Debe ingresar el número de CI", Toast.LENGTH_SHORT).show();
                 }
+//                else {
+//                    binding.tilBuscarPaciente.setError(getText(R.string.helper_ci));
+//                    binding.tilBuscarPaciente.requestFocus();
+//                    Toast.makeText(Pre_BuscarAdmitidoActivity.this, "Debe ingresar el número de CI", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
         btPacientesAdmitidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pacienteAdmitidos = new Intent(BuscarAdmitidoActivity.this, ListaPacientesAdmitidosActivity.class);
+                Intent pacienteAdmitidos = new Intent(Pre_BuscarAdmitidoActivity.this, Pre_ListaAdmitidosActivity.class);
                 startActivity(pacienteAdmitidos);
             }
         });

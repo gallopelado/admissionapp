@@ -20,8 +20,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.sistemascorporativos.miappnueva.R;
-import com.sistemascorporativos.miappnueva.preconsulta.actividades.BuscarAdmitidoActivity;
-import com.sistemascorporativos.miappnueva.preconsulta.actividades.ListaAdmitidosActivity;
+import com.sistemascorporativos.miappnueva.preconsulta.actividades.Pre_ListaAdmitidosActivity;
 import com.sistemascorporativos.miappnueva.referenciales.MainReferencialesActivity;
 import com.sistemascorporativos.miappnueva.seguridad.login.actividades.LoginActivity;
 import com.sistemascorporativos.miappnueva.seguridad.usuario.actividades.UsuarioActivity;
@@ -147,7 +146,7 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
                 startActivity(new Intent(NavegacionActivity.this, UsuarioActivity.class));
                 break;
             case R.id.nav_preconsulta:
-                startActivity(new Intent(NavegacionActivity.this, ListaAdmitidosActivity.class));
+                startActivity(new Intent(NavegacionActivity.this, Pre_ListaAdmitidosActivity.class));
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

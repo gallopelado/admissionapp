@@ -16,6 +16,7 @@ import com.sistemascorporativos.miappnueva.admision.entidades.PacienteDto;
 import com.sistemascorporativos.miappnueva.admision.entidades.Profesional;
 import com.sistemascorporativos.miappnueva.admision.entidades.Usuario;
 import com.sistemascorporativos.miappnueva.db.ConexionDb;
+import com.sistemascorporativos.miappnueva.preconsulta.entidades.Pre_PacienteAdmitido;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -260,12 +261,12 @@ public class PreconsultaDao extends ConexionDb {
         return pad;
     }
 
-    public ArrayList<PacienteAdmitidoDetalle> getPacientesAdmitidos() {
-        ArrayList<PacienteAdmitidoDetalle> list = new ArrayList<>();
+    public ArrayList<Pre_PacienteAdmitido> getPacientesAdmitidos() {
+        ArrayList<Pre_PacienteAdmitido> list = new ArrayList<>();
         String querySQL = "SELECT p.pac_codigo_paciente, p.pac_nombres||' '||p.pac_apellidos paciente , usu.usu_nombres||' '||usu.usu_apellidos medico FROM pacientes p LEFT JOIN paciente_asignacion pa ON pa.pac_codigo_paciente=p.pac_codigo_paciente LEFT JOIN profesional prof ON prof.prof_codigo_medico=pa.med_id LEFT JOIN usuarios usu ON usu.usu_codigo_usuario=prof_codigo_medico WHERE prof_activo = 't'";
         try(ConexionDb conexionDb = new ConexionDb(context);SQLiteDatabase db = conexionDb.getWritableDatabase();Cursor cursor =  db.rawQuery(querySQL, null);) {
             while(cursor.moveToNext()) {
-                PacienteAdmitidoDetalle obj = new PacienteAdmitidoDetalle();
+                Pre_PacienteAdmitido obj = new Pre_PacienteAdmitido();
                 obj.setCedulaPaciente(cursor.getString(cursor.getColumnIndex("pac_codigo_paciente")));
                 obj.setNombrePaciente(cursor.getString(cursor.getColumnIndex("paciente")));
                 obj.setConsultando("Consultando con el Dr. "+cursor.getString(cursor.getColumnIndex("medico")));

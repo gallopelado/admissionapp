@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class PacienteAsignadoDto {
+public class Pre_PacienteAsignadoDto {
     private String pacasiCodigoEstablecimiento;
     private String pacasiCodigoAsignacion;
     private String pacCodigoPaciente;

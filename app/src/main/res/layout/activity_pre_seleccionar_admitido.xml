@@ -15,7 +15,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_person"
-                android:onClick="clipseleccionpaciente"
                 android:padding="35dp" />
 
             <TextView
@@ -27,7 +26,9 @@
                 android:layout_toLeftOf="@id/mtrl_list_item_icon"
                 android:layout_toEndOf="@id/mtrl_list_item_icon"
                 android:layout_toRightOf="@id/mtrl_list_item_icon"
+                android:gravity="center"
                 android:maxLines="1"
+                android:onClick="clipseleccionpaciente"
                 android:paddingTop="16dp"
                 android:paddingEnd="16dp"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -38,39 +39,41 @@
 
             <TextView
                 android:id="@+id/tvCedula"
-                android:textSize="16sp"
-                tool:text="Cedula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
                 android:layout_below="@id/tvNombrePaciente"
+                android:layout_alignParentRight="true"
                 android:layout_gravity="center_vertical"
+                android:layout_toLeftOf="@id/mtrl_list_item_icon"
                 android:layout_toEndOf="@id/mtrl_list_item_icon"
-                android:paddingEnd="16dp"
+                android:layout_toRightOf="@id/mtrl_list_item_icon"
                 android:maxLines="2"
+                android:paddingEnd="16dp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="@color/mtrl_list_item_tint"
-                android:layout_toRightOf="@id/mtrl_list_item_icon"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_toLeftOf="@id/mtrl_list_item_icon"
-                android:layout_alignParentRight="true"/>
+                android:textSize="16sp"
+                android:gravity="center"
+                tool:text="Cedula" />
 
             <TextView
                 android:id="@+id/tvConsultando"
-                android:textSize="14sp"
-                tool:text="Consultando con Dr."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
                 android:layout_below="@id/tvCedula"
+                android:layout_alignParentRight="true"
                 android:layout_gravity="center_vertical"
+                android:layout_toLeftOf="@id/mtrl_list_item_icon"
                 android:layout_toEndOf="@id/mtrl_list_item_icon"
-                android:paddingEnd="16dp"
+                android:layout_toRightOf="@id/mtrl_list_item_icon"
                 android:maxLines="2"
+                android:paddingEnd="16dp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="@color/mtrl_list_item_tint"
-                android:layout_toRightOf="@id/mtrl_list_item_icon"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_toLeftOf="@id/mtrl_list_item_icon"
-                android:layout_alignParentRight="true"/>
+                android:textSize="14sp"
+                android:gravity="center"
+                tool:text="Consultando con Dr." />
 
             <View
                 android:id="@+id/divider"

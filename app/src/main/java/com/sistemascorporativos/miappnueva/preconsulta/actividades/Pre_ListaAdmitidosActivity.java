@@ -13,41 +13,42 @@ import android.widget.SearchView;
 
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.admision.actividades.BuscarPacienteActivity;
-import com.sistemascorporativos.miappnueva.admision.adaptadores.ListaPacientesAdmitidosAdapter;
-import com.sistemascorporativos.miappnueva.admision.dao.AdmisionDao;
 import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAdmitidoDetalle;
-import com.sistemascorporativos.miappnueva.databinding.ActivityListaPacientesAdmitidosBinding;
+import com.sistemascorporativos.miappnueva.databinding.ActivityPreListaAdmitidosBinding;
+import com.sistemascorporativos.miappnueva.preconsulta.adaptadores.Pre_ListaAdmitidosAdapter;
 import com.sistemascorporativos.miappnueva.preconsulta.dao.PreconsultaDao;
+import com.sistemascorporativos.miappnueva.preconsulta.entidades.Pre_PacienteAdmitido;
 
 import java.util.ArrayList;
 
-public class ListaAdmitidosActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class Pre_ListaAdmitidosActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    private ActivityListaPacientesAdmitidosBinding binding;
+    private ActivityPreListaAdmitidosBinding binding;
+
     private RecyclerView listaPacientes;
     SearchView searchViewBuscar;
-    private ArrayList<PacienteAdmitidoDetalle> listaArrayPacientes;
-    private ListaPacientesAdmitidosAdapter adapter;
+    private ArrayList<Pre_PacienteAdmitido> listaArrayPacientes;
+    private Pre_ListaAdmitidosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
         setContentView(binding.getRoot());
-        setTitle(getString(R.string.titulo_pacientes_admitidos));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getString(R.string.titulo_pacientes_admitidos_2));
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listaPacientes.setLayoutManager(new LinearLayoutManager(this));
         PreconsultaDao preconsultaDao = new PreconsultaDao(this);
-        ArrayList<PacienteAdmitidoDetalle> lista = preconsultaDao.getPacientesAdmitidos();
-        adapter = new ListaPacientesAdmitidosAdapter(preconsultaDao.getPacientesAdmitidos());
+        ArrayList<Pre_PacienteAdmitido> lista = preconsultaDao.getPacientesAdmitidos();
+        adapter = new Pre_ListaAdmitidosAdapter(preconsultaDao.getPacientesAdmitidos());
         listaPacientes.setAdapter(adapter);
         searchViewBuscar.setOnQueryTextListener(this);
     }
 
     public void init() {
-        binding = ActivityListaPacientesAdmitidosBinding.inflate(getLayoutInflater());
-        listaPacientes = binding.rvListaPacientesAdmitidos;
-        searchViewBuscar = binding.searchViewBuscarPaciente;
+        binding = ActivityPreListaAdmitidosBinding.inflate(getLayoutInflater());
+        listaPacientes = binding.rvListaPacientesAdmitidos2;
+        searchViewBuscar = binding.searchViewBuscarPaciente2;
         listaArrayPacientes = new ArrayList<>();
     }
 
@@ -61,7 +62,7 @@ public class ListaAdmitidosActivity extends AppCompatActivity implements SearchV
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(this, BuscarPacienteActivity.class);
+                Intent intent = new Intent(this, Pre_FormPreconsultaActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -75,7 +76,7 @@ public class ListaAdmitidosActivity extends AppCompatActivity implements SearchV
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        adapter.filtrado(newText);
+//        adapter.filtrado(newText);
         return false;
     }
 }

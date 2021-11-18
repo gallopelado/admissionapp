@@ -17,13 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
-            android:name=".preconsulta.actividades.BuscarAdmitidoActivity"
+            android:name=".preconsulta.actividades.Pre_BuscarAdmitidoActivity"
             android:exported="false" />
         <activity
-            android:name=".preconsulta.actividades.ListaAdmitidosActivity"
+            android:name=".preconsulta.actividades.Pre_ListaAdmitidosActivity"
             android:exported="false" />
         <activity
-            android:name=".preconsulta.actividades.FormPreconsultaActivity"
+            android:name=".preconsulta.actividades.Pre_FormPreconsultaActivity"
             android:exported="false" />
 
 
