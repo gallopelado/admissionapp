@@ -6,7 +6,7 @@
 * [Dbeaver](https://dbeaver.io/) - El visor de la base de datos.
 
 ## Construido con
-* [Android Studio](https://developer.android.com/studio) - Herramiento para construir Apps.
+* [Android Studio](https://developer.android.com/studio) - Herramienta para construir Apps.
 * [SQLite](https://www.sqlite.org/index.html) - El micro-framework usado.
 
 ## Autores

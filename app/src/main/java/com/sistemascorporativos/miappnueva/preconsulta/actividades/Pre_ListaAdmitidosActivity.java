@@ -12,8 +12,6 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 import com.sistemascorporativos.miappnueva.R;
-import com.sistemascorporativos.miappnueva.admision.actividades.BuscarPacienteActivity;
-import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAdmitidoDetalle;
 import com.sistemascorporativos.miappnueva.databinding.ActivityPreListaAdmitidosBinding;
 import com.sistemascorporativos.miappnueva.preconsulta.adaptadores.Pre_ListaAdmitidosAdapter;
 import com.sistemascorporativos.miappnueva.preconsulta.dao.PreconsultaDao;
@@ -35,7 +33,7 @@ public class Pre_ListaAdmitidosActivity extends AppCompatActivity implements Sea
         super.onCreate(savedInstanceState);
         init();
         setContentView(binding.getRoot());
-        setTitle(getString(R.string.titulo_pacientes_admitidos_2));
+        setTitle(getString(R.string.titulo_pacientes_admitidos_preconsulta));
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listaPacientes.setLayoutManager(new LinearLayoutManager(this));
         PreconsultaDao preconsultaDao = new PreconsultaDao(this);
