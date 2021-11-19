@@ -1,5 +1,6 @@
 package com.sistemascorporativos.miappnueva.consulta.actividades;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,10 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.sistemascorporativos.miappnueva.R;
+import com.sistemascorporativos.miappnueva.consulta.entidades.ConsultaComponent;
 import com.sistemascorporativos.miappnueva.consulta.servicios.ConsultaServices;
 import com.sistemascorporativos.miappnueva.databinding.ActivityFormularioConsultaBinding;
-import com.sistemascorporativos.miappnueva.referenciales.ciudad.modelos.CiudadDto;
-import com.sistemascorporativos.miappnueva.referenciales.nacionalidad.modelos.NacionalidadDto;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,22 +31,18 @@ import java.util.TimeZone;
 
 public class FormularioConsultaActivity extends AppCompatActivity {
     private ActivityFormularioConsultaBinding binding;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences, sharedPreferencesLogin;
     static final Integer RC_EDIT = 21;
     ConsultaServices consultaServices;
     private Bundle extras;
-    private Spinner ciudadCombo, nacionalidadCombo;
     // Campos del formulario
     private TextInputEditText txtNroIdentificacion;
     private TextInputEditText txtNombres;
     private TextInputEditText txtApellidos;
-    private RadioGroup rgSexo;
-    private RadioButton txtSexo;
-    private TextInputEditText txtFechaNacimiento;
-    private TextInputEditText txtLugarNacimiento;
-    private TextInputEditText txtCorreo;
     private TextInputEditText txtTelefono;
-    private TextInputEditText txtDomicilio;
+    private TextInputEditText txtCodigoPreconsulta;
+    private TextInputEditText txtCodigoAsignacion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,101 +53,20 @@ public class FormularioConsultaActivity extends AppCompatActivity {
         this.setTitle(getString(R.string.titulo_consulta));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Iniciar el sharedpreferences
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        // SETEAR TODOS LOS ELEMENTOS PARA SU CORRECTA MANIPULACIÓN
+        sharedPreferences = getSharedPreferences("lista_paciente", Context.MODE_PRIVATE);
+        sharedPreferencesLogin = getSharedPreferences("login_preferences", Context.MODE_PRIVATE);
+        sharedPreferencesLogin.getString("codigo_usuario",null);
         // Campos de texto
         txtNroIdentificacion = binding.etNroIdentificacion;
         txtNombres = binding.etNombres;
         txtApellidos = binding.etApellidos;
-        txtFechaNacimiento = binding.etFechaNac;
-        txtLugarNacimiento = binding.etLugarnac;
-        txtCorreo = binding.etCorreo;
         txtTelefono = binding.etTelefono;
-        txtDomicilio = binding.etDomicilio;
-
-        // Radio button y sus yerbas
-        rgSexo = binding.rgSexo;
-        //trae el radio seleccionado del radio group
-        int selectedSexo = rgSexo.getCheckedRadioButtonId();
-        txtSexo = findViewById(selectedSexo);
-
-        // combos
-        ciudadCombo = binding.spCiudad;
-        nacionalidadCombo = binding.spNacionalidad;
-        // Iniciar una instancia del service
-        consultaServices = new ConsultaServices(this);
-        ArrayList<CiudadDto> listaCiudades = consultaServices.getCiudades();
-        ArrayList<NacionalidadDto> listaNacionalidades = consultaServices.getNacionalidades();
-        ArrayAdapter<CiudadDto> ciudadAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, listaCiudades);
-        ArrayAdapter<NacionalidadDto> nacionalidadAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, listaNacionalidades);
-        ciudadCombo.setAdapter(ciudadAdapter);
-        nacionalidadCombo.setAdapter(nacionalidadAdapter);
-
-        // Asignar evento click al datepicker de fecha de nacimiento
-        txtFechaNacimiento.setOnClickListener(new View.OnClickListener() {
-            MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
-            MaterialDatePicker picker = builder.setTitleText("Seleccionar fecha").build();
-
-            @Override
-            public void onClick(View v) {
-                picker.addOnPositiveButtonClickListener(timeInMilliseconds -> {
-                    // obtener el tiempo en milisegundos y formatear
-                    SimpleDateFormat dateStr = new SimpleDateFormat("dd/MM/yyy", Locale.getDefault());
-                    dateStr.setTimeZone(TimeZone.getTimeZone("UTC"));
-                    String fecha = dateStr.format(timeInMilliseconds);
-                    txtFechaNacimiento.setText(fecha);//setear campo
-                });
-                picker.show(getSupportFragmentManager(), picker.toString());
-            }
-        });
-
-        //Traer extras
-        if(savedInstanceState == null) {
-            extras = getIntent().getExtras();
-            if(extras.getString("operacion").isEmpty()) {
-                txtNroIdentificacion.setEnabled(true);
-                txtNroIdentificacion.setText(extras.getString("codigo_paciente"));
-            } else {
-                txtNroIdentificacion.setEnabled(false);
-                txtNroIdentificacion.setText(extras.getString("codigo_paciente"));
-                txtNombres.setText(extras.getString("nombres"));
-                txtApellidos.setText(extras.getString("apellidos"));
-                switch (extras.getString("sexo")) {
-                    case "Masculino":
-                        rgSexo.check(binding.rbMasculino.getId());
-                        break;
-                    case "Femenino":
-                        rgSexo.check(binding.rbFemenino.getId());
-                        break;
-                    case "Indistinto":
-                        rgSexo.check(binding.rbIndistinto.getId());
-                        break;
-                }
-                txtFechaNacimiento.setText(extras.getString("fechanac"));
-                for (int i = 0; i < ciudadCombo.getCount(); i++) {
-                    if (((CiudadDto) ciudadCombo.getItemAtPosition(i)).getCiuId() == extras.getInt("ciudad")) {
-                        ciudadCombo.setSelection(i);
-                        break;
-                    }
-                }
-                for (int i = 0; i < nacionalidadCombo.getCount(); i++) {
-                    if (((NacionalidadDto) nacionalidadCombo.getItemAtPosition(i)).getNacId() == extras.getInt("ciudad")) {
-                        nacionalidadCombo.setSelection(i);
-                        break;
-                    }
-                }
-                txtLugarNacimiento.setText(extras.getString("lugarnac"));
-                txtCorreo.setText(extras.getString("correo"));
-                txtTelefono.setText(extras.getString("telefono"));
-                txtDomicilio.setText(extras.getString("domicilio"));
-            }
-        }
+        txtCodigoPreconsulta = binding.etIdPreconsulta;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_admision, menu);
+        getMenuInflater().inflate(R.menu.menu_consulta, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -193,14 +108,6 @@ public class FormularioConsultaActivity extends AppCompatActivity {
         } else {
             binding.tilApellidos.setError(null);
         }
-        if(txtFechaNacimiento.getText()==null || txtFechaNacimiento.getText().toString().isEmpty()) {
-            binding.tilFechaNac.setError(getString(R.string.common_mandatory_hint));
-            binding.tilFechaNac.requestFocus();
-            isValid = false;
-        } else {
-            binding.tilFechaNac.setError(null);
-        }
-
         return isValid;
     }
 }

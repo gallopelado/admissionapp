@@ -1,5 +1,8 @@
 package com.sistemascorporativos.miappnueva.consulta.adaptadores;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.consulta.entidades.PacientePreconsultaDetalle;
+import com.sistemascorporativos.miappnueva.consulta.actividades.FormularioConsultaActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +23,7 @@ public class ListaPacientesPreconsultaAdapter extends RecyclerView.Adapter<Lista
 
     ArrayList<PacientePreconsultaDetalle> listaPacientes;
     ArrayList<PacientePreconsultaDetalle> listaOriginalPacientes;
+    private SharedPreferences sharedPref;
 
     public ListaPacientesPreconsultaAdapter(ArrayList<PacientePreconsultaDetalle> listaPacientes) {
         this.listaPacientes = listaPacientes;
@@ -78,6 +83,39 @@ public class ListaPacientesPreconsultaAdapter extends RecyclerView.Adapter<Lista
             super(itemView);
             viewNombrePaciente = itemView.findViewById(R.id.tvNombrePaciente);
             viewCedula = itemView.findViewById(R.id.tvCedula);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = itemView.getContext();
+                    sharedPref = context.getSharedPreferences("lista_paciente", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("cedula", listaPacientes.get(getAbsoluteAdapterPosition()).getCedulaPaciente());
+                    editor.putString("nombres", listaPacientes.get(getAbsoluteAdapterPosition()).getNombrePaciente());
+                    editor.putString("apellidos", listaPacientes.get(getAbsoluteAdapterPosition()).getApellidoPaciente());
+                    editor.putString("tipodoc", listaPacientes.get(getAbsoluteAdapterPosition()).getTipodocPaciente());
+                    editor.putString("telefono", listaPacientes.get(getAbsoluteAdapterPosition()).getTelefonoPaciente());
+                    editor.putString("estado_civil", listaPacientes.get(getAbsoluteAdapterPosition()).getEstadoPaciente());
+                    editor.putString("codigo_preconsulta", listaPacientes.get(getAbsoluteAdapterPosition()).getCodigoPreconsulta());
+                    editor.putString("codigo_asignacion", listaPacientes.get(getAbsoluteAdapterPosition()).getCodigoAsignacion());
+                    editor.putString("operacion", "agregar");
+                    editor.commit();
+                    // Ir al formulario
+                    context.startActivity(new Intent(context, FormularioConsultaActivity.class));
+                }
+            });
         }
     }
+
+//    public class PacienteDetalleViewHolder extends RecyclerView.ViewHolder {
+//
+//        TextView viewNombrePaciente, viewCedula;
+//
+//        public PacienteDetalleViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            viewNombrePaciente = itemView.findViewById(R.id.tvNombrePaciente);
+//            viewCedula = itemView.findViewById(R.id.tvCedula);
+//        }
+//    }
+
 }

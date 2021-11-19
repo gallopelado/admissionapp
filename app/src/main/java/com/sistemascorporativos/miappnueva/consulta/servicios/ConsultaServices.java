@@ -53,25 +53,12 @@ public class ConsultaServices {
         obj.setNroIdentificacion(patience.getPacCodigoPaciente());
         obj.setNombres(patience.getPacNombres());
         obj.setApellidos(patience.getPacApellidos());
-        obj.setSexo(patience.getPacSexo());
-        obj.setFechaNacimiento(patience.getPacFechaNac());
-        obj.setLugarNacimiento(patience.getPacLugarNacimiento());
-        obj.setCiuId(patience.getCiuId());
         obj.setCorreo(patience.getPacCorreoElectronico());
-        obj.setNacId(patience.getNacId());
         if(patience.getPacTelefono()!=null) {
             obj.setTelefono(patience.getPacTelefono().toString());
         }
-        obj.setDireccion(patience.getPacDireccion());
-        obj.setSegId(patience.getSegId());
-        obj.setHijos(patience.getPacHijos());
         obj.setEstado_civil(patience.getPacEstadoCivil());
-        obj.setEduId(patience.getEduId());
-        obj.setSitlabId(patience.getSitlabId());
-        obj.setLatitud(patience.getPacLatitud());
-        obj.setLongitud(patience.getPacLongitud());
         obj.setOperacion(patience.getOperacion());
-        //analizar si traemos el codigo del medico, de momento no considero necesario para admision
         return obj;
     }
 

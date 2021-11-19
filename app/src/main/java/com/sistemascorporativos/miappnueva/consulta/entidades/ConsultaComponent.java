@@ -18,21 +18,12 @@ public class ConsultaComponent {
     private String nroIdentificacion;
     private String nombres;
     private String apellidos;
-    private String sexo;
+    private String codigoPreconsulta;
+    private String codigoAsignacion;
     private String fechaNacimiento;
     private String lugarNacimiento;
-    private Integer ciuId;//id de ciudad
     private String correo;
-    private Integer nacId;//id de nacionalidad
     private String telefono;
-    private String direccion;
-    private Integer segId;//id de seguro médico
-    private Integer hijos;
     private String estado_civil;
-    private Integer eduId;//id de nivel educativo
-    private Integer sitlabId;//id de situación laboral
-    private Double latitud;
-    private Double longitud;
-    private Integer medId;//id del médico
     private String operacion;//Sirve para notificar el estado correcto de la operacion a la UI
 }

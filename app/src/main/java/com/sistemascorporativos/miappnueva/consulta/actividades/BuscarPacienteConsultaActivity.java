@@ -67,22 +67,10 @@ public class BuscarPacienteConsultaActivity extends AppCompatActivity {
                         intent.putExtra("codigo_paciente", paciente.getNroIdentificacion());
                         intent.putExtra("nombres", paciente.getNombres());
                         intent.putExtra("apellidos", paciente.getApellidos());
-                        intent.putExtra("sexo", paciente.getSexo());
                         intent.putExtra("fechanac", paciente.getFechaNacimiento());
                         intent.putExtra("lugarnac", paciente.getLugarNacimiento());
                         intent.putExtra("correo", paciente.getCorreo());
                         intent.putExtra("telefono", paciente.getTelefono());
-                        intent.putExtra("domicilio", paciente.getDireccion());
-                        intent.putExtra("ciudad", paciente.getCiuId());
-                        intent.putExtra("nacionalidad", paciente.getNacId());
-                        intent.putExtra("ciudad", paciente.getCiuId());
-                        intent.putExtra("seguromedico", paciente.getSegId());
-                        intent.putExtra("nrohijos", paciente.getHijos());
-                        intent.putExtra("estadocivil", paciente.getEstado_civil());
-                        intent.putExtra("niveleducativo", paciente.getEduId());
-                        intent.putExtra("situacionlaboral", paciente.getSitlabId());
-                        intent.putExtra("latitud", paciente.getLatitud());
-                        intent.putExtra("longitud", paciente.getLongitud());
                         intent.putExtra("operacion", paciente.getOperacion());
                         startActivity(intent);
                     }

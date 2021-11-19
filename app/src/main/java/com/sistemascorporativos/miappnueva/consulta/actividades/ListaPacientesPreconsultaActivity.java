@@ -1,6 +1,8 @@
 package com.sistemascorporativos.miappnueva.consulta.actividades;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +29,7 @@ public class ListaPacientesPreconsultaActivity extends AppCompatActivity impleme
     SearchView searchViewBuscar;
     private ArrayList<PacientePreconsultaDetalle> listaArrayPacientes;
     private ListaPacientesPreconsultaAdapter adapter;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,8 @@ public class ListaPacientesPreconsultaActivity extends AppCompatActivity impleme
         adapter = new ListaPacientesPreconsultaAdapter(consultaDao.getPacientesPreconsulta());
         listaPacientes.setAdapter(adapter);
         searchViewBuscar.setOnQueryTextListener(this);
+        sharedPref = getSharedPreferences("lista_paciente", Context.MODE_PRIVATE);
+
     }
 
     public void init() {

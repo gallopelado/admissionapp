@@ -10,4 +10,10 @@ import lombok.NoArgsConstructor;
 public class PacientePreconsultaDetalle {
     private String cedulaPaciente;
     private String nombrePaciente;
+    private String apellidoPaciente;
+    private String estadoPaciente;
+    private String telefonoPaciente;
+    private String tipodocPaciente;
+    private String codigoPreconsulta;
+    private String codigoAsignacion;
 }

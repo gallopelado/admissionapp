@@ -13,6 +13,21 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilIdPreconsulta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:hint="Codigo Preconsulta">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etIdPreconsulta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLength="@integer/name_max_nro_identificacion"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNroIdentificacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,109 +78,6 @@
                 android:maxLength="@integer/name_max_nro_identificacion"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tvSexo"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/label_sexo" />
-
-        <RadioGroup
-            android:id="@+id/rgSexo"
-            android:checkedButton="@+id/rbMasculino"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:id="@+id/rbMasculino"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/label_sexo_masculino"/>
-            <RadioButton
-                android:id="@+id/rbFemenino"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/label_sexo_femenino"/>
-            <RadioButton
-                android:id="@+id/rbIndistinto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/label_sexo_indistinto"/>
-        </RadioGroup>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilFechaNac"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/hint_fechanac"
-            app:helperText="@string/common_mandatory_hint"
-            app:startIconDrawable="@drawable/ic_date_range">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etFechaNac"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilLugarnac"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/hint_lugar_nac"
-            app:startIconDrawable="@drawable/ic_location">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etLugarnac"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoComplete"
-                android:maxLength="@integer/lugarnac_max"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!--<com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCiudad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/hint_ciudad"
-            app:startIconDrawable="@drawable/ic_location_city"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:id="@+id/etCiudad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>-->
-
-        <Spinner
-            android:id="@+id/spCiudad"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCorreo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/hint_correo"
-            app:startIconDrawable="@drawable/ic_alternate_email">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCorreo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Spinner
-            android:id="@+id/spNacionalidad"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTelefono"
             android:layout_width="match_parent"
@@ -179,22 +91,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
-                android:maxLength="@integer/lugarnac_max"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDomicilio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/hint_domicilio"
-            app:startIconDrawable="@drawable/ic_location">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDomicilio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
                 android:maxLength="@integer/lugarnac_max"/>
         </com.google.android.material.textfield.TextInputLayout>
 
