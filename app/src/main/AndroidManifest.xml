@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiAppNueva">
         <activity
+            android:name=".consulta.actividades.DetalleConsultaActivity"
+            android:exported="false" />
+        <activity
             android:name=".seguridad.login.actividades.NavegacionActivity"
             android:exported="false"
             android:label="@string/title_activity_navegacion"
@@ -57,7 +60,9 @@
         <activity
             android:name=".consulta.actividades.FormularioConsultaActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".consulta.actividades.AsignarCieActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

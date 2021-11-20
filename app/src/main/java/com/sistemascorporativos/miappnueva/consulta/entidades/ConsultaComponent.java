@@ -15,15 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConsultaComponent {
-    private String nroIdentificacion;
-    private String nombres;
-    private String apellidos;
+    private String codigoEstablecimiento;
     private String codigoPreconsulta;
-    private String codigoAsignacion;
-    private String fechaNacimiento;
-    private String lugarNacimiento;
-    private String correo;
-    private String telefono;
-    private String estado_civil;
+    private String motivoConsulta;
+    private String historialConsulta;
+    private String evolucionConsulta;
     private String operacion;//Sirve para notificar el estado correcto de la operacion a la UI
 }

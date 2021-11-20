@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PacienteDto {
     private String pacCodigoPaciente;
-    private String pacTipoDocumento;
     private String pacNombres;
     private String pacApellidos;
-    private String codigoAsignacion;
     private String codigoPreconsulta;
-    private String pacCorreoElectronico;
+    private String codigoEstablecimiento;
     private Integer pacTelefono;
-    private String pacDireccion;
-    private String pacEstadoCivil;
+    private String motivoConsulta;
+    private String historialConsulta;
+    private String evolucionConsulta;
     private String operacion;
 }

@@ -64,13 +64,6 @@ public class BuscarPacienteConsultaActivity extends AppCompatActivity {
                     } else {
                         //Existe paciente
                         Intent intent = new Intent(BuscarPacienteConsultaActivity.this, FormularioConsultaActivity.class);
-                        intent.putExtra("codigo_paciente", paciente.getNroIdentificacion());
-                        intent.putExtra("nombres", paciente.getNombres());
-                        intent.putExtra("apellidos", paciente.getApellidos());
-                        intent.putExtra("fechanac", paciente.getFechaNacimiento());
-                        intent.putExtra("lugarnac", paciente.getLugarNacimiento());
-                        intent.putExtra("correo", paciente.getCorreo());
-                        intent.putExtra("telefono", paciente.getTelefono());
                         intent.putExtra("operacion", paciente.getOperacion());
                         startActivity(intent);
                     }

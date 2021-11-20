@@ -3,19 +3,47 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_add.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_alternate_email.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_circle.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_content_paste_go.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_content_paste_search.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_edit_location.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_family.xml" value="0.2703125" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_identification_card.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_lock_open.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_medical.xml" value="0.2703125" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_phonelink_lock.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_save.xml" value="0.2703125" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_school.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_search.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/drawable/ic_settings.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_asignar_cie.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_asignar_medico.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_buscar_paciente_consulta.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_detalle_consulta.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_formulario_admision.xml" value="0.13177083333333334" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_formulario_consulta.xml" value="0.4" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_inicio_menu_principal.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_lista_pacientes_admitidos.xml" value="0.16757246376811594" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_lista_pacientes_preconsulta.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/activity_lista_preconsulta.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/app_bar_navegacion.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/fragment_gallery.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/fragment_home.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/fragment_slideshow.xml" value="0.16757246376811594" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/lista_item_cie.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/lista_item_medico.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/lista_item_paciente_preconsulta.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/lista_item_paciente_preconsulta.xml" value="0.29342105263157897" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/layout/nav_header_navegacion.xml" value="0.16757246376811594" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/activity_main_drawer.xml" value="0.13177083333333334" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_admision.xml" value="0.13177083333333334" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_asignar_cie.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_asignar_medico.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_consulta.xml" value="0.13177083333333334" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_consulta.xml" value="0.4" />
+        <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_detalle.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_lista_pacientes_admitidos.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL G3 GAMING/AndroidStudioProjects/admissionapp/app/src/main/res/menu/menu_lista_pacientes_preconsulta.xml" value="0.13177083333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18802083333333333" />

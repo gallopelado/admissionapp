@@ -42,6 +42,7 @@ public class ListaPacientesPreconsultaAdapter extends RecyclerView.Adapter<Lista
     public void onBindViewHolder(@NonNull ListaPacientesPreconsultaAdapter.PacienteDetalleViewHolder holder, int position) {
         holder.viewNombrePaciente.setText(listaPacientes.get(position).getNombrePaciente());
         holder.viewCedula.setText(listaPacientes.get(position).getCedulaPaciente());
+        holder.viewCodigoPreconsulta.setText(listaPacientes.get(position).getCodigoPreconsulta());
     }
 
     public void filtrado(String txtBuscar) {
@@ -77,12 +78,13 @@ public class ListaPacientesPreconsultaAdapter extends RecyclerView.Adapter<Lista
 
     public class PacienteDetalleViewHolder extends RecyclerView.ViewHolder {
 
-        TextView viewNombrePaciente, viewCedula;
+        TextView viewNombrePaciente, viewCedula, viewCodigoPreconsulta;
 
         public PacienteDetalleViewHolder(@NonNull View itemView) {
             super(itemView);
             viewNombrePaciente = itemView.findViewById(R.id.tvNombrePaciente);
             viewCedula = itemView.findViewById(R.id.tvCedula);
+            viewCodigoPreconsulta = itemView.findViewById(R.id.tvCodigoPreconsulta);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,12 +95,13 @@ public class ListaPacientesPreconsultaAdapter extends RecyclerView.Adapter<Lista
                     editor.putString("cedula", listaPacientes.get(getAbsoluteAdapterPosition()).getCedulaPaciente());
                     editor.putString("nombres", listaPacientes.get(getAbsoluteAdapterPosition()).getNombrePaciente());
                     editor.putString("apellidos", listaPacientes.get(getAbsoluteAdapterPosition()).getApellidoPaciente());
-                    editor.putString("tipodoc", listaPacientes.get(getAbsoluteAdapterPosition()).getTipodocPaciente());
                     editor.putString("telefono", listaPacientes.get(getAbsoluteAdapterPosition()).getTelefonoPaciente());
-                    editor.putString("estado_civil", listaPacientes.get(getAbsoluteAdapterPosition()).getEstadoPaciente());
                     editor.putString("codigo_preconsulta", listaPacientes.get(getAbsoluteAdapterPosition()).getCodigoPreconsulta());
-                    editor.putString("codigo_asignacion", listaPacientes.get(getAbsoluteAdapterPosition()).getCodigoAsignacion());
-                    editor.putString("operacion", "agregar");
+                    editor.putString("codigo_establecimiento", listaPacientes.get(getAbsoluteAdapterPosition()).getCodigoEstablecimiento());
+                    editor.putString("motivo_consulta", listaPacientes.get(getAbsoluteAdapterPosition()).getMotivoConsulta());
+                    editor.putString("historial_consulta", listaPacientes.get(getAbsoluteAdapterPosition()).getHistorialConsulta());
+                    editor.putString("evolucion_consulta", listaPacientes.get(getAbsoluteAdapterPosition()).getEvolucionConsulta());
+                    editor.putString("operacion", "editar");
                     editor.commit();
                     // Ir al formulario
                     context.startActivity(new Intent(context, FormularioConsultaActivity.class));
@@ -106,16 +109,5 @@ public class ListaPacientesPreconsultaAdapter extends RecyclerView.Adapter<Lista
             });
         }
     }
-
-//    public class PacienteDetalleViewHolder extends RecyclerView.ViewHolder {
-//
-//        TextView viewNombrePaciente, viewCedula;
-//
-//        public PacienteDetalleViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            viewNombrePaciente = itemView.findViewById(R.id.tvNombrePaciente);
-//            viewCedula = itemView.findViewById(R.id.tvCedula);
-//        }
-//    }
 
 }

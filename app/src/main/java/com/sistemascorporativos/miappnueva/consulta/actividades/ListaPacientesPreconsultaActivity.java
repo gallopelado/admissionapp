@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.consulta.adaptadores.ListaPacientesPreconsultaAdapter;
@@ -30,6 +31,7 @@ public class ListaPacientesPreconsultaActivity extends AppCompatActivity impleme
     private ArrayList<PacientePreconsultaDetalle> listaArrayPacientes;
     private ListaPacientesPreconsultaAdapter adapter;
     private SharedPreferences sharedPref;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +46,6 @@ public class ListaPacientesPreconsultaActivity extends AppCompatActivity impleme
         adapter = new ListaPacientesPreconsultaAdapter(consultaDao.getPacientesPreconsulta());
         listaPacientes.setAdapter(adapter);
         searchViewBuscar.setOnQueryTextListener(this);
-        sharedPref = getSharedPreferences("lista_paciente", Context.MODE_PRIVATE);
-
     }
 
     public void init() {

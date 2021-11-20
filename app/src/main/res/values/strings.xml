@@ -16,6 +16,7 @@
     <string name="hint_telefono">Telefono/Celular</string>
     <string name="hint_domicilio">Domicilio</string>
     <string name="label_siguiente">Siguiente</string>
+    <string name="label_detalle">Detalles</string>
     <string name="label_guardar">Guardar</string>
     <string name="hint_seguro_medico">Seguro médico</string>
     <string name="hint_hijos">Hijos</string>

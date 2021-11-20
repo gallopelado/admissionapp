@@ -6,9 +6,4 @@
         android:title=""
         android:icon="@drawable/ic_save"
         app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_detalles"
-        android:title=""
-        android:icon="@drawable/ic_content_paste_go"
-        app:showAsAction="ifRoom"/>
 </menu>
