@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.sistemascorporativos.miappnueva.admision.actividades.BuscarPacienteActivity;
+import com.sistemascorporativos.miappnueva.consulta.actividades.ListaPacientesPreconsultaActivity;
 import com.sistemascorporativos.miappnueva.databinding.ActivityNavegacionBinding;
 
 import androidx.annotation.NonNull;
@@ -151,6 +152,9 @@ public class NavegacionActivity extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_preconsulta:
                 startActivity(new Intent(NavegacionActivity.this, Pre_ListaAdmitidosActivity.class));
+                break;
+            case R.id.nav_consulta:
+                startActivity(new Intent(NavegacionActivity.this, ListaPacientesPreconsultaActivity.class));
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

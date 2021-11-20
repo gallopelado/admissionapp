@@ -26,7 +26,6 @@
             android:name=".preconsulta.actividades.Pre_FormPreconsultaActivity"
             android:exported="false" />
 
-
         <activity
             android:name=".seguridad.profesional.actividades.FormProfesionalActivity"
             android:exported="false" />
@@ -49,7 +48,7 @@
             android:name=".seguridad.menu_principal.actividades.NavegacionActivity"
             android:exported="false"
             android:label="@string/title_activity_navegacion"
-            android:theme="@style/Theme.MiAppNueva.NoActionBar" />
+            android:theme="@style/Theme.MiAppNueva.NoActionBar"/>
         <activity
             android:name=".seguridad.login.actividades.InicioMenuPrincipalActivity"
             android:exported="false" />
@@ -80,6 +79,18 @@
             android:exported="false" />
         <activity
             android:name=".admision.actividades.FormularioAdmisionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".consulta.actividades.ListaPacientesPreconsultaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".consulta.actividades.BuscarPacienteConsultaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".consulta.actividades.FormularioConsultaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".consulta.actividades.AsignarCieActivity"
             android:exported="false" />
 
         <meta-data

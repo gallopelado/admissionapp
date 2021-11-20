@@ -16,6 +16,7 @@
     <string name="hint_telefono">Telefono/Celular</string>
     <string name="hint_domicilio">Domicilio</string>
     <string name="label_siguiente">Siguiente</string>
+    <string name="label_detalle">Detalles</string>
     <string name="label_guardar">Guardar</string>
     <string name="hint_seguro_medico">Seguro médico</string>
     <string name="hint_hijos">Hijos</string>
@@ -49,6 +50,7 @@
     <string name="menu_referenciales">Referenciales</string>
     <string name="abriendo_menu">Abriendo</string>
     <string name="cerrando_menu">Cerrando</string>
+
     <string name="hint_identificador_referencial">Identificador</string>
     <string name="hint_descripcion_referencial">Descripción</string>
     <string name="hint_codigo_usuario">Codigo Usuario</string>
@@ -60,4 +62,7 @@
     <string name="titulo_preconsulta">Formulario de Preconsulta</string>
 
     <string name="hint_nro_registro_profesional">Nro. registro profesional</string>
+    <string name="titulo_consulta">Formulario de Consulta</string>
+    <string name="titulo_paciente_preconsulta">Pacientes con Preconsulta</string>
+
 </resources>
