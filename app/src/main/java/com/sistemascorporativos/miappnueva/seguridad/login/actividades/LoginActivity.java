@@ -6,17 +6,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.hash.Hashing;
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.databinding.ActivityLoginBinding;
 import com.sistemascorporativos.miappnueva.seguridad.login.entidades.LoginDto;
 import com.sistemascorporativos.miappnueva.seguridad.login.servicios.LoginServices;
 import com.sistemascorporativos.miappnueva.seguridad.menu_principal.actividades.NavegacionActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -80,33 +99,76 @@ public class LoginActivity extends AppCompatActivity {
         if(!validarFormulario()) return;
         String user = etUser.getText().toString().trim();
         String password = etPassword.getText().toString();
-        LoginServices lgs = new LoginServices(this);
-        LoginDto usuario = lgs.checkUserAndPassword(user, password);
-        if(usuario.getUsuCodigoUsuario() != null) {
-            tilUser.setError(null);
-            tilPassword.setError(null);
-            //Existe el usuario, guardamos un sharepreferences lo necesario
-            editor = sharedPref.edit();
-            editor.putString("codigo_usuario", usuario.getUsuCodigoUsuario());
-            editor.putString("nombres_usuario", usuario.getUsuNombres());
-            editor.putString("apellidos_usuario", usuario.getUsuApellidos());
-            editor.putString("descripcion_usuario", usuario.getUsuApellidos());
-            editor.putString("rol_usuario", usuario.getUsuRol());
-            editor.commit();
-            //Es conveniente crear un log de accesos
-            Toast.makeText(this, "Bienvenido", Toast.LENGTH_LONG).show();
-            //Enviar vista al menú de inicio
-            /*Intent inicio = new Intent(this, InicioMenuPrincipalActivity.class);
-            inicio.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(inicio);*/
-            Intent inicio = new Intent(this, NavegacionActivity.class);
-            inicio.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(inicio);
-        } else {
-            tilUser.setError(getString(R.string.usuario_hint));
-            tilPassword.setError(getString(R.string.password_hint));
-            tilUser.requestFocus();
-            Toast.makeText(this, "Error al iniciar la sesión", Toast.LENGTH_LONG).show();
+        String url = "http://10.0.2.2:5000/apiv1/seguridad/login/check_user_password";
+        String password_hash = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("codigo_usuario", user);
+            jsonBody.put("password", password_hash);
+            final String requestBody = jsonBody.toString();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("VOLLEY caramba", response);
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if(!Objects.equals(jsonObject, null)) {
+                            // limpiar campos
+                            tilUser.setError(null);
+                            tilPassword.setError(null);
+                            // guardar en shared
+                            editor = sharedPref.edit();
+                            editor.putString("codigo_usuario", user);
+                            editor.putString("nombres_usuario", jsonObject.getString("usuNombres"));
+                            editor.putString("apellidos_usuario", jsonObject.getString("usuApellidos"));
+                            editor.putString("descripcion_usuario", jsonObject.getString("usuDescripcion"));
+                            editor.putString("rol_usuario", jsonObject.getString("usuRol"));
+                            editor.commit();
+                            Intent inicio = new Intent(LoginActivity.this, NavegacionActivity.class);
+                            inicio.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(inicio);
+                        } else {
+                            tilUser.setError(getString(R.string.usuario_hint));
+                            tilPassword.setError(getString(R.string.password_hint));
+                            tilUser.requestFocus();
+                            Toast.makeText(LoginActivity.this, "Error al iniciar la sesión", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("VOLLEY", error.toString());
+                    if(error.networkResponse.statusCode==404 || error.networkResponse.statusCode==500) {
+                        tilUser.setError(getString(R.string.usuario_hint));
+                        tilPassword.setError(getString(R.string.password_hint));
+                        tilUser.requestFocus();
+                        Toast.makeText(LoginActivity.this, "Error al iniciar la sesión", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+            };
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }
