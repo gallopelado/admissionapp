@@ -3,6 +3,7 @@ package com.sistemascorporativos.miappnueva.referenciales;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.admision.entidades.PacienteAdmitidoDetalle;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +37,7 @@ public class ListaReferencialesAdapter extends RecyclerView.Adapter<ListaReferen
     private ArrayList<ReferencialDto> listaItems;
     private ArrayList<ReferencialDto> listaOriginalItems;
     private SharedPreferences sharedPref, sharedPref_menu;
+    private String url = "http://10.0.2.2:5000/apiv1/";
 
     public ListaReferencialesAdapter(ArrayList<ReferencialDto> listaItems) {
         this.listaItems = listaItems;
@@ -113,7 +127,29 @@ public class ListaReferencialesAdapter extends RecyclerView.Adapter<ListaReferen
                                 referencialDto.setId(id);
                                 switch (sharedPref_menu.getString("menu", null)) {
                                     case "ciudad":
-                                        referencialDto = referencialDao.eliminar(referencialDto, "ciudades");
+                                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                                        StringRequest stringRequest = new StringRequest(Request.Method.DELETE,
+                                                url + "referenciales/ciudad/delete_ciudad/"+id, new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(response);
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }, new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                Log.e("ERROR MODIFY CIUDAD", error.toString());
+                                            }
+                                        }) {
+                                            @Override
+                                            public String getBodyContentType() {
+                                                return "application/json; charset=utf-8";
+                                            }
+                                        };
+                                        requestQueue.add(stringRequest);
                                         break;
                                     case "nacionalidad":
                                         referencialDto = referencialDao.eliminar(referencialDto, "nacionalidades");

@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i("VOLLEY caramba", response);
+                    //Log.i("VOLLEY caramba", response);
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         if(!Objects.equals(jsonObject, null)) {

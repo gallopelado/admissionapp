@@ -9,10 +9,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.sistemascorporativos.miappnueva.R;
 import com.sistemascorporativos.miappnueva.admision.entidades.Especialidad;
 import com.sistemascorporativos.miappnueva.databinding.ActivityMainReferencialesBinding;
@@ -28,7 +37,11 @@ import com.sistemascorporativos.miappnueva.referenciales.seguro_medico.modelos.S
 import com.sistemascorporativos.miappnueva.referenciales.situacion_laboral.dao.SituacionLaboralDao;
 import com.sistemascorporativos.miappnueva.referenciales.situacion_laboral.modelos.SituacionLaboralDto;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.ArrayList;
+
 
 public class MainReferencialesActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -74,16 +87,45 @@ public class MainReferencialesActivity extends AppCompatActivity implements Sear
         switch (extras.getString("menu")) {
             case "ciudad":
                 setTitle("Ciudad");
-                CiudadDao ciudadDao = new CiudadDao(this);
-                ArrayList<CiudadDto> listaCiudad = ciudadDao.getCiudades();
-                for(CiudadDto item: listaCiudad) {
-                    ReferencialDto obj = new ReferencialDto();
-                    obj.setId(item.getCiuId().toString());
-                    obj.setDescripcion(item.getCiuDescripcion());
-                    listaArrayReferencial.add(obj);
+                // GET de traer ciudades
+                String url = "http://10.0.2.2:5000/apiv1/referenciales/ciudad/get_ciudades";
+                try {
+                    RequestQueue requestQueue = Volley.newRequestQueue(this);
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i("CIUDAD ", response);
+                            try {
+                                JSONArray ciudades = new JSONArray(response);
+                                listaArrayReferencial = new ArrayList<>();;
+                                for(int i=0; i < ciudades.length(); i++) {
+                                    JSONObject ciudad = ciudades.getJSONObject(i);
+                                    ReferencialDto obj = new ReferencialDto();
+                                    obj.setId(ciudad.getString("ciu_id"));
+                                    obj.setDescripcion(ciudad.getString("ciu_descripcion"));
+                                    listaArrayReferencial.add(obj);
+                                }
+                                adapter = new ListaReferencialesAdapter(listaArrayReferencial);
+                                listaItems.setAdapter(adapter);
+                            }  catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("Ciudad-GET-ERROR", error.toString());
+                        }
+                    }) {
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/json; charset=utf-8";
+                        }
+                    };
+                    requestQueue.add(stringRequest);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                adapter = new ListaReferencialesAdapter(listaArrayReferencial);
-                listaItems.setAdapter(adapter);
                 break;
             case "nacionalidad":
                 setTitle("Nacionalidad");
