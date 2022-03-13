@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,14 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.sistemascorporativos.miappnueva.R;
@@ -31,6 +40,10 @@ import com.sistemascorporativos.miappnueva.referenciales.ciudad.modelos.CiudadDt
 import com.sistemascorporativos.miappnueva.referenciales.nacionalidad.modelos.NacionalidadDto;
 import com.sistemascorporativos.miappnueva.referenciales.situacion_laboral.modelos.SituacionLaboralDto;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -205,25 +218,75 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
     }
 
     private boolean validarAntes() {
-        Boolean isValid = true;
+        final Boolean[] isValid = {false};
         String numeroIdentificacion = txtNroIdentificacion.getText().toString().trim();
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
         if(numeroIdentificacion.isEmpty() || numeroIdentificacion==null) {
             dialogo.setTitle("Cuidado")
                     .setMessage("Debe registrar primero este formulario")
                     .setPositiveButton("Salir", null).show();
-            isValid=false;
+            isValid[0] =false;
             camposValidos();
         } else {
-            AdmisionComponent pacienteGuardado = admisionServices.getPacienteByCodigopaciente(numeroIdentificacion);
-            if(pacienteGuardado.getOperacion()==null) {
-                dialogo.setTitle("Cuidado")
-                        .setMessage("Este paciente no existe")
-                        .setPositiveButton("Salir", null).show();
-                isValid=false;
+            // GET para buscar paciente
+            String url_buscar_paciente = "http://10.0.2.2:5000/apiv1/admision/get_datos_paciente_by_codigo_paciente/"+numeroIdentificacion;
+            try {
+                RequestQueue requestQueue = Volley.newRequestQueue(FormularioAdmisionActivity.this);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url_buscar_paciente, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject pacienteEncontrado = new JSONObject(response);
+                            if(pacienteEncontrado.isNull("operacion")) {
+                                dialogo.setTitle("Cuidado")
+                                        .setMessage("Este paciente no existe")
+                                        .setPositiveButton("Salir", null).show();
+                                isValid[0] =false;
+                            } else {
+                                isValid[0] =true;
+                                AdmisionComponent paciente = new AdmisionComponent();
+                                paciente.setCiuId(pacienteEncontrado.getInt("ciuId"));
+                                paciente.setEduId(pacienteEncontrado.getInt("eduId"));
+                                paciente.setNacId(pacienteEncontrado.getInt("nacId"));
+                                paciente.setOperacion(pacienteEncontrado.getString("operacion"));
+                                paciente.setApellidos(pacienteEncontrado.getString("pacApellidos"));
+                                paciente.setNroIdentificacion(pacienteEncontrado.getString("pacCodigoPaciente"));
+                                paciente.setCorreo(pacienteEncontrado.getString("pacCorreoElectronico"));
+                                paciente.setDireccion(pacienteEncontrado.getString("pacDireccion"));
+                                paciente.setEstado_civil(pacienteEncontrado.getString("pacEstadoCivil"));
+                                paciente.setFechaNacimiento(pacienteEncontrado.getString("pacFechaNac"));
+                                paciente.setHijos(pacienteEncontrado.getInt("pacHijos"));
+                                paciente.setLatitud(pacienteEncontrado.getDouble("pacLatitud"));
+                                paciente.setLongitud(pacienteEncontrado.getDouble("pacLongitud"));
+                                paciente.setLugarNacimiento(pacienteEncontrado.getString("pacLugarNacimiento"));
+                                paciente.setNombres(pacienteEncontrado.getString("pacNombres"));
+                                paciente.setSexo(pacienteEncontrado.getString("pacSexo"));
+                                paciente.setTelefono(pacienteEncontrado.getString("pacTelefono"));
+                                paciente.setSegId(pacienteEncontrado.getInt("segId"));
+                                paciente.setSitlabId(pacienteEncontrado.getInt("sitlabId"));
+                                paciente.setOperacion(pacienteEncontrado.getString("operacion"));
+                            }
+                        }  catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Ciudad-GET-ERROR", error.toString());
+                    }
+                }) {
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
+                };
+                requestQueue.add(stringRequest);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        return isValid;
+        return isValid[0];
     }
 
     private void guardarFormularioAdmision() {
@@ -256,7 +319,152 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
             paciente.setCiuId(ciuId);
             paciente.setNacId(nacId);
 
-            if(admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion()).getOperacion()==null) {
+            // POST y PUT
+            String url_post = "http://10.0.2.2:5000/apiv1/guardar_paciente", url_put = "http://10.0.2.2:5000/apiv1/actualizar_paciente_formulario_principal";
+            String url_buscar_paciente = "http://10.0.2.2:5000/apiv1/admision/get_datos_paciente_by_codigo_paciente/"+nroIdentificacion;
+            try {
+                RequestQueue requestQueue = Volley.newRequestQueue(FormularioAdmisionActivity.this);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url_buscar_paciente, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject pacienteEncontrado = new JSONObject(response);
+                            AdmisionComponent paciente = new AdmisionComponent();
+                            if(pacienteEncontrado.isNull("operacion")) {
+                                //guardar
+                                RequestQueue requestQueue = Volley.newRequestQueue(FormularioAdmisionActivity.this);
+                                JSONObject jsonBody = new JSONObject();
+                                jsonBody.put("codigo_paciente", paciente.getNroIdentificacion());
+                                jsonBody.put("nombres", paciente.getNombres());
+                                jsonBody.put("apellidos", paciente.getApellidos());
+                                jsonBody.put("tipo_documento", "CI");
+                                jsonBody.put("sexo", paciente.getSexo());
+                                jsonBody.put("fecha_nac", paciente.getFechaNacimiento());
+                                jsonBody.put("lugar_nac", paciente.getLugarNacimiento());
+                                jsonBody.put("ciu_id", paciente.getCiuId());
+                                jsonBody.put("correo_electronico", paciente.getCorreo());
+                                jsonBody.put("nac_id", paciente.getNacId());
+                                jsonBody.put("telefono", paciente.getTelefono());
+                                jsonBody.put("direccion", paciente.getDireccion());
+                                jsonBody.put("seg_id", paciente.getSegId());
+                                jsonBody.put("hijos", paciente.getHijos());
+                                jsonBody.put("estado_civil", paciente.getEstado_civil());
+                                jsonBody.put("edu_id", paciente.getEduId());
+                                jsonBody.put("sitlab_id", paciente.getSitlabId());
+                                jsonBody.put("latitud", paciente.getLatitud());
+                                jsonBody.put("longitud", paciente.getLongitud());
+                                jsonBody.put("creacion_usuario", "sysadmin");
+                                final String requestBody = jsonBody.toString();
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                                        url_post, new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            if(!jsonObject.isNull("estado") && jsonObject.getString("estado")=="correcto") {
+                                                AlertDialog.Builder dialogo = new AlertDialog.Builder(FormularioAdmisionActivity.this);
+                                                dialogo.setTitle("Se guardó correctamente").setMessage("Se han registrado datos de paciente").setPositiveButton("OK", null).show();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.e("ERROR SAVE CIUDAD", error.toString());
+                                    }
+                                }) {
+                                    @Override
+                                    public String getBodyContentType() {
+                                        return "application/json; charset=utf-8";
+                                    }
+                                    @Override
+                                    public byte[] getBody() throws AuthFailureError {
+                                        try {
+                                            return requestBody == null ? null : requestBody.getBytes("utf-8");
+                                        } catch (UnsupportedEncodingException uee) {
+                                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                                            return null;
+                                        }
+                                    }
+                                };
+                                requestQueue.add(stringRequest);
+                            } else {
+                                //modificar
+                                RequestQueue requestQueue = Volley.newRequestQueue(FormularioAdmisionActivity.this);
+                                JSONObject jsonBody = new JSONObject();
+                                jsonBody.put("codigo_paciente", paciente.getNroIdentificacion());
+                                jsonBody.put("nombres", paciente.getNombres());
+                                jsonBody.put("apellidos", paciente.getApellidos());
+                                jsonBody.put("sexo", paciente.getSexo());
+                                jsonBody.put("fecha_nac", paciente.getFechaNacimiento());
+                                jsonBody.put("lugar_nac", paciente.getLugarNacimiento());
+                                jsonBody.put("ciu_id", paciente.getCiuId());
+                                jsonBody.put("correo_electronico", paciente.getCorreo());
+                                jsonBody.put("nac_id", paciente.getNacId());
+                                jsonBody.put("telefono", paciente.getTelefono());
+                                jsonBody.put("direccion", paciente.getDireccion());
+                                jsonBody.put("modificacion_usuario", "sysadmin");
+                                final String requestBody = jsonBody.toString();
+                                StringRequest stringRequest = new StringRequest(Request.Method.PUT,
+                                        url_post, new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            if(!jsonObject.isNull("estado") && jsonObject.getString("estado")=="correcto") {
+                                                AlertDialog.Builder dialogo = new AlertDialog.Builder(FormularioAdmisionActivity.this);
+                                                dialogo.setTitle("Se actualizó correctamente").setMessage("Se han actualizado datos de paciente").setPositiveButton("OK", null).show();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.e("ERROR MODIFY CIUDAD", error.toString());
+                                    }
+                                }) {
+                                    @Override
+                                    public String getBodyContentType() {
+                                        return "application/json; charset=utf-8";
+                                    }
+                                    @Override
+                                    public byte[] getBody() throws AuthFailureError {
+                                        try {
+                                            return requestBody == null ? null : requestBody.getBytes("utf-8");
+                                        } catch (UnsupportedEncodingException uee) {
+                                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                                            return null;
+                                        }
+                                    }
+                                };
+                                requestQueue.add(stringRequest);
+                            }
+
+                        }  catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Ciudad-GET-ERROR", error.toString());
+                    }
+                }) {
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
+                };
+                requestQueue.add(stringRequest);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //fin
+            /*if(admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion()).getOperacion()==null) {
                 //guardar
                 paciente = admisionServices.guardarPaciente(paciente);
                 if(paciente.getOperacion().contains("GUARDADO")) {
@@ -270,14 +478,8 @@ public class FormularioAdmisionActivity extends AppCompatActivity {
                     AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
                     dialogo.setTitle("Se actualizó correctamente").setMessage("Se han actualizado datos de paciente").setPositiveButton("OK", null).show();
                 }
-            }
-
-            /*if(paciente.getOperacion().contains("GUARDADO")) {
-                AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-                dialogo.setTitle("Se guardó correctamente").setMessage("Se han registrado datos de paciente").setPositiveButton("OK", null).show();
-                AdmisionComponent pacienteGuardado = admisionServices.getPacienteByCodigopaciente(paciente.getNroIdentificacion());
-                System.out.println("GUARDADO: "+pacienteGuardado.toString());
             }*/
+
         }
     }
 
